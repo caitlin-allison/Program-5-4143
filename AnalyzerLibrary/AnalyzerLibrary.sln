@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.11.35222.181
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AnalyzerLibrary", "AnalyzerLibrary.csproj", "{1D292DF2-B7CF-445B-8C06-8FAC943E0D3E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1D292DF2-B7CF-445B-8C06-8FAC943E0D3E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1D292DF2-B7CF-445B-8C06-8FAC943E0D3E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1D292DF2-B7CF-445B-8C06-8FAC943E0D3E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1D292DF2-B7CF-445B-8C06-8FAC943E0D3E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {22BF89F1-C3C2-49D6-ADFC-C73B9F55C855}
+	EndGlobalSection
+EndGlobal
