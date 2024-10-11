@@ -1,4 +1,3 @@
-S:\Dev\4143_C#\Git\PlayAnalyzerGame\obj\Debug\net8.0-windows\PlayAnalyzerGame.Form1.resources
 S:\Dev\4143_C#\Git\PlayAnalyzerGame\obj\Debug\net8.0-windows\PlayAnalyzerGame.csproj.GenerateResource.cache
 S:\Dev\4143_C#\Git\PlayAnalyzerGame\obj\Debug\net8.0-windows\PlayAnalyzerGame.GeneratedMSBuildEditorConfig.editorconfig
 S:\Dev\4143_C#\Git\PlayAnalyzerGame\obj\Debug\net8.0-windows\PlayAnalyzerGame.AssemblyInfoInputs.cache
@@ -15,3 +14,4 @@ S:\Dev\4143_C#\Git\PlayAnalyzerGame\obj\Debug\net8.0-windows\refint\PlayAnalyzer
 S:\Dev\4143_C#\Git\PlayAnalyzerGame\obj\Debug\net8.0-windows\PlayAnalyzerGame.pdb
 S:\Dev\4143_C#\Git\PlayAnalyzerGame\obj\Debug\net8.0-windows\PlayAnalyzerGame.genruntimeconfig.cache
 S:\Dev\4143_C#\Git\PlayAnalyzerGame\obj\Debug\net8.0-windows\ref\PlayAnalyzerGame.dll
+S:\Dev\4143_C#\Git\PlayAnalyzerGame\obj\Debug\net8.0-windows\PlayAnalyzerGame.AnalyzerGameForm.resources
