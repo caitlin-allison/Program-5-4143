@@ -4,7 +4,7 @@ using System.Xml.Linq;
 
 namespace PlayAnalyzerGame
 {
-    partial class Form1
+    partial class AnalyzerGameForm
     {
         /// <summary>
         ///  Required designer variable.

@@ -14,7 +14,7 @@
 
 namespace PlayAnalyzerGame
 {
-    public partial class Form1 : Form
+    public partial class AnalyzerGameForm : Form
     {
         private int guessCounter;
         private int remianingGuesses;
@@ -63,7 +63,7 @@ namespace PlayAnalyzerGame
             }
         }
 
-        public Form1()
+        public AnalyzerGameForm()
         {
             InitializeComponent();
             ResetGame();
