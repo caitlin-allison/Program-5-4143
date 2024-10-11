@@ -14,6 +14,6 @@ build_property.PlatformNeutralAssembly =
 build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = PlayAnalyzerGame
-build_property.ProjectDir = C:\Users\MC\Source\Repos\Program-5-4143\PlayAnalyzerGame\
+build_property.ProjectDir = S:\Dev\4143_C#\Git\PlayAnalyzerGame\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 

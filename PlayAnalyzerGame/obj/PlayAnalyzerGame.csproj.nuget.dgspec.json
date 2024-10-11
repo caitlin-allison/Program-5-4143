@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\MC\\source\\repos\\PlayAnalyzerGame\\PlayAnalyzerGame.csproj": {}
+    "S:\\Dev\\4143_C#\\Git\\PlayAnalyzerGame\\PlayAnalyzerGame.csproj": {}
   },
   "projects": {
-    "C:\\Users\\MC\\source\\repos\\PlayAnalyzerGame\\PlayAnalyzerGame.csproj": {
+    "S:\\Dev\\4143_C#\\Git\\PlayAnalyzerGame\\PlayAnalyzerGame.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\MC\\source\\repos\\PlayAnalyzerGame\\PlayAnalyzerGame.csproj",
+        "projectUniqueName": "S:\\Dev\\4143_C#\\Git\\PlayAnalyzerGame\\PlayAnalyzerGame.csproj",
         "projectName": "PlayAnalyzerGame",
-        "projectPath": "C:\\Users\\MC\\source\\repos\\PlayAnalyzerGame\\PlayAnalyzerGame.csproj",
-        "packagesPath": "C:\\Users\\MC\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\MC\\source\\repos\\PlayAnalyzerGame\\obj\\",
+        "projectPath": "S:\\Dev\\4143_C#\\Git\\PlayAnalyzerGame\\PlayAnalyzerGame.csproj",
+        "packagesPath": "C:\\Users\\jstev\\.nuget\\packages\\",
+        "outputPath": "S:\\Dev\\4143_C#\\Git\\PlayAnalyzerGame\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\MC\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\jstev\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],

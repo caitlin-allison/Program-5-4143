@@ -1,0 +1,17 @@
+S:\Dev\4143_C#\Git\PlayAnalyzerGame\obj\Debug\net8.0-windows\PlayAnalyzerGame.Form1.resources
+S:\Dev\4143_C#\Git\PlayAnalyzerGame\obj\Debug\net8.0-windows\PlayAnalyzerGame.csproj.GenerateResource.cache
+S:\Dev\4143_C#\Git\PlayAnalyzerGame\obj\Debug\net8.0-windows\PlayAnalyzerGame.GeneratedMSBuildEditorConfig.editorconfig
+S:\Dev\4143_C#\Git\PlayAnalyzerGame\obj\Debug\net8.0-windows\PlayAnalyzerGame.AssemblyInfoInputs.cache
+S:\Dev\4143_C#\Git\PlayAnalyzerGame\obj\Debug\net8.0-windows\PlayAnalyzerGame.AssemblyInfo.cs
+S:\Dev\4143_C#\Git\PlayAnalyzerGame\obj\Debug\net8.0-windows\PlayAnalyzerGame.csproj.CoreCompileInputs.cache
+S:\Dev\4143_C#\Git\PlayAnalyzerGame\obj\Debug\net8.0-windows\PlayAnalyzerGame.sourcelink.json
+S:\Dev\4143_C#\Git\PlayAnalyzerGame\bin\Debug\net8.0-windows\PlayAnalyzerGame.exe
+S:\Dev\4143_C#\Git\PlayAnalyzerGame\bin\Debug\net8.0-windows\PlayAnalyzerGame.deps.json
+S:\Dev\4143_C#\Git\PlayAnalyzerGame\bin\Debug\net8.0-windows\PlayAnalyzerGame.runtimeconfig.json
+S:\Dev\4143_C#\Git\PlayAnalyzerGame\bin\Debug\net8.0-windows\PlayAnalyzerGame.dll
+S:\Dev\4143_C#\Git\PlayAnalyzerGame\bin\Debug\net8.0-windows\PlayAnalyzerGame.pdb
+S:\Dev\4143_C#\Git\PlayAnalyzerGame\obj\Debug\net8.0-windows\PlayAnalyzerGame.dll
+S:\Dev\4143_C#\Git\PlayAnalyzerGame\obj\Debug\net8.0-windows\refint\PlayAnalyzerGame.dll
+S:\Dev\4143_C#\Git\PlayAnalyzerGame\obj\Debug\net8.0-windows\PlayAnalyzerGame.pdb
+S:\Dev\4143_C#\Git\PlayAnalyzerGame\obj\Debug\net8.0-windows\PlayAnalyzerGame.genruntimeconfig.cache
+S:\Dev\4143_C#\Git\PlayAnalyzerGame\obj\Debug\net8.0-windows\ref\PlayAnalyzerGame.dll
