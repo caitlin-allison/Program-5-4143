@@ -240,6 +240,7 @@ namespace PlayAnalyzerGame
             // 
             // GridDisplayBox
             // 
+            GridDisplayBox.Font = new System.Drawing.Font("Lucida Console", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
             GridDisplayBox.Location = new Point(351, 71);
             GridDisplayBox.Name = "GridDisplayBox";
             GridDisplayBox.Size = new Size(256, 247);
@@ -272,7 +273,7 @@ namespace PlayAnalyzerGame
             InfoLabel.Size = new Size(0, 15);
             InfoLabel.TabIndex = 16;
             // 
-            // ScanalyzerGameForm
+            // AnalyzerGameForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -288,7 +289,7 @@ namespace PlayAnalyzerGame
             Controls.Add(RemainingGuessesLabel);
             Controls.Add(GuessCounterLabel);
             Controls.Add(NewGameGroupBox);
-            Name = "ScanalyzerGameForm";
+            Name = "AnalyzerGameForm";
             Text = "ScanAlyzer";
             NewGameGroupBox.ResumeLayout(false);
             NewGameGroupBox.PerformLayout();

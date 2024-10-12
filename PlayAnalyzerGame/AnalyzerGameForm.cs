@@ -8,9 +8,8 @@
 
 
 // Not completed yet:
-//  bool GameFinished
-//  string EvaluateGuess(int row, int column)
-//  string UpdateGrid();
+//  SubmitGuessBottonClick
+//      Needs EvaluateGuess() added
 
 namespace PlayAnalyzerGame
 {
@@ -20,6 +19,7 @@ namespace PlayAnalyzerGame
         private int remianingGuesses;
         private bool isFirstFound;
         private bool isGameOver;
+        private Analyzer analyzer;
 
         public int GuessCounter
         {
@@ -80,6 +80,21 @@ namespace PlayAnalyzerGame
 
         private void NewGameSubmitButton_Click(object sender, EventArgs e)
         {
+            // Get input from radio buttons and create corresponding analyzer
+            if (HairRadio.Checked)
+            {
+                analyzer = new HairAnalyzer();
+            }
+            else if (BloodRadio.Checked)
+            {
+                analyzer = new BloodAnalyzer();
+            }
+            else
+            {
+                analyzer = new BloodAnalyzer();
+            }
+
+            // Hide new game controls
             IsGameOver = false;
             NewGameGroupBox.Visible = false;
             NewGameInstructionLabel.Visible = false;
@@ -88,9 +103,12 @@ namespace PlayAnalyzerGame
             DNARadio.Visible = false;
             GameModeImage.Visible = false;
             NewGameSubmitButton.Visible = false;
+
+            // Resize Window
             Size = new Size(700, 500);
 
-            GridDisplayBox.Visible = true;
+            // Show controls of the main game
+            GridDisplayBox.Visible = true; 
             GuessEntryGroupBox.Visible = true;
             RowInputLabel.Visible = true;
             RowInputTextBox.Visible = true;
@@ -103,6 +121,8 @@ namespace PlayAnalyzerGame
             RemainingGuessesLabel.Visible = true;
             QuitButton.Visible = true;
             InfoLabel.Visible = true;
+
+            GridDisplayBox.Text = analyzer.ToString();
             GuessCounterDisplayLabel.Text = GuessCounter.ToString();
             RemainingGuessesDisplayLabel.Text = RemainingGuesses.ToString();
         }
@@ -134,14 +154,7 @@ namespace PlayAnalyzerGame
             RemainingGuessesDisplayLabel.Text = RemainingGuesses.ToString();
 
             // Test if guess is correct or not. Tell user the results
-            //InfoLabel.Text = EvaluateGuess(rowUserInput, colUserInput);
-            //GridDisplayBox.Text = UpdateGrid();
-
-            if (RemainingGuesses == 0 && !IsGameOver)
-            {
-                InfoLabel.Text = "GAME OVER! NO MORE GUESSES.";
-                YouLose();
-            }
+           
         }
 
         private void QuitButton_Click(object sender, EventArgs e)
