@@ -11,6 +11,8 @@
 //  SubmitGuessBottonClick
 //      Needs EvaluateGuess() added
 
+using System.Diagnostics.Eventing.Reader;
+
 namespace PlayAnalyzerGame
 {
     public partial class AnalyzerGameForm : Form
@@ -85,13 +87,14 @@ namespace PlayAnalyzerGame
             {
                 analyzer = new HairAnalyzer();
             }
-            else if (BloodRadio.Checked)
-            {
-                analyzer = new BloodAnalyzer();
-            }
+            //else if (PrintRadio.Checked)
+            //{
+            //    analyzer = new PrintAnalyzer();
+            //}
             else
             {
-                analyzer = new BloodAnalyzer();
+                analyzer = new DNAAnalyzer();
+                RemainingGuesses = 10;
             }
 
             // Hide new game controls
@@ -99,7 +102,7 @@ namespace PlayAnalyzerGame
             NewGameGroupBox.Visible = false;
             NewGameInstructionLabel.Visible = false;
             HairRadio.Visible = false;
-            BloodRadio.Visible = false;
+            PrintRadio.Visible = false;
             DNARadio.Visible = false;
             GameModeImage.Visible = false;
             NewGameSubmitButton.Visible = false;
@@ -154,8 +157,39 @@ namespace PlayAnalyzerGame
             RemainingGuessesDisplayLabel.Text = RemainingGuesses.ToString();
 
             // Test if guess is correct or not. Tell user the results
-           
-        }
+            bool isCorrect = analyzer.EvaluateGuess(rowUserInput, colUserInput, guessCounter);
+
+            // Show results
+            GridDisplayBox.Text = analyzer.ToString();
+
+            if (isCorrect && !IsFirstFound)
+            {
+                InfoLabel.Text = "Your guess was correct! One more to go!";
+                IsFirstFound = true;
+            }
+            else if (isCorrect && IsFirstFound)
+            {
+                InfoLabel.Text = "Congragulations! You Win!";
+                IsGameOver = true;
+                YouLose();
+                
+            }
+            else if(RemainingGuesses == 0)
+            {
+                InfoLabel.Text = "Out of guesses! GAME OVER!";
+                YouLose();
+                
+            }
+            else 
+            {
+                InfoLabel.Text = "Sorry, incorrect guess.";
+            }
+
+            if (RemainingGuesses == 1)
+            {
+                InfoLabel.Text += "\nCareful...last guess...";
+            }
+        } // SubmitGuessButton_Click
 
         private void QuitButton_Click(object sender, EventArgs e)
         {
@@ -172,6 +206,8 @@ namespace PlayAnalyzerGame
         private void YouLose()
         {
             GuessEntryGroupBox.Visible = false;
+            Sample1AnswerLabel.Text = "Sample 1 Coordinates: " + analyzer.sample1.ToString();
+            Sample2AnswerLabel.Text = "Sample 2 Coordinates: " + analyzer.sample2.ToString();
             Sample1AnswerLabel.Visible = true;
             Sample2AnswerLabel.Visible = true;
             QuitButton.Text = "Play Again";
@@ -186,7 +222,7 @@ namespace PlayAnalyzerGame
             NewGameGroupBox.Visible = true;
             NewGameInstructionLabel.Visible = true;
             HairRadio.Visible = true;
-            BloodRadio.Visible = true;
+            PrintRadio.Visible = true;
             DNARadio.Visible = true;
             GameModeImage.Visible = true;
             NewGameSubmitButton.Visible = true;

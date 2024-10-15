@@ -37,7 +37,7 @@ namespace PlayAnalyzerGame
             GameModeImage = new PictureBox();
             NewGameSubmitButton = new Button();
             NewGameInstructionLabel = new Label();
-            BloodRadio = new RadioButton();
+            PrintRadio = new RadioButton();
             DNARadio = new RadioButton();
             SubmitGuessButton = new Button();
             ColumnInputTextBox = new TextBox();
@@ -76,7 +76,7 @@ namespace PlayAnalyzerGame
             NewGameGroupBox.Controls.Add(GameModeImage);
             NewGameGroupBox.Controls.Add(NewGameSubmitButton);
             NewGameGroupBox.Controls.Add(NewGameInstructionLabel);
-            NewGameGroupBox.Controls.Add(BloodRadio);
+            NewGameGroupBox.Controls.Add(PrintRadio);
             NewGameGroupBox.Controls.Add(HairRadio);
             NewGameGroupBox.Controls.Add(DNARadio);
             NewGameGroupBox.Location = new Point(27, 12);
@@ -116,16 +116,16 @@ namespace PlayAnalyzerGame
             NewGameInstructionLabel.TabIndex = 3;
             NewGameInstructionLabel.Text = "Choose type of evidence to collect.";
             // 
-            // BloodRadio
+            // PrintRadio
             // 
-            BloodRadio.AutoSize = true;
-            BloodRadio.Location = new Point(21, 77);
-            BloodRadio.Name = "BloodRadio";
-            BloodRadio.Size = new Size(98, 19);
-            BloodRadio.TabIndex = 1;
-            BloodRadio.TabStop = true;
-            BloodRadio.Text = "Blood Sample";
-            BloodRadio.UseVisualStyleBackColor = true;
+            PrintRadio.AutoSize = true;
+            PrintRadio.Location = new Point(21, 77);
+            PrintRadio.Name = "PrintRadio";
+            PrintRadio.Size = new Size(92, 19);
+            PrintRadio.TabIndex = 1;
+            PrintRadio.TabStop = true;
+            PrintRadio.Text = "Print Sample";
+            PrintRadio.UseVisualStyleBackColor = true;
             // 
             // DNARadio
             // 
@@ -278,6 +278,7 @@ namespace PlayAnalyzerGame
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(684, 461);
+            Controls.Add(NewGameGroupBox);
             Controls.Add(InfoLabel);
             Controls.Add(Sample2AnswerLabel);
             Controls.Add(Sample1AnswerLabel);
@@ -288,7 +289,6 @@ namespace PlayAnalyzerGame
             Controls.Add(QuitButton);
             Controls.Add(RemainingGuessesLabel);
             Controls.Add(GuessCounterLabel);
-            Controls.Add(NewGameGroupBox);
             Name = "AnalyzerGameForm";
             Text = "ScanAlyzer";
             NewGameGroupBox.ResumeLayout(false);
@@ -305,7 +305,7 @@ namespace PlayAnalyzerGame
         private RadioButton HairRadio;
         private GroupBox NewGameGroupBox;
         private RadioButton DNARadio;
-        private RadioButton BloodRadio;
+        private RadioButton PrintRadio;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private Label NewGameInstructionLabel;
         private Button NewGameSubmitButton;
