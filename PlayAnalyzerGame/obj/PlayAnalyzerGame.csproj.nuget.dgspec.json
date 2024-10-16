@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\MC\\source\\repos\\PlayAnalyzerGame\\PlayAnalyzerGame.csproj": {}
+    "C:\\Users\\MC\\Source\\Repos\\Program-5-4143\\PlayAnalyzerGame\\PlayAnalyzerGame.csproj": {}
   },
   "projects": {
-    "C:\\Users\\MC\\source\\repos\\PlayAnalyzerGame\\PlayAnalyzerGame.csproj": {
+    "C:\\Users\\MC\\Source\\Repos\\Program-5-4143\\PlayAnalyzerGame\\PlayAnalyzerGame.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\MC\\source\\repos\\PlayAnalyzerGame\\PlayAnalyzerGame.csproj",
+        "projectUniqueName": "C:\\Users\\MC\\Source\\Repos\\Program-5-4143\\PlayAnalyzerGame\\PlayAnalyzerGame.csproj",
         "projectName": "PlayAnalyzerGame",
-        "projectPath": "C:\\Users\\MC\\source\\repos\\PlayAnalyzerGame\\PlayAnalyzerGame.csproj",
+        "projectPath": "C:\\Users\\MC\\Source\\Repos\\Program-5-4143\\PlayAnalyzerGame\\PlayAnalyzerGame.csproj",
         "packagesPath": "C:\\Users\\MC\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\MC\\source\\repos\\PlayAnalyzerGame\\obj\\",
+        "outputPath": "C:\\Users\\MC\\Source\\Repos\\Program-5-4143\\PlayAnalyzerGame\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
