@@ -102,19 +102,11 @@ namespace PlayAnalyzerGame
         private int columns;
         public char[,] grid;
         public Random rand;
-        
+        public List<Sample> samples;
         private int guessCounter;
-
-        //private int numOfSamplesFound;
-        
+        private int numOfSamplesFound;
+        private int sampleNum;
         bool endOfGame;
-        //public Sample sample1;
-        //public Sample sample2;
-        //private bool isFirstSampleFound;
-        //private bool isSecondSampleFound;
-        // Why is this on the base class when it should
-        // only be relevant to a child class?
-
         public int Rows
         {
             get => rows;
@@ -140,24 +132,6 @@ namespace PlayAnalyzerGame
             get => rand;
             set => rand = value;
         }
-        //public bool IsFirstSampleFound
-        //{
-        //    get => isFirstSampleFound;
-        //    set => isFirstSampleFound = value;
-        //}
-        //public bool IsSecondSampleFound
-        //{
-        //    get => isSecondSampleFound;
-        //    set => isSecondSampleFound = value;
-        //}
-
-
-
-        /*********************************************************************************
- * Not sure why we needed this?
- * Constructor to initialize all the variables within
- * the base call ie. rows, columns, rand
- ********************************************************************************/
         //public Analyzer(int rows, int columns, int sampleNum)
         public Analyzer(int rows, int columns)
 
@@ -172,45 +146,6 @@ namespace PlayAnalyzerGame
 
             //Sampple[] sample = new Sample(sampleNum);
         }
-        //// Constructor for scanalyzer
-        //public Analyzer(int rows, int columns)
-        //{
-        //    // Make new random number generator
-        //    rand = new Random();
-
-        //    // Set rows and columns to user defined numbers
-        //    this.rows = rows;
-        //    this.columns = columns;
-
-        //    // Make a grid the size of rows and columns
-        //    grid = new char[rows, columns];
-
-        //    // Set coordinates for the samples within the grid
-        //    sample1.X = rand.Next(0, columns);
-        //    sample1.Y = rand.Next(0, rows);
-
-
-        //    // If the samples are in the same place, 
-        //    //  get new coordinates for sample
-        //    do
-        //    {
-        //        sample2.X = rand.Next(0, columns);
-        //        sample2.Y = rand.Next(0, rows);
-        //    } while (sample1.X == sample2.X && sample1.Y == sample2.Y);
-
-        //    // populate grid with ~
-        //    for (int i = 0; i < rows; i++)
-        //    {
-        //        for (int j = 0; j < columns; j++)
-        //        {
-        //            grid[i, j] = '~';
-        //        }
-        //    }
-
-        //    guessCounter = 0;
-
-        //}//Analyzer
-
 
         // Can be overriden should the child class
         // need to display things differently
@@ -248,7 +183,7 @@ namespace PlayAnalyzerGame
         // All the derived classes must implement this and handle it
         // in their specific ways
         public abstract bool EvaluateGuess(int col, int row, int guessCounter);
-        
+
 
     }
 
@@ -265,32 +200,8 @@ namespace PlayAnalyzerGame
 
     public class HairAnalyzer : Analyzer
     {
-        public Sample sample1;
-        public Sample sample2;
-        private bool isFirstSampleFound;
-        private bool isSecondSampleFound;
-
-        public bool IsFirstSampleFound
+        public HairAnalyzer() : base(10, 10)
         {
-            get => isFirstSampleFound;
-            set => isFirstSampleFound = value;
-        }
-        public bool IsSecondSampleFound
-        {
-            get => isSecondSampleFound;
-            set => isSecondSampleFound = value;
-        }
-
-        public HairAnalyzer(): base(10,10)
-        {
-            // Done via base constructor
-            // New random number generator
-            //rand = new Random();
-
-            // Set grid dimensions to 10x10
-            //this.Rows = 10;
-            //this.Columns = 10;
-
             grid = new char[Rows, Columns];
 
             sample1 = new Sample();
@@ -414,7 +325,7 @@ namespace PlayAnalyzerGame
             return false;
         } // EvaluateGuess
 
-        
+
 
     }
 
@@ -546,7 +457,7 @@ namespace PlayAnalyzerGame
                 }
             }
             return false;
-            
+
         } // EvaluateGuess
     } // DNAAnalyzer
 
@@ -556,17 +467,17 @@ namespace PlayAnalyzerGame
     public class PrintAnalyzer : Analyzer
     {
         int numOfFingerprints;
-        int [,] fingerprints;
-        bool [] foundFingerprints;
+        int[,] fingerprints;
+        bool[] foundFingerprints;
 
-        PrintAnalyzer(int rows, int columns): base(rows, columns)
+        PrintAnalyzer(int rows, int columns) : base(rows, columns)
         {
             // Make a grid the size of rows and columns
             grid = new char[rows, columns];
 
             numOfFingerprints = rand.Next(0, columns * rows);
 
-            fingerprints = new int[numOfFingerprints,2];
+            fingerprints = new int[numOfFingerprints, 2];
 
             int pos = 0;
 
@@ -579,8 +490,8 @@ namespace PlayAnalyzerGame
 
                 if (pos == 0)
                 {
-                    fingerprints[0,0] = x;
-                    fingerprints[0,1] = y;
+                    fingerprints[0, 0] = x;
+                    fingerprints[0, 1] = y;
                 }
                 else
                 {
@@ -591,13 +502,13 @@ namespace PlayAnalyzerGame
                     // the array
                     for (int j = 0; j < pos; j++)
                     {
-                        if (x == fingerprints[j,0] && y == fingerprints[j,1])
+                        if (x == fingerprints[j, 0] && y == fingerprints[j, 1])
                             match = true;
                     }
                     if (!match)
                     {
-                        fingerprints[pos,0] = x;
-                        fingerprints[pos,1] = y;
+                        fingerprints[pos, 0] = x;
+                        fingerprints[pos, 1] = y;
 
                         pos++;
                     }
@@ -638,12 +549,12 @@ namespace PlayAnalyzerGame
             {
                 if (foundFingerprints[i] == false)
                 {
-                    if (fingerprints[i,0] == row && fingerprints[i,1] == col)
+                    if (fingerprints[i, 0] == row && fingerprints[i, 1] == col)
                     {
                         exactMatch = true;
                         matchPos = i;
                         foundFingerprints[i] = true;
-                        grid[row,col] = '@';
+                        grid[row, col] = '@';
                         if (numFoundFingerprints == numOfFingerprints)
                         {
                             endOfGame = true;
@@ -664,8 +575,8 @@ namespace PlayAnalyzerGame
             {
                 // Grabs the i index of the closest index
                 int closetFingerprintPs = findClosestFingerprint(row, col);
-                int closestX = fingerprints[closetFingerprintPs,0];
-                int closestY = fingerprints[closetFingerprintPs,1];
+                int closestX = fingerprints[closetFingerprintPs, 0];
+                int closestY = fingerprints[closetFingerprintPs, 1];
 
                 // If sample is directly above or below guess
                 if (isHorizontalHint)
@@ -690,16 +601,16 @@ namespace PlayAnalyzerGame
         {
             int position = 0;
 
-            int minimum = Math.Abs(fingerprints[0,0] * fingerprints[0,1] - row * col);
+            int minimum = Math.Abs(fingerprints[0, 0] * fingerprints[0, 1] - row * col);
 
             for (int i = 0; i < numOfFingerprints; i++)
             {
                 if (!foundFingerprints[i])
                 {
-                    if ((int)Math.Abs(fingerprints[i,0] * fingerprints[i,1] - row * col) < minimum)
+                    if ((int)Math.Abs(fingerprints[i, 0] * fingerprints[i, 1] - row * col) < minimum)
                     {
                         position = i;
-                        minimum = (int)Math.Abs(fingerprints[i,0] * fingerprints[i,1] - row * col);
+                        minimum = (int)Math.Abs(fingerprints[i, 0] * fingerprints[i, 1] - row * col);
                     }
 
                 }
