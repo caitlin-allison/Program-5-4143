@@ -76,9 +76,12 @@ namespace PlayAnalyzerGame
      *                  Random var, 2 Samples, and a 2 bools to indicate 
      *                  if either sample has been found yet.
      * 
-     * Data Members:
+     * Public Data Members:
      *              int Rows
      *              int Columns
+     *              bool IsFirstSampleFound
+     *              bool IsSecondSampleFound
+     *              int RemainingGuesses
      * 
      * Functions:   EvaluateGuess
      *                  Accepts 3 ints: row, column, guessCounter.
@@ -90,9 +93,13 @@ namespace PlayAnalyzerGame
      *                  Returns string
      *                  Provides the game grid
      *                  
+     *              ResetRemainingGuesses
+     *                  Returns void
+     *                  Resets remaining guesses to initial value
+     *                  
      * Author:      Jered Stevens
      *********************************************************************/
-    
+
     public abstract class Analyzer
     {
         private int rows;
@@ -103,6 +110,7 @@ namespace PlayAnalyzerGame
         public Sample sample2;
         private bool isFirstSampleFound;
         private bool isSecondSampleFound;
+        private int remainingGuesses;
 
         public int Rows
         {
@@ -123,6 +131,15 @@ namespace PlayAnalyzerGame
         {
             get => isSecondSampleFound;
             set => isSecondSampleFound = value;
+        }
+
+        public int RemainingGuesses
+        {
+            get => remainingGuesses;
+            set
+            {
+                remainingGuesses = value;
+            }
         }
 
         /*********************************************************************************
@@ -201,9 +218,17 @@ namespace PlayAnalyzerGame
             return StringGrid;
         } // ToString
 
+
+        // Resets Remaining guesses 
+        public virtual void ResetRemainingGuesses()
+        {
+            RemainingGuesses = 25;
+        }
+
         // All the derived classes must implement this and handle it
         // in their specific ways
         public abstract bool EvaluateGuess(int col, int row, int guessCounter);
+        
 
     }
 
@@ -352,6 +377,8 @@ namespace PlayAnalyzerGame
             return false;
         } // EvaluateGuess
 
+        
+
     }
 
 
@@ -369,7 +396,7 @@ namespace PlayAnalyzerGame
     * Author:       Jered Stevens
     *                   
     *********************************************************************/
-    public class DNAAnalyzer : Analyzer
+    public class DNAAnalyzer : HairAnalyzer
     {
         public DNAAnalyzer()
         {
@@ -409,7 +436,9 @@ namespace PlayAnalyzerGame
                 }
             }
 
-        }
+        } // DNAAnalyzer
+
+
         public override bool EvaluateGuess(int row, int col, int guessCounter)
         {
             // If guess counter is even, then its a horizontal hint
@@ -481,7 +510,24 @@ namespace PlayAnalyzerGame
             }
             return false;
             
-        }
+        } // EvaluateGuess
+
+
+        /******************************************************************
+         * Function:        ResetRemainingGuesses
+         * 
+         * Description:     Resets remaining guesses to 10 instead of 25
+         *                      because this game mode is the 'Hard mode'
+         *                      of the game.
+         *       
+         * Author:  Jered Stevens
+         *******************************************************************/
+
+        public override void ResetRemainingGuesses()
+        {
+            RemainingGuesses = 10;
+        } // ResetRemainingGuesses
+
     } // DNAAnalyzer
 
 
@@ -561,92 +607,97 @@ namespace PlayAnalyzerGame
     //    }
 
     //Check if guess is correct
-//    public override bool EvaluateGuess(int col, int row, int guessCounter)
-//    {
-//        // If guess counter is even, then its a horizontal hint
-//        bool isHorizontalHint = guessCounter % 2 == 0;
+    //    public override bool EvaluateGuess(int col, int row, int guessCounter)
+    //    {
+    //        // If guess counter is even, then its a horizontal hint
+    //        bool isHorizontalHint = guessCounter % 2 == 0;
 
-//        bool exactMatch = false;
-//        int matchPos = -1;
+    //        bool exactMatch = false;
+    //        int matchPos = -1;
 
-//        int i = 0;
+    //        int i = 0;
 
-//        int numFoundFingerprints = 0;
-//        // Loops through fingerprints and finds if there is an exact
-//        // match. Ignores previously found fingerprints
-//        do
-//        {
-//            if (foundFingerprints[i] == false)
-//            {
-//                if (fingerprints[i][0] == row && fingerprints[i][1] == col)
-//                {
-//                    exactMatch = true;
-//                    matchPos = i;
-//                    foundFingerprints[i] = true;
-//                    grid[row][col] = '@';
-//                    if (numFoundFingerprints == numOfFingerprints)
-//                    {
-//                        endOfGame = true;
-//                    }
-//                }
-//            }
-//            else
-//            {
-//                numFoundFingerprints++;
-//            }
-//            i++;
-//        }
-//        while (i < numOfFingerprints && !exactMatch);
+    //        int numFoundFingerprints = 0;
+    //        // Loops through fingerprints and finds if there is an exact
+    //        // match. Ignores previously found fingerprints
+    //        do
+    //        {
+    //            if (foundFingerprints[i] == false)
+    //            {
+    //                if (fingerprints[i][0] == row && fingerprints[i][1] == col)
+    //                {
+    //                    exactMatch = true;
+    //                    matchPos = i;
+    //                    foundFingerprints[i] = true;
+    //                    grid[row][col] = '@';
+    //                    if (numFoundFingerprints == numOfFingerprints)
+    //                    {
+    //                        endOfGame = true;
+    //                    }
+    //                }
+    //            }
+    //            else
+    //            {
+    //                numFoundFingerprints++;
+    //            }
+    //            i++;
+    //        }
+    //        while (i < numOfFingerprints && !exactMatch);
 
 
-//        // If first sample isnt found yet
-//        if (!exactMatch)
-//        {
-//            // Grabs the i index of the closest index
-//            int closetFingerprintPs = findClosestFingerprint(row, col);
-//            int closestX = fingerprints[closetFingerprintPs][0];
-//            int closestY = fingerprints[closetFingerprintPs][1];
+    //        // If first sample isnt found yet
+    //        if (!exactMatch)
+    //        {
+    //            // Grabs the i index of the closest index
+    //            int closetFingerprintPs = findClosestFingerprint(row, col);
+    //            int closestX = fingerprints[closetFingerprintPs][0];
+    //            int closestY = fingerprints[closetFingerprintPs][1];
 
-//            // If sample is directly above or below guess
-//            if (isHorizontalHint)
-//            {
-//                grid[row, col] = isHorizontalHint ?
-//                    col == closestY ? '|' :
-//                    closestY > col ? '>' : '<';
-//            }
-//            else
-//            {
-//                grid[row, col] = row == closestX ? '|' :
-//                    closestX > row ? 'V' : '^';
-//            }
-//        }
+    //            // If sample is directly above or below guess
+    //            if (isHorizontalHint)
+    //            {
+    //                grid[row, col] = isHorizontalHint ?
+    //                    col == closestY ? '|' :
+    //                    closestY > col ? '>' : '<';
+    //            }
+    //            else
+    //            {
+    //                grid[row, col] = row == closestX ? '|' :
+    //                    closestX > row ? 'V' : '^';
+    //            }
+    //        }
 
-//        guessCounter++;
+    //        guessCounter++;
 
-//        return false;
-//    } // EvaluateGuess
+    //        return false;
+    //    } // EvaluateGuess
 
-//    // Dynamically finds closest fingerprints
-//    int findClosestFingerprint(int row, int col)
-//    {
-//        int position = 0;
+    //    // Dynamically finds closest fingerprints
+    //    int findClosestFingerprint(int row, int col)
+    //    {
+    //        int position = 0;
 
-//        int minimum = Math.Abs(fingerprints[0][0] * fingerprints[0][1] - row * col);
+    //        int minimum = Math.Abs(fingerprints[0][0] * fingerprints[0][1] - row * col);
 
-//        for (int i = 0; i < numOfFingerprints; i++)
-//        {
-//            if (!foundFingerprints[i])
-//            {
-//                if ((int)Math.Abs(fingerprints[i][0] * fingerprints[i][1] - row * col) < minimum)
-//                {
-//                    position = i;
-//                    minimum = (int)Math.Abs(fingerprints[i][0] * fingerprints[i][1] - row * col);
-//                }
+    //        for (int i = 0; i < numOfFingerprints; i++)
+    //        {
+    //            if (!foundFingerprints[i])
+    //            {
+    //                if ((int)Math.Abs(fingerprints[i][0] * fingerprints[i][1] - row * col) < minimum)
+    //                {
+    //                    position = i;
+    //                    minimum = (int)Math.Abs(fingerprints[i][0] * fingerprints[i][1] - row * col);
+    //                }
 
-//            }
-//        }
+    //            }
+    //        }
 
-//        return position;
-//    }
-//}
+    //        return position;
+    //    }
+
+    //public override void ResetRemainingGuesses()
+    //{
+    //    RemainingGuesses = 25;
+    //}
+    //}
 }

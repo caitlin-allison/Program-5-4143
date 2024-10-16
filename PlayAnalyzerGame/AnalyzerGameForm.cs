@@ -6,7 +6,7 @@
  * Controls the UI and flow of the Scanalyzer Game
  **********************************************************/
 
-
+// Still Needs: printAnalyzer Functionality at line 82-85
 
 
 using System.Diagnostics.Eventing.Reader;
@@ -16,7 +16,6 @@ namespace PlayAnalyzerGame
     public partial class AnalyzerGameForm : Form
     {
         private int guessCounter;
-        private int remianingGuesses;
         private bool isFirstFound;
         private bool isGameOver;
         private Analyzer analyzer;
@@ -28,16 +27,9 @@ namespace PlayAnalyzerGame
             {
                 guessCounter = value;
             }
-        }
+        } // GuessCounter
 
-        public int RemainingGuesses
-        {
-            get => remianingGuesses;
-            set
-            {
-                remianingGuesses = value;
-            }
-        }
+        
 
         public bool IsFirstFound
         {
@@ -49,7 +41,7 @@ namespace PlayAnalyzerGame
             {
                 isFirstFound = value;
             }
-        }
+        } // IsFirstFound
 
         public bool IsGameOver
         {
@@ -61,13 +53,13 @@ namespace PlayAnalyzerGame
             {
                 isGameOver = value;
             }
-        }
+        } // IsGameOver
 
         public AnalyzerGameForm()
         {
             InitializeComponent();
             ResetGame();
-        }
+        } // AnalyzerGameForm
 
 
         /**************************************************
@@ -76,6 +68,8 @@ namespace PlayAnalyzerGame
          * Updates the form to show the main game.
          * Resizes the form, hides components that are no
          * longer needed.
+         * 
+         * Author:  Jered Stevens
          ***************************************************/
 
         private void NewGameSubmitButton_Click(object sender, EventArgs e)
@@ -92,8 +86,11 @@ namespace PlayAnalyzerGame
             else
             {
                 analyzer = new DNAAnalyzer();
-                RemainingGuesses = 10;
+                
             }
+
+            // set remaining guesses for corresponding analyzer
+            analyzer.ResetRemainingGuesses();
 
             // Hide new game controls
             IsGameOver = false;
@@ -125,8 +122,20 @@ namespace PlayAnalyzerGame
 
             GridDisplayBox.Text = analyzer.ToString();
             GuessCounterDisplayLabel.Text = GuessCounter.ToString();
-            RemainingGuessesDisplayLabel.Text = RemainingGuesses.ToString();
-        }
+            RemainingGuessesDisplayLabel.Text = analyzer.RemainingGuesses.ToString();
+        } // NewGameSubmitButton_Click
+
+
+        /**************************************************
+         * SubmitGuessButton_Click
+         * 
+         *  Takes user input from guess text boxes and 
+         *      makes sure they are valid, then sends the 
+         *      guess values to the analyzer. Shows results
+         *      of the users guess.
+         *  
+         *  Author: Jered Stevens
+         ***************************************************/
 
         private void SubmitGuessButton_Click(object sender, EventArgs e)
         {
@@ -161,9 +170,9 @@ namespace PlayAnalyzerGame
 
             // Update guess labels
             GuessCounter++;
-            RemainingGuesses--;
+            analyzer.RemainingGuesses--;
             GuessCounterDisplayLabel.Text = GuessCounter.ToString();
-            RemainingGuessesDisplayLabel.Text = RemainingGuesses.ToString();
+            RemainingGuessesDisplayLabel.Text = analyzer.RemainingGuesses.ToString();
 
             // Test if guess is correct or not. Tell user the results
             bool isCorrect = analyzer.EvaluateGuess(rowUserInput, colUserInput, guessCounter);
@@ -183,7 +192,7 @@ namespace PlayAnalyzerGame
                 YouLose();
                 
             }
-            else if(RemainingGuesses == 0)
+            else if(analyzer.RemainingGuesses == 0)
             {
                 InfoLabel.Text = "Out of guesses! GAME OVER!";
                 YouLose();
@@ -194,11 +203,21 @@ namespace PlayAnalyzerGame
                 InfoLabel.Text = "Sorry, incorrect guess.";
             }
 
-            if (RemainingGuesses == 1)
+            if (analyzer.RemainingGuesses == 1)
             {
                 InfoLabel.Text += "\nCareful...last guess...";
             }
         } // SubmitGuessButton_Click
+
+
+        /**************************************************
+         * QuitButton_Click
+         * 
+         *  If game is already over, resets the game.
+         *      If game isnt over, shows the answers.
+         *  
+         *  Author: Jered Stevens
+         ***************************************************/
 
         private void QuitButton_Click(object sender, EventArgs e)
         {
@@ -210,7 +229,18 @@ namespace PlayAnalyzerGame
             {
                 ResetGame();
             }
-        }
+        } // QuitButton_Click
+
+
+        /**************************************************
+         * YouLose
+         * 
+         * Hides the guess entry section of the game and 
+         *  shows the coordinates of the samples. Changes
+         *  submit button to "play again"
+         *  
+         *  Author: Jered Stevens
+         ***************************************************/
 
         private void YouLose()
         {
@@ -221,12 +251,21 @@ namespace PlayAnalyzerGame
             Sample2AnswerLabel.Visible = true;
             QuitButton.Text = "Play Again";
             IsGameOver = true;
-        }
+        } // YouLose
+
+
+        /**************************************************
+         * ResetGame
+         * 
+         * Marks most of the game components invisible and 
+         *  makes the game setup controls visible again.
+         *  
+         *  Author: Jered Stevens
+         ***************************************************/
 
         private void ResetGame()
         {
             GuessCounter = 0;
-            RemainingGuesses = 25;
             Size = new Size(350, 250);
             NewGameGroupBox.Visible = true;
             NewGameInstructionLabel.Visible = true;
@@ -253,8 +292,8 @@ namespace PlayAnalyzerGame
             QuitButton.Text = "Give Up";
             Sample1AnswerLabel.Visible = false;
             Sample2AnswerLabel.Visible = false;
-        }
+        } // ResetGame
 
 
-    }
-}
+    } // AnalyzerGameForm
+} // PlayAnalyzerGame
