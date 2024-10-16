@@ -6,7 +6,11 @@
  * Controls the UI and flow of the Scanalyzer Game
  **********************************************************/
 
-// Still Needs: printAnalyzer Functionality at line 82-85
+// Still Needs: printAnalyzer Functionality at line 108
+//              .dll file
+//              File input
+//              Display case#/file name
+//              Display success message
 
 
 using System.Diagnostics.Eventing.Reader;
@@ -18,8 +22,9 @@ namespace PlayAnalyzerGame
         private int guessCounter;
         private bool isFirstFound;
         private bool isGameOver;
-        private Analyzer? analyzer;
-        private string analyzerType;
+        private Analyzer analyzer;
+        private int samplesFound;
+
         public int GuessCounter
         {
             get => guessCounter;
@@ -62,6 +67,15 @@ namespace PlayAnalyzerGame
             }
         } // IsGameOver
 
+        public int SamplesFound
+        {
+            get => samplesFound;
+            set
+            {
+                samplesFound = value;
+            }
+        } // SamplesFound
+
         public AnalyzerGameForm()
         {
             analyzer = null;
@@ -84,18 +98,22 @@ namespace PlayAnalyzerGame
 
         private void NewGameSubmitButton_Click(object sender, EventArgs e)
         {
-            // Get input from radio buttons and create corresponding analyzer
+
+            int switchVal;
+
+            // Get input from radio buttons for switch
             if (HairRadio.Checked)
             {
-                analyzerType = "HairAnalyzer";
+                analyzer = new HairAnalyzer();
             }
-            else if (PrintRadio.Checked)
-            {
-                analyzerType = "PrintAnalyzer";
-            }
+            //else if (PrintRadio.Checked)
+            //{
+            //    analyzer = new PrintAnalyzer();
+            //}
             else
             {
-                analyzerType = "DNAAnalyzer";
+                analyzer = new DNAAnalyzer();
+                
             }
 
             // set remaining guesses for corresponding analyzer
@@ -126,6 +144,9 @@ namespace PlayAnalyzerGame
             GuessCounterDisplayLabel.Visible = true;
             RemainingGuessesDisplayLabel.Visible = true;
             RemainingGuessesLabel.Visible = true;
+            SamplesFoundLabel.Visible = true;
+            SamplesFoundDisplayLabel.Visible = true;
+            SamplesFoundDisplayLabel.Text = SamplesFound.ToString();
             QuitButton.Visible = true;
             InfoLabel.Visible = true;
 
@@ -152,35 +173,48 @@ namespace PlayAnalyzerGame
 
         private void SubmitGuessButton_Click(object sender, EventArgs e)
         {
-            // Vars for guess data
+
             int rowUserInput;
             int colUserInput;
-
-            // Get user input, make sure they are integers.
-            //  Save values in appropriate place.
-            bool canConvertRow = int.TryParse(RowInputTextBox.Text, out rowUserInput);
-            bool canConvertCol = int.TryParse(ColumnInputTextBox.Text, out colUserInput);
-
-            // Clear input boxes
-            RowInputTextBox.Text = string.Empty;
-            ColumnInputTextBox.Text = string.Empty;
-
-            // Check if input is an integer
-            if (!canConvertRow || !canConvertCol)
+            try
             {
+                // Vars for guess data
+                rowUserInput = int.Parse(RowInputTextBox.Text);  // coud throw a FormatException
+                colUserInput = int.Parse(ColumnInputTextBox.Text);  // could also throw a FormatException
+
+                // Clear input boxes
+                RowInputTextBox.Text = string.Empty;
+                ColumnInputTextBox.Text = string.Empty;
+
+                // Validate input to make sure it's within bounds
+                if (rowUserInput < 0 || rowUserInput > 9 ||
+                    colUserInput < 0 || colUserInput > 9)
+                {
+                    // If out of bounds, show error message
+                    MessageBox.Show("Your guess is out of bounds");
+                    return;
+                }
+            }
+            catch (FormatException)
+            {
+                // Show an error message if input is not a valid integer
                 MessageBox.Show("Input must be an integer");
+                
+                // Clear input boxes
+                RowInputTextBox.Text = string.Empty;
+                ColumnInputTextBox.Text = string.Empty;
                 return;
             }
-
-            // Validate input to make sure it's within bounds
-            if (rowUserInput < 0 || rowUserInput > 9 ||
-                colUserInput < 0 || colUserInput > 9)
+            catch (Exception ex)
             {
-                // If out of bounds, show error message
-                MessageBox.Show("Your guess is out of bounds");
+                // Catch any other unexpected errors
+                MessageBox.Show($"An unexpected error occurred: {ex.Message}");
+
+                // Clear input boxes
+                RowInputTextBox.Text = string.Empty;
+                ColumnInputTextBox.Text = string.Empty;
                 return;
             }
-
             // Update guess labels
             GuessCounter++;
             analyzer.RemainingGuesses--;
@@ -197,11 +231,15 @@ namespace PlayAnalyzerGame
             {
                 InfoLabel.Text = "Your guess was correct! One more to go!";
                 IsFirstFound = true;
+                SamplesFound++;
+                SamplesFoundDisplayLabel.Text = SamplesFound.ToString();
             }
             else if (isCorrect && IsFirstFound)
             {
                 InfoLabel.Text = "Congragulations! You Win!";
                 IsGameOver = true;
+                SamplesFound++;
+                SamplesFoundDisplayLabel.Text = SamplesFound.ToString();
                 YouLose();
                 
             }
@@ -301,10 +339,13 @@ namespace PlayAnalyzerGame
             GuessCounterDisplayLabel.Visible = false;
             RemainingGuessesDisplayLabel.Visible = false;
             RemainingGuessesLabel.Visible = false;
+            SamplesFoundLabel.Visible = false;
+            SamplesFoundDisplayLabel.Visible = false;
             QuitButton.Visible = false;
             QuitButton.Text = "Give Up";
             Sample1AnswerLabel.Visible = false;
             Sample2AnswerLabel.Visible = false;
+            SamplesFound = 0;
         } // ResetGame
 
 
