@@ -115,8 +115,7 @@ namespace PlayAnalyzerGame
                     break;
             }
 
-            // set remaining guesses for corresponding analyzer
-            analyzer.ResetRemainingGuesses();
+            
 
             // Hide new game controls
             IsGameOver = false;
@@ -290,9 +289,15 @@ namespace PlayAnalyzerGame
 
         private void YouLose()
         {
+            string answers = string.Empty;
+            int i = 0;
+            foreach (Sample s in analyzer.samplesArr)
+            {
+                answers += "Sample " + i + " Coordinates: " + s.ToString() + "\n";
+                i++;
+            }
+            Sample1AnswerLabel.Text = answers;
             GuessEntryGroupBox.Visible = false;
-            Sample1AnswerLabel.Text = "Sample 1 Coordinates: " + analyzer.sample1.ToString();
-            Sample2AnswerLabel.Text = "Sample 2 Coordinates: " + analyzer.sample2.ToString();
             Sample1AnswerLabel.Visible = true;
             Sample2AnswerLabel.Visible = true;
             QuitButton.Text = "Play Again";

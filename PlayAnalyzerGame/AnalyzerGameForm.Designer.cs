@@ -242,7 +242,7 @@ namespace PlayAnalyzerGame
             // GridDisplayBox
             // 
             GridDisplayBox.Font = new System.Drawing.Font("Lucida Console", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            GridDisplayBox.Location = new Point(351, 71);
+            GridDisplayBox.Location = new Point(351, 170);
             GridDisplayBox.Name = "GridDisplayBox";
             GridDisplayBox.Size = new Size(256, 247);
             GridDisplayBox.TabIndex = 13;
