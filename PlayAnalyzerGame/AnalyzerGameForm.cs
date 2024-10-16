@@ -164,35 +164,48 @@ namespace PlayAnalyzerGame
 
         private void SubmitGuessButton_Click(object sender, EventArgs e)
         {
-            // Vars for guess data
+
             int rowUserInput;
             int colUserInput;
-
-            // Get user input, make sure they are integers.
-            //  Save values in appropriate place.
-            bool canConvertRow = int.TryParse(RowInputTextBox.Text, out rowUserInput);
-            bool canConvertCol = int.TryParse(ColumnInputTextBox.Text, out colUserInput);
-
-            // Clear input boxes
-            RowInputTextBox.Text = string.Empty;
-            ColumnInputTextBox.Text = string.Empty;
-
-            // Check if input is an integer
-            if (!canConvertRow || !canConvertCol)
+            try
             {
+                // Vars for guess data
+                rowUserInput = int.Parse(RowInputTextBox.Text);  // coud throw a FormatException
+                colUserInput = int.Parse(ColumnInputTextBox.Text);  // could also throw a FormatException
+
+                // Clear input boxes
+                RowInputTextBox.Text = string.Empty;
+                ColumnInputTextBox.Text = string.Empty;
+
+                // Validate input to make sure it's within bounds
+                if (rowUserInput < 0 || rowUserInput > 9 ||
+                    colUserInput < 0 || colUserInput > 9)
+                {
+                    // If out of bounds, show error message
+                    MessageBox.Show("Your guess is out of bounds");
+                    return;
+                }
+            }
+            catch (FormatException)
+            {
+                // Show an error message if input is not a valid integer
                 MessageBox.Show("Input must be an integer");
+
+                // Clear input boxes
+                RowInputTextBox.Text = string.Empty;
+                ColumnInputTextBox.Text = string.Empty;
                 return;
             }
-
-            // Validate input to make sure it's within bounds
-            if (rowUserInput < 0 || rowUserInput > 9 ||
-                colUserInput < 0 || colUserInput > 9)
+            catch (Exception ex)
             {
-                // If out of bounds, show error message
-                MessageBox.Show("Your guess is out of bounds");
+                // Catch any other unexpected errors
+                MessageBox.Show($"An unexpected error occurred: {ex.Message}");
+
+                // Clear input boxes
+                RowInputTextBox.Text = string.Empty;
+                ColumnInputTextBox.Text = string.Empty;
                 return;
             }
-
             // Update guess labels
             GuessCounter++;
             analyzer.RemainingGuesses--;
