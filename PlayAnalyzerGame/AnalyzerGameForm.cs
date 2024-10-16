@@ -7,6 +7,10 @@
  **********************************************************/
 
 // Still Needs: printAnalyzer Functionality at line 108
+//              .dll file
+//              File input
+//              Display case#/file name
+//              Display success message
 
 
 using System.Diagnostics.Eventing.Reader;
@@ -190,7 +194,7 @@ namespace PlayAnalyzerGame
             {
                 // Show an error message if input is not a valid integer
                 MessageBox.Show("Input must be an integer");
-
+                `
                 // Clear input boxes
                 RowInputTextBox.Text = string.Empty;
                 ColumnInputTextBox.Text = string.Empty;
