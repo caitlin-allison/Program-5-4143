@@ -194,7 +194,7 @@ namespace PlayAnalyzerGame
             {
                 // Show an error message if input is not a valid integer
                 MessageBox.Show("Input must be an integer");
-                `
+                
                 // Clear input boxes
                 RowInputTextBox.Text = string.Empty;
                 ColumnInputTextBox.Text = string.Empty;
