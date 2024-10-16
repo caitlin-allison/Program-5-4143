@@ -33,7 +33,14 @@ namespace PlayAnalyzerGame
                 guessCounter = value;
             }
         } // GuessCounter
-
+        public int AnalyzerType
+        {
+            get => analyzerType;
+            set
+            {
+                analyzerType = value;
+            }
+        }
         
 
         public bool IsFirstFound
@@ -71,6 +78,9 @@ namespace PlayAnalyzerGame
 
         public AnalyzerGameForm()
         {
+            analyzer = null;
+            analyzerType = "";
+
             InitializeComponent();
             ResetGame();
         } // AnalyzerGameForm
@@ -94,25 +104,16 @@ namespace PlayAnalyzerGame
             // Get input from radio buttons for switch
             if (HairRadio.Checked)
             {
-                switchVal = 0;
+                analyzer = new HairAnalyzer();
             }
-            else if (PrintRadio.Checked)
-            {
-                switchVal = 1;
-            }
+            //else if (PrintRadio.Checked)
+            //{
+            //    analyzer = new PrintAnalyzer();
+            //}
             else
             {
-                switchVal = 2;  
-            }
-
-            switch (switchVal)
-            {
-                case 0: analyzer = new HairAnalyzer();
-                    break;
-                //case 1: analyzer = new PrintAnalyzer();
-                    break;
-                case 2: analyzer = new DNAAnalyzer();
-                    break;
+                analyzer = new DNAAnalyzer();
+                
             }
 
             
@@ -153,6 +154,10 @@ namespace PlayAnalyzerGame
             RemainingGuessesDisplayLabel.Text = analyzer.RemainingGuesses.ToString();
         } // NewGameSubmitButton_Click
 
+        private void getRowColSize()
+        {
+
+        }
 
         /**************************************************
          * SubmitGuessButton_Click
@@ -241,9 +246,9 @@ namespace PlayAnalyzerGame
             {
                 InfoLabel.Text = "Out of guesses! GAME OVER!";
                 YouLose();
-                
+
             }
-            else 
+            else
             {
                 InfoLabel.Text = "Sorry, incorrect guess.";
             }
