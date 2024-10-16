@@ -63,6 +63,7 @@ namespace PlayAnalyzerGame
             // HairRadio
             // 
             HairRadio.AutoSize = true;
+            HairRadio.Checked = true;
             HairRadio.Location = new Point(21, 52);
             HairRadio.Name = "HairRadio";
             HairRadio.Size = new Size(89, 19);
@@ -123,7 +124,6 @@ namespace PlayAnalyzerGame
             PrintRadio.Name = "PrintRadio";
             PrintRadio.Size = new Size(92, 19);
             PrintRadio.TabIndex = 1;
-            PrintRadio.TabStop = true;
             PrintRadio.Text = "Print Sample";
             PrintRadio.UseVisualStyleBackColor = true;
             // 
@@ -134,7 +134,6 @@ namespace PlayAnalyzerGame
             DNARadio.Name = "DNARadio";
             DNARadio.Size = new Size(121, 19);
             DNARadio.TabIndex = 2;
-            DNARadio.TabStop = true;
             DNARadio.Text = "DNA - Hard Mode";
             DNARadio.UseVisualStyleBackColor = true;
             // 

@@ -74,19 +74,31 @@ namespace PlayAnalyzerGame
 
         private void NewGameSubmitButton_Click(object sender, EventArgs e)
         {
-            // Get input from radio buttons and create corresponding analyzer
+
+            int switchVal;
+
+            // Get input from radio buttons for switch
             if (HairRadio.Checked)
             {
-                analyzer = new HairAnalyzer();
+                switchVal = 0;
             }
-            //else if (PrintRadio.Checked)
-            //{
-            //    analyzer = new PrintAnalyzer();
-            //}
+            else if (PrintRadio.Checked)
+            {
+                switchVal = 1;
+            }
             else
             {
-                analyzer = new DNAAnalyzer();
-                
+                switchVal = 2;  
+            }
+
+            switch (switchVal)
+            {
+                case 0: analyzer = new HairAnalyzer();
+                    break;
+                case 1: analyzer = new PrintAnalyzer();
+                    break;
+                case 2: analyzer = new DNAAnalyzer();
+                    break;
             }
 
             // set remaining guesses for corresponding analyzer
