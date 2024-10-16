@@ -19,6 +19,7 @@ namespace PlayAnalyzerGame
         private bool isFirstFound;
         private bool isGameOver;
         private Analyzer analyzer;
+        private int samplesFound;
 
         public int GuessCounter
         {
@@ -54,6 +55,15 @@ namespace PlayAnalyzerGame
                 isGameOver = value;
             }
         } // IsGameOver
+
+        public int SamplesFound
+        {
+            get => samplesFound;
+            set
+            {
+                samplesFound = value;
+            }
+        } // SamplesFound
 
         public AnalyzerGameForm()
         {
@@ -95,7 +105,7 @@ namespace PlayAnalyzerGame
             {
                 case 0: analyzer = new HairAnalyzer();
                     break;
-                case 1: analyzer = new PrintAnalyzer();
+                //case 1: analyzer = new PrintAnalyzer();
                     break;
                 case 2: analyzer = new DNAAnalyzer();
                     break;
@@ -129,6 +139,9 @@ namespace PlayAnalyzerGame
             GuessCounterDisplayLabel.Visible = true;
             RemainingGuessesDisplayLabel.Visible = true;
             RemainingGuessesLabel.Visible = true;
+            SamplesFoundLabel.Visible = true;
+            SamplesFoundDisplayLabel.Visible = true;
+            SamplesFoundDisplayLabel.Text = SamplesFound.ToString();
             QuitButton.Visible = true;
             InfoLabel.Visible = true;
 
@@ -196,11 +209,15 @@ namespace PlayAnalyzerGame
             {
                 InfoLabel.Text = "Your guess was correct! One more to go!";
                 IsFirstFound = true;
+                SamplesFound++;
+                SamplesFoundDisplayLabel.Text = SamplesFound.ToString();
             }
             else if (isCorrect && IsFirstFound)
             {
                 InfoLabel.Text = "Congragulations! You Win!";
                 IsGameOver = true;
+                SamplesFound++;
+                SamplesFoundDisplayLabel.Text = SamplesFound.ToString();
                 YouLose();
                 
             }
@@ -300,10 +317,13 @@ namespace PlayAnalyzerGame
             GuessCounterDisplayLabel.Visible = false;
             RemainingGuessesDisplayLabel.Visible = false;
             RemainingGuessesLabel.Visible = false;
+            SamplesFoundLabel.Visible = false;
+            SamplesFoundDisplayLabel.Visible = false;
             QuitButton.Visible = false;
             QuitButton.Text = "Give Up";
             Sample1AnswerLabel.Visible = false;
             Sample2AnswerLabel.Visible = false;
+            SamplesFound = 0;
         } // ResetGame
 
 

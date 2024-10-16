@@ -55,6 +55,8 @@ namespace PlayAnalyzerGame
             Sample1AnswerLabel = new Label();
             Sample2AnswerLabel = new Label();
             InfoLabel = new Label();
+            SamplesFoundLabel = new Label();
+            SamplesFoundDisplayLabel = new Label();
             NewGameGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)GameModeImage).BeginInit();
             GuessEntryGroupBox.SuspendLayout();
@@ -272,11 +274,30 @@ namespace PlayAnalyzerGame
             InfoLabel.Size = new Size(0, 15);
             InfoLabel.TabIndex = 16;
             // 
+            // SamplesFoundLabel
+            // 
+            SamplesFoundLabel.AutoSize = true;
+            SamplesFoundLabel.Location = new Point(34, 280);
+            SamplesFoundLabel.Name = "SamplesFoundLabel";
+            SamplesFoundLabel.Size = new Size(91, 15);
+            SamplesFoundLabel.TabIndex = 17;
+            SamplesFoundLabel.Text = "Samples Found:";
+            // 
+            // SamplesFoundDisplayLabel
+            // 
+            SamplesFoundDisplayLabel.AutoSize = true;
+            SamplesFoundDisplayLabel.Location = new Point(128, 282);
+            SamplesFoundDisplayLabel.Name = "SamplesFoundDisplayLabel";
+            SamplesFoundDisplayLabel.Size = new Size(0, 15);
+            SamplesFoundDisplayLabel.TabIndex = 18;
+            // 
             // AnalyzerGameForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(684, 461);
+            Controls.Add(SamplesFoundDisplayLabel);
+            Controls.Add(SamplesFoundLabel);
             Controls.Add(NewGameGroupBox);
             Controls.Add(InfoLabel);
             Controls.Add(Sample2AnswerLabel);
@@ -324,5 +345,7 @@ namespace PlayAnalyzerGame
         private Label Sample1AnswerLabel;
         private Label Sample2AnswerLabel;
         private Label InfoLabel;
+        private Label SamplesFoundLabel;
+        private Label SamplesFoundDisplayLabel;
     }
 }
