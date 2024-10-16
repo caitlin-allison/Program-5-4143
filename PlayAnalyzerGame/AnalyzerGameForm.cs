@@ -7,9 +7,7 @@
  **********************************************************/
 
 
-// Not completed yet:
-//  SubmitGuessBottonClick
-//      Needs EvaluateGuess() added
+
 
 using System.Diagnostics.Eventing.Reader;
 
@@ -138,8 +136,19 @@ namespace PlayAnalyzerGame
 
             // Get user input, make sure they are integers.
             //  Save values in appropriate place.
-            int.TryParse(RowInputTextBox.Text, out rowUserInput);
-            int.TryParse(ColumnInputTextBox.Text, out colUserInput);
+            bool canConvertRow = int.TryParse(RowInputTextBox.Text, out rowUserInput);
+            bool canConvertCol = int.TryParse(ColumnInputTextBox.Text, out colUserInput);
+
+            // Clear input boxes
+            RowInputTextBox.Text = string.Empty;
+            ColumnInputTextBox.Text = string.Empty;
+
+            // Check if input is an integer
+            if (!canConvertRow || !canConvertCol)
+            {
+                MessageBox.Show("Input must be an integer");
+                return;
+            }
 
             // Validate input to make sure it's within bounds
             if (rowUserInput < 0 || rowUserInput > 9 ||
