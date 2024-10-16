@@ -354,6 +354,21 @@ namespace PlayAnalyzerGame
 
     }
 
+
+
+    /*******************************************************************
+    * Class:           DNAAnalyzer
+    * 
+    * Description: Last game mode analyzer. To be played as 'Hard Mode'
+    *                   Inherits from the Analyzer class. Has a default
+    *                   constructor that sets rows and columns to 10.
+    *                   
+    *              Fills grid with '.' and marks correct answers with X.
+    *                       
+    *                   
+    * Author:       Jered Stevens
+    *                   
+    *********************************************************************/
     public class DNAAnalyzer : Analyzer
     {
         public DNAAnalyzer()
@@ -390,7 +405,7 @@ namespace PlayAnalyzerGame
             {
                 for (int j = 0; j < Columns; j++)
                 {
-                    grid[i, j] = '~';
+                    grid[i, j] = '.';
                 }
             }
 
