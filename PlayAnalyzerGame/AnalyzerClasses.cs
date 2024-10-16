@@ -81,7 +81,6 @@ namespace PlayAnalyzerGame
      *              int Columns
      *              bool IsFirstSampleFound
      *              bool IsSecondSampleFound
-     *              int RemainingGuesses
      * 
      * Functions:   EvaluateGuess
      *                  Accepts 3 ints: row, column, guessCounter.
@@ -93,24 +92,28 @@ namespace PlayAnalyzerGame
      *                  Returns string
      *                  Provides the game grid
      *                  
-     *              ResetRemainingGuesses
-     *                  Returns void
-     *                  Resets remaining guesses to initial value
-     *                  
      * Author:      Jered Stevens
      *********************************************************************/
 
     public abstract class Analyzer
     {
+        // Create exception for form input of numbers/rows/position
         private int rows;
         private int columns;
         public char[,] grid;
         public Random rand;
-        public Sample sample1;
-        public Sample sample2;
-        private bool isFirstSampleFound;
-        private bool isSecondSampleFound;
-        private int remainingGuesses;
+        
+        private int guessCounter;
+
+        //private int numOfSamplesFound;
+        
+        bool endOfGame;
+        //public Sample sample1;
+        //public Sample sample2;
+        //private bool isFirstSampleFound;
+        //private bool isSecondSampleFound;
+        // Why is this on the base class when it should
+        // only be relevant to a child class?
 
         public int Rows
         {
@@ -122,30 +125,53 @@ namespace PlayAnalyzerGame
             get => columns;
             set => columns = value;
         }
-        public bool IsFirstSampleFound
+        public int GuessCounter
         {
-            get => isFirstSampleFound;
-            set => isFirstSampleFound = value;
+            get => guessCounter;
+            set => guessCounter = value;
         }
-        public bool IsSecondSampleFound
+        public bool EndOfGame
         {
-            get => isSecondSampleFound;
-            set => isSecondSampleFound = value;
+            get => endOfGame;
+            set => endOfGame = value;
         }
+        public Random Rand
+        {
+            get => rand;
+            set => rand = value;
+        }
+        //public bool IsFirstSampleFound
+        //{
+        //    get => isFirstSampleFound;
+        //    set => isFirstSampleFound = value;
+        //}
+        //public bool IsSecondSampleFound
+        //{
+        //    get => isSecondSampleFound;
+        //    set => isSecondSampleFound = value;
+        //}
 
-        public int RemainingGuesses
-        {
-            get => remainingGuesses;
-            set
-            {
-                remainingGuesses = value;
-            }
-        }
+
 
         /*********************************************************************************
-         * Not sure why we needed this?
-         ********************************************************************************/
+ * Not sure why we needed this?
+ * Constructor to initialize all the variables within
+ * the base call ie. rows, columns, rand
+ ********************************************************************************/
+        //public Analyzer(int rows, int columns, int sampleNum)
+        public Analyzer(int rows, int columns)
 
+        {
+            //numOfSamplesFound = 0;
+            Rows = rows;
+            Columns = columns;
+            Rand = new Random();
+            grid = new char[rows, columns];
+            GuessCounter = 0;
+            EndOfGame = false;
+
+            //Sampple[] sample = new Sample(sampleNum);
+        }
         //// Constructor for scanalyzer
         //public Analyzer(int rows, int columns)
         //{
@@ -219,12 +245,6 @@ namespace PlayAnalyzerGame
         } // ToString
 
 
-        // Resets Remaining guesses 
-        public virtual void ResetRemainingGuesses()
-        {
-            RemainingGuesses = 25;
-        }
-
         // All the derived classes must implement this and handle it
         // in their specific ways
         public abstract bool EvaluateGuess(int col, int row, int guessCounter);
@@ -245,14 +265,31 @@ namespace PlayAnalyzerGame
 
     public class HairAnalyzer : Analyzer
     {
-        public HairAnalyzer()
+        public Sample sample1;
+        public Sample sample2;
+        private bool isFirstSampleFound;
+        private bool isSecondSampleFound;
+
+        public bool IsFirstSampleFound
         {
+            get => isFirstSampleFound;
+            set => isFirstSampleFound = value;
+        }
+        public bool IsSecondSampleFound
+        {
+            get => isSecondSampleFound;
+            set => isSecondSampleFound = value;
+        }
+
+        public HairAnalyzer(): base(10,10)
+        {
+            // Done via base constructor
             // New random number generator
-            rand = new Random();
+            //rand = new Random();
 
             // Set grid dimensions to 10x10
-            this.Rows = 10;
-            this.Columns = 10;
+            //this.Rows = 10;
+            //this.Columns = 10;
 
             grid = new char[Rows, Columns];
 
@@ -511,193 +548,164 @@ namespace PlayAnalyzerGame
             return false;
             
         } // EvaluateGuess
-
-
-        /******************************************************************
-         * Function:        ResetRemainingGuesses
-         * 
-         * Description:     Resets remaining guesses to 10 instead of 25
-         *                      because this game mode is the 'Hard mode'
-         *                      of the game.
-         *       
-         * Author:  Jered Stevens
-         *******************************************************************/
-
-        public override void ResetRemainingGuesses()
-        {
-            RemainingGuesses = 10;
-        } // ResetRemainingGuesses
-
     } // DNAAnalyzer
 
 
     // Commented this out bc it wouldn't compile
 
-    //public class PrintAnalyzer : Analyzer
-    //{
-    //    int numOfFingerprints;
-    //    int[][2] fingerprints;
-    //    bool * foundFingerprints;
-    //    bool endOfGame;
+    public class PrintAnalyzer : Analyzer
+    {
+        int numOfFingerprints;
+        int [,] fingerprints;
+        bool [] foundFingerprints;
 
-    //    PrintAnalyzer(int rows, int columns)
-    //    {
-    //        // Make new random number generator
-    //        rand = new Random();
+        PrintAnalyzer(int rows, int columns): base(rows, columns)
+        {
+            // Make a grid the size of rows and columns
+            grid = new char[rows, columns];
 
-    //        // Set rows and columns to user defined numbers
-    //        this.rows = rows;
-    //        this.columns = columns;
+            numOfFingerprints = rand.Next(0, columns * rows);
 
-    //        // Make a grid the size of rows and columns
-    //        grid = new char[rows, columns];
+            fingerprints = new int[numOfFingerprints,2];
 
-    //        numOfFingerprints = rand.Next(0, columns * rows);
+            int pos = 0;
 
-    //        int i = 0;
+            // Continues to create an unique x && y pair
+            // for fingerprints until the array is filled.
+            do
+            {
+                int x = new Random().Next(0, rows);
+                int y = new Random().Next(0, columns);
 
-    //        // Continues to create an unique x && y pair
-    //        // for fingerprints until the array is filled.
-    //        do
-    //        {
-    //            int x = new Random().Next(0, row);
-    //            int y = new Random().Next(0, col);
+                if (pos == 0)
+                {
+                    fingerprints[0,0] = x;
+                    fingerprints[0,1] = y;
+                }
+                else
+                {
+                    bool match = false;
 
-    //            if (i == 0)
-    //            {
-    //                fingerprints[0][0] = x;
-    //                fingerprints[0][1] = y;
-    //            }
-    //            else ()
-    //            {
-    //                bool match = false;
+                    // Loops through existing fingerprints
+                    // to verify x && y is not already within
+                    // the array
+                    for (int j = 0; j < pos; j++)
+                    {
+                        if (x == fingerprints[j,0] && y == fingerprints[j,1])
+                            match = true;
+                    }
+                    if (!match)
+                    {
+                        fingerprints[pos,0] = x;
+                        fingerprints[pos,1] = y;
 
-    //                // Loops through existing fingerprints
-    //                // to verify x && y is not already within
-    //                // the array
-    //                for (int j = 0; j < i; j++)
-    //                {
-    //                    if (x == fingerprints[j][0] && y == fingerprints[j][1])
-    //                        match = true;
-    //                }
-    //                if (!match)
-    //                {
-    //                    fingerprints[pos][0] = x;
-    //                    fingerprints[pos][1] = y;
+                        pos++;
+                    }
+                }
 
-    //                    i++;
-    //                }
-    //            }
+            } while (pos < numOfFingerprints);
 
-    //        } while (i < numOfFingerprints);
+            // populate grid with ~
+            for (int r = 0; r < rows; r++)
+            {
+                for (int c = 0; c < columns; c++)
+                {
+                    grid[r, c] = '~';
+                }
+            }
 
-    //        // populate grid with ~
-    //        for (int i = 0; i < rows; i++)
-    //        {
-    //            for (int j = 0; j < columns; j++)
-    //            {
-    //                grid[i, j] = '~';
-    //            }
-    //        }
+            foundFingerprints = new bool[numOfFingerprints];
 
-    //        foundFingerprints = new bool [numOfFingerprints];
+            EndOfGame = false;
+            GuessCounter = 0;
+        }
 
-    //        endOfGame = false;
-    //        guessCounter = 0;
-    //    }
+        //Check if guess is correct
+        public override bool EvaluateGuess(int col, int row, int guessCounter)
+        {
+            // If guess counter is even, then its a horizontal hint
+            bool isHorizontalHint = guessCounter % 2 == 0;
 
-    //Check if guess is correct
-    //    public override bool EvaluateGuess(int col, int row, int guessCounter)
-    //    {
-    //        // If guess counter is even, then its a horizontal hint
-    //        bool isHorizontalHint = guessCounter % 2 == 0;
+            bool exactMatch = false;
+            int matchPos = -1;
 
-    //        bool exactMatch = false;
-    //        int matchPos = -1;
+            int i = 0;
 
-    //        int i = 0;
-
-    //        int numFoundFingerprints = 0;
-    //        // Loops through fingerprints and finds if there is an exact
-    //        // match. Ignores previously found fingerprints
-    //        do
-    //        {
-    //            if (foundFingerprints[i] == false)
-    //            {
-    //                if (fingerprints[i][0] == row && fingerprints[i][1] == col)
-    //                {
-    //                    exactMatch = true;
-    //                    matchPos = i;
-    //                    foundFingerprints[i] = true;
-    //                    grid[row][col] = '@';
-    //                    if (numFoundFingerprints == numOfFingerprints)
-    //                    {
-    //                        endOfGame = true;
-    //                    }
-    //                }
-    //            }
-    //            else
-    //            {
-    //                numFoundFingerprints++;
-    //            }
-    //            i++;
-    //        }
-    //        while (i < numOfFingerprints && !exactMatch);
+            int numFoundFingerprints = 0;
+            // Loops through fingerprints and finds if there is an exact
+            // match. Ignores previously found fingerprints
+            do
+            {
+                if (foundFingerprints[i] == false)
+                {
+                    if (fingerprints[i,0] == row && fingerprints[i,1] == col)
+                    {
+                        exactMatch = true;
+                        matchPos = i;
+                        foundFingerprints[i] = true;
+                        grid[row,col] = '@';
+                        if (numFoundFingerprints == numOfFingerprints)
+                        {
+                            endOfGame = true;
+                        }
+                    }
+                }
+                else
+                {
+                    numFoundFingerprints++;
+                }
+                i++;
+            }
+            while (i < numOfFingerprints && !exactMatch);
 
 
-    //        // If first sample isnt found yet
-    //        if (!exactMatch)
-    //        {
-    //            // Grabs the i index of the closest index
-    //            int closetFingerprintPs = findClosestFingerprint(row, col);
-    //            int closestX = fingerprints[closetFingerprintPs][0];
-    //            int closestY = fingerprints[closetFingerprintPs][1];
+            // If first sample isnt found yet
+            if (!exactMatch)
+            {
+                // Grabs the i index of the closest index
+                int closetFingerprintPs = findClosestFingerprint(row, col);
+                int closestX = fingerprints[closetFingerprintPs,0];
+                int closestY = fingerprints[closetFingerprintPs,1];
 
-    //            // If sample is directly above or below guess
-    //            if (isHorizontalHint)
-    //            {
-    //                grid[row, col] = isHorizontalHint ?
-    //                    col == closestY ? '|' :
-    //                    closestY > col ? '>' : '<';
-    //            }
-    //            else
-    //            {
-    //                grid[row, col] = row == closestX ? '|' :
-    //                    closestX > row ? 'V' : '^';
-    //            }
-    //        }
+                // If sample is directly above or below guess
+                if (isHorizontalHint)
+                {
+                    grid[row, col] = col == closestY ? '|' :
+                        closestY > col ? '>' : '<';
+                }
+                else
+                {
+                    grid[row, col] = row == closestX ? '|' :
+                        closestX > row ? 'V' : '^';
+                }
+            }
 
-    //        guessCounter++;
+            guessCounter++;
 
-    //        return false;
-    //    } // EvaluateGuess
+            return false;
+        } // EvaluateGuess
 
-    //    // Dynamically finds closest fingerprints
-    //    int findClosestFingerprint(int row, int col)
-    //    {
-    //        int position = 0;
+        // Dynamically finds closest fingerprints
+        int findClosestFingerprint(int row, int col)
+        {
+            int position = 0;
 
-    //        int minimum = Math.Abs(fingerprints[0][0] * fingerprints[0][1] - row * col);
+            int minimum = Math.Abs(fingerprints[0,0] * fingerprints[0,1] - row * col);
 
-    //        for (int i = 0; i < numOfFingerprints; i++)
-    //        {
-    //            if (!foundFingerprints[i])
-    //            {
-    //                if ((int)Math.Abs(fingerprints[i][0] * fingerprints[i][1] - row * col) < minimum)
-    //                {
-    //                    position = i;
-    //                    minimum = (int)Math.Abs(fingerprints[i][0] * fingerprints[i][1] - row * col);
-    //                }
+            for (int i = 0; i < numOfFingerprints; i++)
+            {
+                if (!foundFingerprints[i])
+                {
+                    if ((int)Math.Abs(fingerprints[i,0] * fingerprints[i,1] - row * col) < minimum)
+                    {
+                        position = i;
+                        minimum = (int)Math.Abs(fingerprints[i,0] * fingerprints[i,1] - row * col);
+                    }
 
-    //            }
-    //        }
+                }
+            }
 
-    //        return position;
-    //    }
-
-    //public override void ResetRemainingGuesses()
-    //{
-    //    RemainingGuesses = 25;
-    //}
-    //}
+            return position;
+        }
+    }
 }

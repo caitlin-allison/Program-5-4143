@@ -18,8 +18,8 @@ namespace PlayAnalyzerGame
         private int guessCounter;
         private bool isFirstFound;
         private bool isGameOver;
-        private Analyzer analyzer;
-
+        private Analyzer? analyzer;
+        private string analyzerType;
         public int GuessCounter
         {
             get => guessCounter;
@@ -28,7 +28,14 @@ namespace PlayAnalyzerGame
                 guessCounter = value;
             }
         } // GuessCounter
-
+        public int AnalyzerType
+        {
+            get => analyzerType;
+            set
+            {
+                analyzerType = value;
+            }
+        }
         
 
         public bool IsFirstFound
@@ -57,6 +64,9 @@ namespace PlayAnalyzerGame
 
         public AnalyzerGameForm()
         {
+            analyzer = null;
+            analyzerType = "";
+
             InitializeComponent();
             ResetGame();
         } // AnalyzerGameForm
@@ -77,16 +87,15 @@ namespace PlayAnalyzerGame
             // Get input from radio buttons and create corresponding analyzer
             if (HairRadio.Checked)
             {
-                analyzer = new HairAnalyzer();
+                analyzerType = "HairAnalyzer";
             }
-            //else if (PrintRadio.Checked)
-            //{
-            //    analyzer = new PrintAnalyzer();
-            //}
+            else if (PrintRadio.Checked)
+            {
+                analyzerType = "PrintAnalyzer";
+            }
             else
             {
-                analyzer = new DNAAnalyzer();
-                
+                analyzerType = "DNAAnalyzer";
             }
 
             // set remaining guesses for corresponding analyzer
@@ -125,6 +134,10 @@ namespace PlayAnalyzerGame
             RemainingGuessesDisplayLabel.Text = analyzer.RemainingGuesses.ToString();
         } // NewGameSubmitButton_Click
 
+        private void getRowColSize()
+        {
+
+        }
 
         /**************************************************
          * SubmitGuessButton_Click
@@ -196,9 +209,9 @@ namespace PlayAnalyzerGame
             {
                 InfoLabel.Text = "Out of guesses! GAME OVER!";
                 YouLose();
-                
+
             }
-            else 
+            else
             {
                 InfoLabel.Text = "Sorry, incorrect guess.";
             }
