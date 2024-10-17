@@ -136,10 +136,10 @@ namespace PlayAnalyzerGame
             get => columns;
             set => columns = value;
         }
-        public bool GuessCounter
+        public int GuessCounter
         {
             get => guessCounter;
-            set => geussCounter = value;
+            set => guessCounter = value;
         }
         public bool EndOfGame
         {
@@ -168,7 +168,7 @@ namespace PlayAnalyzerGame
             NumOfSamplesFound = 0;
             SampleNum = numSamples;
             grid = new char[rows, columns];
-            samplesArr = new List<Sample>();
+            samples = new List<Sample>();
             rand = new Random();
 
             GenerateSamples(SampleNum);
@@ -182,7 +182,7 @@ namespace PlayAnalyzerGame
             for (int i = 0; i < numSamples; i++)
             {
                 // Create a new Sample and add it to samplesArr
-                samplesArr.Add(new Sample());
+                samples.Add(new Sample());
             }
 
             // Generate samples to go in sample list
@@ -193,15 +193,15 @@ namespace PlayAnalyzerGame
                 do
                 {
                     // Generate random coordinates for sample
-                    samplesArr[i].X = rand.Next(0, Columns);
-                    samplesArr[i].Y = rand.Next(0, Rows);
+                    samples[i].X = rand.Next(0, Columns);
+                    samples[i].Y = rand.Next(0, Rows);
 
                     isDuplicate = false;
 
                     // Compare all previous samples
                     for (int j = 0; j < i; j++)
                     {
-                        if (samplesArr[i].X == samplesArr[j].X && samplesArr[i].Y == samplesArr[j].Y)
+                        if (samples[i].X == samples[j].X && samples[i].Y == samples[j].Y)
                         {
                             isDuplicate = true;  // A duplicate was found
                             break;  // Exit the inner loop and get new coordinates
@@ -255,7 +255,7 @@ namespace PlayAnalyzerGame
             Sample nearestSample = null;
             int minDistance = int.MaxValue;
 
-            foreach (Sample sample in samplesArr)
+            foreach (Sample sample in samples)
             {
                 if (!sample.Found)
                 {
@@ -284,7 +284,7 @@ namespace PlayAnalyzerGame
 
     public class HairAnalyzer : Analyzer
     {
-        public HairAnalyzer()
+        public HairAnalyzer(int rows, int columns, int sampleNum) : base(rows, columns, sampleNum)
         {
             // New random number generator
             rand = new Random();
@@ -331,16 +331,16 @@ namespace PlayAnalyzerGame
             bool foundMatch = false;  // Flag to check if any sample is found
 
             // Iterate over all samples in the list
-            for (int i = 0; i < samplesArr.Count; i++)
+            for (int i = 0; i < samples.Count; i++)
             {
                 // Check if the guess matches the current sample's coordinates
-                if (samplesArr[i].X == row && samplesArr[i].Y == col)
+                if (samples[i].X == row && samples[i].Y == col)
                 {
                     // Update the grid to mark the correct guess
                     grid[row, col] = 'H';
 
                     // Mark the sample as found
-                    samplesArr[i].Found = true;
+                    samples[i].Found = true;
                     foundMatch = true;
                     break;  // No need to continue checking if a match is found
                 }
@@ -378,7 +378,7 @@ namespace PlayAnalyzerGame
 
             bool flag = true;
 
-            foreach (Sample sample in samplesArr)
+            foreach (Sample sample in samples)
             {
                 if (!sample.Found){
                     flag = false;
@@ -441,16 +441,16 @@ namespace PlayAnalyzerGame
             bool foundMatch = false;  // Flag to check if any sample is found
 
             // Iterate over all samples in the list
-            for (int i = 0; i < samplesArr.Count; i++)
+            for (int i = 0; i < samples.Count; i++)
             {
                 // Check if the guess matches the current sample's coordinates
-                if (samplesArr[i].X == row && samplesArr[i].Y == col)
+                if (samples[i].X == row && samples[i].Y == col)
                 {
                     // Update the grid to mark the correct guess
                     grid[row, col] = 'X';
 
                     // Mark the sample as found
-                    samplesArr[i].Found = true;
+                    samples[i].Found = true;
                     foundMatch = true;
                     break;  // No need to continue checking if a match is found
                 }
@@ -488,7 +488,7 @@ namespace PlayAnalyzerGame
 
             bool flag = true;
 
-            foreach (Sample sample in samplesArr)
+            foreach (Sample sample in samples)
             {
                 if (!sample.Found){
                     flag = false;
@@ -597,7 +597,7 @@ namespace PlayAnalyzerGame
                         grid[row, col] = '@';
                         if (numFoundFingerprints == numOfFingerprints)
                         {
-                            endOfGame = true;
+                            EndOfGame = true;
                         }
                     }
                 }
@@ -633,7 +633,7 @@ namespace PlayAnalyzerGame
 
             bool flag = true;
 
-            foreach (Sample sample in samplesArr)
+            foreach (Sample sample in samples)
             {
                 if (!sample.Found){
                     flag = false;
