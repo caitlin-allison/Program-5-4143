@@ -33,6 +33,7 @@ namespace PlayAnalyzerGame
                 guessCounter = value;
             }
         } // GuessCounter
+
         public int AnalyzerType
         {
             get => analyzerType;
@@ -106,10 +107,10 @@ namespace PlayAnalyzerGame
             {
                 analyzer = new HairAnalyzer();
             }
-            //else if (PrintRadio.Checked)
-            //{
-            //    analyzer = new PrintAnalyzer();
-            //}
+            else if (PrintRadio.Checked)
+            {
+                analyzer = new PrintAnalyzer();
+            }
             else
             {
                 analyzer = new DNAAnalyzer();
@@ -151,7 +152,7 @@ namespace PlayAnalyzerGame
 
             GridDisplayBox.Text = analyzer.ToString();
             GuessCounterDisplayLabel.Text = GuessCounter.ToString();
-            RemainingGuessesDisplayLabel.Text = analyzer.RemainingGuesses.ToString();
+            RemainingGuessesDisplayLabel.Text = string.Empty;
         } // NewGameSubmitButton_Click
 
         private void getRowColSize()
@@ -214,14 +215,13 @@ namespace PlayAnalyzerGame
                 ColumnInputTextBox.Text = string.Empty;
                 return;
             }
-            // Update guess labels
-            GuessCounter++;
-            analyzer.RemainingGuesses--;
-            GuessCounterDisplayLabel.Text = GuessCounter.ToString();
-            RemainingGuessesDisplayLabel.Text = analyzer.RemainingGuesses.ToString();
+
+            // Update guess label
+            GuessCounterDisplayLabel.Text = analyzer.GuessCounter.ToString();
+            RemainingGuessesDisplayLabel.Text = string.Empty;
 
             // Test if guess is correct or not. Tell user the results
-            bool isCorrect = analyzer.EvaluateGuess(rowUserInput, colUserInput, guessCounter);
+            bool isCorrect = analyzer.EvaluateGuess(rowUserInput, colUserInput);
 
             // Show results
             GridDisplayBox.Text = analyzer.ToString();
@@ -242,21 +242,21 @@ namespace PlayAnalyzerGame
                 YouLose();
                 
             }
-            else if(analyzer.RemainingGuesses == 0)
-            {
-                InfoLabel.Text = "Out of guesses! GAME OVER!";
-                YouLose();
+            //else if(analyzer.RemainingGuesses == 0)
+            //{
+            //    InfoLabel.Text = "Out of guesses! GAME OVER!";
+            //    YouLose();
 
-            }
+            //}
             else
             {
                 InfoLabel.Text = "Sorry, incorrect guess.";
             }
 
-            if (analyzer.RemainingGuesses == 1)
-            {
-                InfoLabel.Text += "\nCareful...last guess...";
-            }
+            //if (analyzer.RemainingGuesses == 1)
+            //{
+            //    InfoLabel.Text += "\nCareful...last guess...";
+            //}
         } // SubmitGuessButton_Click
 
 
@@ -296,7 +296,7 @@ namespace PlayAnalyzerGame
         {
             string answers = string.Empty;
             int i = 0;
-            foreach (Sample s in analyzer.samplesArr)
+            foreach (Sample s in analyzer.samples)
             {
                 answers += "Sample " + i + " Coordinates: " + s.ToString() + "\n";
                 i++;
