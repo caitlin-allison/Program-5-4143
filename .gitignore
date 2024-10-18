@@ -2,5 +2,5 @@
 .vs/
 
 # Removes bin and obj folder for ease of commits
-# bin/
-# obj/
+bin/
+obj/
