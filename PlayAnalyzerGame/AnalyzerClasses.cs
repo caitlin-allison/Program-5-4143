@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 ﻿/*************************************************
-=======
-/*************************************************
->>>>>>> c5bf1e2 (init branch)
 * Caitlin Allison and Jered Stevens
 * 4143 - Stringfellow
 * 
@@ -88,47 +84,12 @@ namespace PlayAnalyzerGame
 
 
     /*******************************************************************
-<<<<<<< HEAD
-     * Class:           Analyzer
-     * 
-     * Description: Base class for other child analyzer classes. Holds
-     *                  vars for the number of rows and columns available,
-     *                  contains a 2D array of chars for the grid, the 
-     *                  Random var, 2 Samples, and a 2 bools to indicate 
-     *                  if either sample has been found yet.
-     * 
-     * Public Data Members:
-     *              int Rows
-     *              int Columns
-     *              bool IsFirstSampleFound
-     *              bool IsSecondSampleFound
-     * 
-     * Functions:   EvaluateGuess
-     *                  Accepts 3 ints: row, column, guessCounter.
-     *                  Returns bool.
-     *                  Evaluates if the users guess is correct and 
-     *                  returns a corresponding bool.
-     *                 
-     *              ToString
-     *                  Returns string
-     *                  Provides the game grid
-     *                  
-     * Author:      Jered Stevens
-     *********************************************************************/
-    * Class:           Analyzer
-    *
-    * Description: Base class for other child analyzer classes.Holds
-    *                  vars for the number of rows and columns available,
-    * contains a 2D array of chars for the grid, the
-    * Random var, 2 Samples, and a 2 bools to indicate
-=======
     * Class:           Analyzer
     * 
     * Description: Base class for other child analyzer classes. Holds
     *                  vars for the number of rows and columns available,
     *                  contains a 2D array of chars for the grid, the 
     *                  Random var, 2 Samples, and a 2 bools to indicate 
->>>>>>> c5bf1e2 (init branch)
     *                  if either sample has been found yet.
     * 
     * Public Data Members:
@@ -137,34 +98,16 @@ namespace PlayAnalyzerGame
     *              int RemainingGuesses
     * 
     * Functions:   EvaluateGuess
-<<<<<<< HEAD
-    * Accepts 3 ints: row, column, guessCounter.
-    * Returns bool.
-=======
     *                  Accepts 3 ints: row, column, guessCounter.
     *                  Returns bool.
->>>>>>> c5bf1e2 (init branch)
     *                  Evaluates if the users guess is correct and 
     *                  returns a corresponding bool.
     *                 
     *              ToString
-<<<<<<< HEAD
-    * Returns string
-    * Provides the game grid
-    *
-    * ResetRemainingGuesses
-    *                  Returns void
-    * Resets remaining guesses to initial value
-    *
-=======
     *                  Returns string
     *                  Provides the game grid
     *                  
-    *              ResetRemainingGuesses
-    *                  Returns void
-    *                  Resets remaining guesses to initial value
     *                  
->>>>>>> c5bf1e2 (init branch)
     * Author:      Jered Stevens
     *********************************************************************/
 
@@ -176,17 +119,12 @@ namespace PlayAnalyzerGame
         private int columns;
         public char[,] grid;
         public Random rand;
-<<<<<<< HEAD
-        public List<Sample> samples;
-        private int guessCounter;
-        private int numOfSamplesFound;
-        private int sampleNum;
-        bool endOfGame;
-=======
->>>>>>> c5bf1e2 (init branch)
 
-        private int remainingGuesses;
-        public List<Sample> samplesArr;
+        public List<Sample> samples;
+        private int guessCounter; 
+        private int numOfSamplesFound;
+        private int sampleNum; 
+        bool endOfGame;
 
         public int Rows
         {
@@ -198,80 +136,45 @@ namespace PlayAnalyzerGame
             get => columns;
             set => columns = value;
         }
-        public int RemainingGuesses
+        public int GuessCounter
         {
-            get => remainingGuesses;
-            set
-            {
-                remainingGuesses = value;
-            }
+            get => guessCounter;
+            set => guessCounter = value;
         }
-
-
-
-        public Analyzer()
+        public bool EndOfGame
         {
-<<<<<<< HEAD
             get => endOfGame;
             set => endOfGame = value;
         }
-        public Random Rand
-        public int RemainingGuesses
+        public int NumOfSamplesFound
         {
-            get => rand;
-            set => rand = value;
+            get => numOfSamplesFound;
+            set => numOfSamplesFound = value;
         }
-        //public Analyzer(int rows, int columns, int sampleNum)
-        public Analyzer(int rows, int columns)
-=======
-            samplesArr = new List<Sample>();
+        public int SampleNum
+        {
+            get => sampleNum;
+            set => sampleNum = value;
+        }
+        
+        
+
+        public Analyzer(int rows, int columns, int numSamples)
+        {
+            Rows = rows;
+            Columns = columns;
+            GuessCounter = 0;
+            EndOfGame = false;
+            NumOfSamplesFound = 0;
+            SampleNum = numSamples;
+            grid = new char[rows, columns];
+            samples = new List<Sample>();
             rand = new Random();
-            GenerateSamples();
-            ResetRemainingGuesses();
+
+            GenerateSamples(SampleNum);
         } // Analyzer
 
 
-
-
-        // Method to generate two samples with random coordinates
-        public void GenerateSamples()
-        {
-            for (int i = 0; i < 2; i++)
-            {
-                // Create a new Sample and add it to samplesArr
-                samplesArr.Add(new Sample());
-            }
-
-            // Generate samples to go in sample list
-            for (int i = 0; i < 2; i++)
-            {
-                bool isDuplicate;
-
-                do
-                {
-                    // Generate random coordinates for sample
-                    samplesArr[i].X = rand.Next(0, Columns);
-                    samplesArr[i].Y = rand.Next(0, Rows);
-
-                    isDuplicate = false;
-
-                    // Compare all previous samples
-                    for (int j = 0; j < i; j++)
-                    {
-                        if (samplesArr[i].X == samplesArr[j].X && samplesArr[i].Y == samplesArr[j].Y)
-                        {
-                            isDuplicate = true;  // A duplicate was found
-                            break;  // Exit the inner loop and get new coordinates
-                        }
-                    }
-
-                } while (isDuplicate);  // Repeat until unique coordinates are found
-            }
-        } //generateSamples()
-
-
-
->>>>>>> c5bf1e2 (init branch)
 
         // Method to generate two samples with random coordinates
         public void GenerateSamples(int numSamples)
@@ -279,29 +182,9 @@ namespace PlayAnalyzerGame
             for (int i = 0; i < numSamples; i++)
             {
                 // Create a new Sample and add it to samplesArr
-                samplesArr.Add(new Sample());
+                samples.Add(new Sample());
             }
 
-<<<<<<< HEAD
-            //Sampple[] sample = new Sample(sampleNum);
-        }
-        get => remainingGuesses;
-            set
-            {
-                remainingGuesses = value;
-            }
-}
-
-
-
-public Analyzer()
-{
-    samplesArr = new List<Sample>();
-    rand = new Random();
-    GenerateSamples();
-    ResetRemainingGuesses();
-} // Analyzer
-=======
             // Generate samples to go in sample list
             for (int i = 0; i < numSamples; i++)
             {
@@ -310,15 +193,15 @@ public Analyzer()
                 do
                 {
                     // Generate random coordinates for sample
-                    samplesArr[i].X = rand.Next(0, Columns);
-                    samplesArr[i].Y = rand.Next(0, Rows);
+                    samples[i].X = rand.Next(0, Columns);
+                    samples[i].Y = rand.Next(0, Rows);
 
                     isDuplicate = false;
 
                     // Compare all previous samples
                     for (int j = 0; j < i; j++)
                     {
-                        if (samplesArr[i].X == samplesArr[j].X && samplesArr[i].Y == samplesArr[j].Y)
+                        if (samples[i].X == samples[j].X && samples[i].Y == samples[j].Y)
                         {
                             isDuplicate = true;  // A duplicate was found
                             break;  // Exit the inner loop and get new coordinates
@@ -330,169 +213,40 @@ public Analyzer()
         } //generateSamples(int)
 
 
->>>>>>> c5bf1e2 (init branch)
 
 
-
-
-// Method to generate two samples with random coordinates
-public void GenerateSamples()
-{
-    for (int i = 0; i < 2; i++)
-    {
-        // Create a new Sample and add it to samplesArr
-        samplesArr.Add(new Sample());
-    }
-
-    // Generate samples to go in sample list
-    for (int i = 0; i < 2; i++)
-    {
-        bool isDuplicate;
-
-        do
+        // Can be overriden should the child class
+        // need to display things differently
+        public override string ToString()
         {
-            // Generate random coordinates for sample
-            samplesArr[i].X = rand.Next(0, Columns);
-            samplesArr[i].Y = rand.Next(0, Rows);
+            // initialize a string to put grid in
+            string StringGrid = string.Empty;
 
-            isDuplicate = false;
+            // Blank space for alignment with columns
+            StringGrid += "  ";
 
-            // Compare all previous samples
-            for (int j = 0; j < i; j++)
+            // Print numbers along top of grid
+            for (int i = 0; i < columns; i++)
             {
-                if (samplesArr[i].X == samplesArr[j].X && samplesArr[i].Y == samplesArr[j].Y)
+                StringGrid += i;
+            }
+            StringGrid += "\n";
+
+            // Print row numbers, followed by contents
+            //  of the grid
+            for (int i = 0; i < rows; i++)
+            {
+                StringGrid += i + " ";
+                for (int j = 0; j < columns; j++)
                 {
-                    isDuplicate = true;  // A duplicate was found
-                    break;  // Exit the inner loop and get new coordinates
+                    StringGrid += grid[i, j];
                 }
+                StringGrid += "\n";
             }
 
-        } while (isDuplicate);  // Repeat until unique coordinates are found
-    }
-} //generateSamples()
+            return StringGrid;
+        } // ToString
 
-
-
-
-<<<<<<< HEAD
-// Method to generate two samples with random coordinates
-public void GenerateSamples(int numSamples)
-{
-    for (int i = 0; i < numSamples; i++)
-    {
-        // Create a new Sample and add it to samplesArr
-        samplesArr.Add(new Sample());
-    }
-
-    // Generate samples to go in sample list
-    for (int i = 0; i < numSamples; i++)
-    {
-        bool isDuplicate;
-
-        do
-        {
-            // Generate random coordinates for sample
-            samplesArr[i].X = rand.Next(0, Columns);
-            samplesArr[i].Y = rand.Next(0, Rows);
-
-            isDuplicate = false;
-
-            // Compare all previous samples
-            for (int j = 0; j < i; j++)
-            {
-                if (samplesArr[i].X == samplesArr[j].X && samplesArr[i].Y == samplesArr[j].Y)
-                {
-                    isDuplicate = true;  // A duplicate was found
-                    break;  // Exit the inner loop and get new coordinates
-                }
-            }
-
-        } while (isDuplicate);  // Repeat until unique coordinates are found
-    }
-} //generateSamples(int)
-
-
-
-
-// Can be overriden should the child class
-// need to display things differently
-public override string ToString()
-{
-    // initialize a string to put grid in
-    string StringGrid = string.Empty;
-
-    // Blank space for alignment with columns
-    StringGrid += "  ";
-
-    // Print numbers along top of grid
-    for (int i = 0; i < columns; i++)
-    {
-        StringGrid += i;
-    }
-    StringGrid += "\n";
-
-    // Print row numbers, followed by contents
-    //  of the grid
-    for (int i = 0; i < rows; i++)
-    {
-        StringGrid += i + " ";
-        for (int j = 0; j < columns; j++)
-        {
-            StringGrid += grid[i, j];
-        }
-        StringGrid += "\n";
-    }
-
-    return StringGrid;
-} // ToString
-
-
-
-
-
-// Resets Remaining guesses 
-public virtual void ResetRemainingGuesses()
-{
-    RemainingGuesses = 25;
-} // ResetRemainingGuesses()
-
-
-
-public Sample FindNearestUnfoundSample(int row, int col)
-{
-    Sample nearestSample = null;
-    int minDistance = int.MaxValue;
-
-    foreach (Sample sample in samplesArr)
-    {
-        if (!sample.Found)
-        {
-            // Calculate Manhattan distance between guess and sample
-            int distance = Math.Abs(sample.X - row) + Math.Abs(sample.Y - col);
-
-            if (distance < minDistance)
-            {
-                minDistance = distance;
-                nearestSample = sample;
-            }
-        }
-    }
-
-    return nearestSample;
-}
-
-
-// All the derived classes must implement this and handle it
-// in their specific ways
-public abstract bool EvaluateGuess(int col, int row, int guessCounter);
-
-=======
-
-        // Resets Remaining guesses 
-        public virtual void ResetRemainingGuesses()
-        {
-            RemainingGuesses = 25;
-        } // ResetRemainingGuesses()
 
 
 
@@ -501,7 +255,7 @@ public abstract bool EvaluateGuess(int col, int row, int guessCounter);
             Sample nearestSample = null;
             int minDistance = int.MaxValue;
 
-            foreach (Sample sample in samplesArr)
+            foreach (Sample sample in samples)
             {
                 if (!sample.Found)
                 {
@@ -522,45 +276,15 @@ public abstract bool EvaluateGuess(int col, int row, int guessCounter);
 
         // All the derived classes must implement this and handle it
         // in their specific ways
-        public abstract bool EvaluateGuess(int col, int row, int guessCounter);
-    
-    } // Analyzer
->>>>>>> c5bf1e2 (init branch)
-
-
-<<<<<<< HEAD
-    /*******************************************************************
-    * Class:           HairAnalyzer
-    * 
-    * Description: First game mode analyzer. Inherits from the Analyzer
-    *                   class. Has a default constructor that sets rows
-    *                   and columns to 10.
-    *                   
-    * Author:       Jered Stevens
-    *                   
-    *********************************************************************/
+        public abstract bool EvaluateGuess(int col, int row);
     
     } // Analyzer
 
 
-=======
->>>>>>> c5bf1e2 (init branch)
 
     public class HairAnalyzer : Analyzer
-{
-    public HairAnalyzer() : base(10, 10)
     {
-<<<<<<< HEAD
-        grid = new char[Rows, Columns];
-
-        // populate grid with ~
-        for (int i = 0; i < Rows; i++)
-        {
-            for (int j = 0; j < Columns; j++)
-            {
-                grid[i, j] = '~';
-=======
-        public HairAnalyzer()
+        public HairAnalyzer(int rows, int columns, int sampleNum) : base(rows, columns, sampleNum)
         {
             // New random number generator
             rand = new Random();
@@ -578,36 +302,11 @@ public abstract bool EvaluateGuess(int col, int row, int guessCounter);
                 {
                     grid[i, j] = '~';
                 }
->>>>>>> c5bf1e2 (init branch)
             }
-        }
 
-    } // HairAnalyzer()
+        } // HairAnalyzer()
 
 
-<<<<<<< HEAD
-    /*********************************************************
-    * Function:        EvaluateGuess
-    * Returns:         bool
-    * Params:          int col, int row, int guessCounter
-    * 
-    * Decription:      Takes in 2 ints from user and compares them to the
-    *                      grid in order to determine if the guess was 
-    *                      correct or not. If the guess is incorrect,
-    *                      the third int is used to determin if the next
-    *                      hint is a vertical or horizontal hint.
-    *                  If the guess is correct, it returns true, and marks
-    *                      the corresponding sample to be found.
-    *                  If the guess is incorrect, it updates the grid to 
-    *                      show the correct hint and returns false.
-    *                      
-    * Author:          Jered Stevens
-    **********************************************************/
-
-    public override bool EvaluateGuess(int row, int col, int guessCounter)
-    {
-        bool foundMatch = false;  // Flag to check if any sample is found
-=======
         /*********************************************************
         * Function:        EvaluateGuess
         * Returns:         bool
@@ -625,92 +324,32 @@ public abstract bool EvaluateGuess(int col, int row, int guessCounter);
         *                      
         * Author:          Jered Stevens
         **********************************************************/
->>>>>>> c5bf1e2 (init branch)
 
-        // Iterate over all samples in the list
-        for (int i = 0; i < samplesArr.Count; i++)
+        public override bool EvaluateGuess(int row, int col)
         {
-<<<<<<< HEAD
-            // Check if the guess matches the current sample's coordinates
-            if (samplesArr[i].X == row && samplesArr[i].Y == col)
-            {
-                // Update the grid to mark the correct guess
-                grid[row, col] = 'H';
-
-                // Mark the sample as found
-                samplesArr[i].Found = true;
-                foundMatch = true;
-                break;  // No need to continue checking if a match is found
-=======
+            GuessCounter++;
             bool foundMatch = false;  // Flag to check if any sample is found
 
             // Iterate over all samples in the list
-            for (int i = 0; i < samplesArr.Count; i++)
+            for (int i = 0; i < samples.Count; i++)
             {
                 // Check if the guess matches the current sample's coordinates
-                if (samplesArr[i].X == row && samplesArr[i].Y == col)
+                if (samples[i].X == row && samples[i].Y == col)
                 {
                     // Update the grid to mark the correct guess
                     grid[row, col] = 'H';
 
                     // Mark the sample as found
-                    samplesArr[i].Found = true;
+                    samples[i].Found = true;
                     foundMatch = true;
                     break;  // No need to continue checking if a match is found
                 }
->>>>>>> c5bf1e2 (init branch)
             }
-        }
 
-<<<<<<< HEAD
-        // If no match was found, provide a hint
-        if (!foundMatch)
-        {
-            bool isHorizontalHint = guessCounter % 2 == 0;
-
-            // Provide hints based on the closest sample that hasn't been found yet
-            Sample nearestSample = FindNearestUnfoundSample(row, col);
-
-            if (isHorizontalHint && nearestSample.Y == col)
-            {
-                // If the nearest sample is directly above or below the guess
-                grid[row, col] = '|';
-            }
-            else if (isHorizontalHint)
-            {
-                // Provide left or right hint
-                grid[row, col] = (nearestSample.Y > col) ? '>' : '<';
-            }
-            else if (!isHorizontalHint && nearestSample.X == row)
-            {
-                // If the nearest sample is on the same row
-                grid[row, col] = '-';
-            }
-            else
-            {
-                // Provide up or down hint
-                grid[row, col] = (nearestSample.X > row) ? 'V' : '^';
-            }
-        }
-        return false;
-    } // EvaluateGuess
-
-
-
-}
-
-return foundMatch;
-        }
-
-
-
-    } // HairAnalyzer
-
-=======
             // If no match was found, provide a hint
             if (!foundMatch)
             {
-                bool isHorizontalHint = guessCounter % 2 == 0;
+                bool isHorizontalHint = GuessCounter % 2 == 0;
 
                 // Provide hints based on the closest sample that hasn't been found yet
                 Sample nearestSample = FindNearestUnfoundSample(row, col);
@@ -737,6 +376,17 @@ return foundMatch;
                 }
             }
 
+            bool flag = true;
+
+            foreach (Sample sample in samples)
+            {
+                if (!sample.Found){
+                    flag = false;
+                }
+            }
+
+            EndOfGame = flag;
+
             return foundMatch;
         }
 
@@ -744,7 +394,6 @@ return foundMatch;
 
     } // HairAnalyzer
 
->>>>>>> c5bf1e2 (init branch)
 
 
 
@@ -762,255 +411,55 @@ return foundMatch;
    *                   
    *********************************************************************/
     public class DNAAnalyzer : HairAnalyzer
-{
-    public DNAAnalyzer()
     {
-        // New random number generator
-        rand = new Random();
+        int remainingGuesses;
 
-        // Set grid dimensions to 10x10
-        this.Rows = 10;
-        this.Columns = 10;
-
-        grid = new char[Rows, Columns];
-
-
-        // populate grid with ~
-        for (int i = 0; i < Rows; i++)
+        int RemainingGuesses
         {
-<<<<<<< HEAD
-            for (int j = 0; j < Columns; j++)
-            {
-                grid[i, j] = '.';
-=======
-            // New random number generator
-            rand = new Random();
+            get => remainingGuesses;
+            set => remainingGuesses = value;
+        }
 
-            // Set grid dimensions to 10x10
-            this.Rows = 10;
-            this.Columns = 10;
+        public DNAAnalyzer(int rows, int columns, int sampleNum) : base(rows, columns, sampleNum)
+        {
+            RemainingGuesses = 10;
 
-            grid = new char[Rows, Columns];
-
-
-            // populate grid with ~
+            // populate grid with .
             for (int i = 0; i < Rows; i++)
             {
                 for (int j = 0; j < Columns; j++)
                 {
                     grid[i, j] = '.';
                 }
->>>>>>> c5bf1e2 (init branch)
             }
-        }
-
-    } // DNAAnalyzer
+        } // DNAAnalyzer
 
 
-    public override bool EvaluateGuess(int row, int col, int guessCounter)
-    {
-        bool foundMatch = false;  // Flag to check if any sample is found
-
-        // Iterate over all samples in the list
-        for (int i = 0; i < samplesArr.Count; i++)
+        public override bool EvaluateGuess(int row, int col)
         {
-<<<<<<< HEAD
-            // Check if the guess matches the current sample's coordinates
-            if (samplesArr[i].X == row && samplesArr[i].Y == col)
-            {
-                // Update the grid to mark the correct guess
-                grid[row, col] = 'X';
-
-                // Mark the sample as found
-                samplesArr[i].Found = true;
-                foundMatch = true;
-                break;  // No need to continue checking if a match is found
-=======
+            GuessCounter++;
             bool foundMatch = false;  // Flag to check if any sample is found
 
             // Iterate over all samples in the list
-            for (int i = 0; i < samplesArr.Count; i++)
+            for (int i = 0; i < samples.Count; i++)
             {
                 // Check if the guess matches the current sample's coordinates
-                if (samplesArr[i].X == row && samplesArr[i].Y == col)
+                if (samples[i].X == row && samples[i].Y == col)
                 {
                     // Update the grid to mark the correct guess
                     grid[row, col] = 'X';
 
                     // Mark the sample as found
-                    samplesArr[i].Found = true;
+                    samples[i].Found = true;
                     foundMatch = true;
                     break;  // No need to continue checking if a match is found
                 }
->>>>>>> c5bf1e2 (init branch)
-            }
-        }
-
-<<<<<<< HEAD
-        // If no match was found, provide a hint
-        if (!foundMatch)
-        {
-            bool isHorizontalHint = guessCounter % 2 == 0;
-
-            // Provide hints based on the closest sample that hasn't been found yet
-            Sample nearestSample = FindNearestUnfoundSample(row, col);
-
-            if (isHorizontalHint && nearestSample.Y == col)
-            {
-                // If the nearest sample is directly above or below the guess
-                grid[row, col] = '|';
-            }
-            else if (isHorizontalHint)
-            {
-                // Provide left or right hint
-                grid[row, col] = (nearestSample.Y > col) ? '>' : '<';
-            }
-            else if (!isHorizontalHint && nearestSample.X == row)
-            {
-                // If the nearest sample is on the same row
-                grid[row, col] = '-';
-            }
-            else
-            {
-                // Provide up or down hint
-                grid[row, col] = (nearestSample.X > row) ? 'V' : '^';
-            }
-        }
-        return false;
-
-    } // EvaluateGuess
-
-            return foundMatch;
-        }
-
-
-        /******************************************************************
-         * Function:        ResetRemainingGuesses
-         * 
-         * Description:     Resets remaining guesses to 10 instead of 25
-         *                      because this game mode is the 'Hard mode'
-         *                      of the game.
-         *       
-         * Author:  Jered Stevens
-         *******************************************************************/
-
-        public override void ResetRemainingGuesses()
-    {
-        RemainingGuesses = 10;
-    } // ResetRemainingGuesses
-
-    } // DNAAnalyzer
-
-
-    // Commented this out bc it wouldn't compile
-
-    public class PrintAnalyzer : Analyzer
-{
-    int numOfFingerprints;
-    int[,] fingerprints;
-    bool[] foundFingerprints;
-
-    PrintAnalyzer(int rows, int columns) : base(rows, columns)
-    {
-        // Make a grid the size of rows and columns
-        grid = new char[rows, columns];
-
-        numOfFingerprints = rand.Next(0, columns * rows);
-
-        fingerprints = new int[numOfFingerprints, 2];
-
-        int pos = 0;
-
-        // Continues to create an unique x && y pair
-        // for fingerprints until the array is filled.
-        do
-        {
-            int x = new Random().Next(0, rows);
-            int y = new Random().Next(0, columns);
-
-            if (pos == 0)
-            {
-                fingerprints[0, 0] = x;
-                fingerprints[0, 1] = y;
-            }
-            else
-            {
-                bool match = false;
-
-                // Loops through existing fingerprints
-                // to verify x && y is not already within
-                // the array
-                for (int j = 0; j < pos; j++)
-                {
-                    if (x == fingerprints[j, 0] && y == fingerprints[j, 1])
-                        match = true;
-                }
-                if (!match)
-                {
-                    fingerprints[pos, 0] = x;
-                    fingerprints[pos, 1] = y;
-
-                    pos++;
-                }
             }
 
-        } while (pos < numOfFingerprints);
-
-        // populate grid with ~
-        for (int r = 0; r < rows; r++)
-        {
-            for (int c = 0; c < columns; c++)
-            {
-                grid[r, c] = '~';
-            }
-        }
-
-        foundFingerprints = new bool[numOfFingerprints];
-
-        EndOfGame = false;
-        GuessCounter = 0;
-    }
-
-    //Check if guess is correct
-    public override bool EvaluateGuess(int col, int row, int guessCounter)
-    {
-        // If guess counter is even, then its a horizontal hint
-        bool isHorizontalHint = guessCounter % 2 == 0;
-
-        bool exactMatch = false;
-        int matchPos = -1;
-
-        int i = 0;
-
-        int numFoundFingerprints = 0;
-        // Loops through fingerprints and finds if there is an exact
-        // match. Ignores previously found fingerprints
-        do
-        {
-            if (foundFingerprints[i] == false)
-            {
-                if (fingerprints[i, 0] == row && fingerprints[i, 1] == col)
-                {
-                    exactMatch = true;
-                    matchPos = i;
-                    foundFingerprints[i] = true;
-                    grid[row, col] = '@';
-                    if (numFoundFingerprints == numOfFingerprints)
-                    {
-                        endOfGame = true;
-                    }
-                }
-            }
-            else
-            {
-                numFoundFingerprints++;
-            }
-            i++;
-=======
             // If no match was found, provide a hint
             if (!foundMatch)
             {
-                bool isHorizontalHint = guessCounter % 2 == 0;
+                bool isHorizontalHint = GuessCounter % 2 == 0;
 
                 // Provide hints based on the closest sample that hasn't been found yet
                 Sample nearestSample = FindNearestUnfoundSample(row, col);
@@ -1037,88 +486,186 @@ return foundMatch;
                 }
             }
 
+            bool flag = true;
+
+            foreach (Sample sample in samples)
+            {
+                if (!sample.Found){
+                    flag = false;
+                }
+            }
+
+            EndOfGame = flag;
+
             return foundMatch;
         }
 
 
-        /******************************************************************
-         * Function:        ResetRemainingGuesses
-         * 
-         * Description:     Resets remaining guesses to 10 instead of 25
-         *                      because this game mode is the 'Hard mode'
-         *                      of the game.
-         *       
-         * Author:  Jered Stevens
-         *******************************************************************/
-
-        public override void ResetRemainingGuesses()
-        {
-            RemainingGuesses = 10;
-        } // ResetRemainingGuesses
-
     } // DNAAnalyzer
-}
 
 
-            return position;
->>>>>>> c5bf1e2 (init branch)
-        }
-        while (i < numOfFingerprints && !exactMatch);
 
-
-        // If first sample isnt found yet
-        if (!exactMatch)
-        {
-            // Grabs the i index of the closest index
-            int closetFingerprintPs = findClosestFingerprint(row, col);
-            int closestX = fingerprints[closetFingerprintPs, 0];
-            int closestY = fingerprints[closetFingerprintPs, 1];
-
-            // If sample is directly above or below guess
-            if (isHorizontalHint)
-            {
-                grid[row, col] = col == closestY ? '|' :
-                    closestY > col ? '>' : '<';
-            }
-            else
-            {
-                grid[row, col] = row == closestX ? '|' :
-                    closestX > row ? 'V' : '^';
-            }
-        }
-
-        guessCounter++;
-
-        return false;
-    } // EvaluateGuess
-
-    // Dynamically finds closest fingerprints
-    int findClosestFingerprint(int row, int col)
+    public class PrintAnalyzer : Analyzer
     {
-        int position = 0;
+        int numOfFingerprints;
+        int[,] fingerprints;
+        bool[] foundFingerprints;
+        
 
-        int minimum = Math.Abs(fingerprints[0, 0] * fingerprints[0, 1] - row * col);
-
-        for (int i = 0; i < numOfFingerprints; i++)
+        public PrintAnalyzer(int rows, int columns, int sampleNum) : base(rows, columns, sampleNum)
         {
-            if (!foundFingerprints[i])
+            numOfFingerprints = rand.Next(0, columns * rows);
+
+            fingerprints = new int[numOfFingerprints, 2];
+
+            int pos = 0;
+
+            // Continues to create an unique x && y pair
+            // for fingerprints until the array is filled.
+            do
             {
-                if ((int)Math.Abs(fingerprints[i, 0] * fingerprints[i, 1] - row * col) < minimum)
+                int x = new Random().Next(0, rows);
+                int y = new Random().Next(0, columns);
+
+                if (pos == 0)
                 {
-                    position = i;
-                    minimum = (int)Math.Abs(fingerprints[i, 0] * fingerprints[i, 1] - row * col);
+                    fingerprints[0, 0] = x;
+                    fingerprints[0, 1] = y;
+                }
+                else
+                {
+                    bool match = false;
+
+                    // Loops through existing fingerprints
+                    // to verify x && y is not already within
+                    // the array
+                    for (int j = 0; j < pos; j++)
+                    {
+                        if (x == fingerprints[j, 0] && y == fingerprints[j, 1])
+                            match = true;
+                    }
+                    if (!match)
+                    {
+                        fingerprints[pos, 0] = x;
+                        fingerprints[pos, 1] = y;
+
+                        pos++;
+                    }
                 }
 
+            } while (pos < numOfFingerprints);
+
+            // populate grid with ~
+            for (int r = 0; r < rows; r++)
+            {
+                for (int c = 0; c < columns; c++)
+                {
+                    grid[r, c] = '~';
+                }
             }
+
+            foundFingerprints = new bool[numOfFingerprints];
+
+            EndOfGame = false;
+            GuessCounter = 0;
         }
 
-        return position;
-    }
-<<<<<<< HEAD
-}
-}
-}
+        //Check if guess is correct
+        public override bool EvaluateGuess(int col, int row)
+        {
+            GuessCounter++;
+            // If guess counter is even, then its a horizontal hint
+            bool isHorizontalHint = GuessCounter % 2 == 0;
 
-=======
+            bool exactMatch = false;
+            int matchPos = -1;
+
+            int i = 0;
+
+            int numFoundFingerprints = 0;
+            // Loops through fingerprints and finds if there is an exact
+            // match. Ignores previously found fingerprints
+            do
+            {
+                if (foundFingerprints[i] == false)
+                {
+                    if (fingerprints[i, 0] == row && fingerprints[i, 1] == col)
+                    {
+                        exactMatch = true;
+                        matchPos = i;
+                        foundFingerprints[i] = true;
+                        grid[row, col] = '@';
+                        if (numFoundFingerprints == numOfFingerprints)
+                        {
+                            EndOfGame = true;
+                        }
+                    }
+                }
+                else
+                {
+                    numFoundFingerprints++;
+                }
+                i++;
+            }
+            while (i < numOfFingerprints && !exactMatch);
+
+
+            // If first sample isnt found yet
+            if (!exactMatch)
+            {
+                // Grabs the i index of the closest index
+                int closetFingerprintPs = findClosestFingerprint(row, col);
+                int closestX = fingerprints[closetFingerprintPs, 0];
+                int closestY = fingerprints[closetFingerprintPs, 1];
+
+                // If sample is directly above or below guess
+                if (isHorizontalHint)
+                {
+                    grid[row, col] = col == closestY ? '|' :
+                        closestY > col ? '>' : '<';
+                }
+                else
+                {
+                    grid[row, col] = row == closestX ? '|' :
+                        closestX > row ? 'V' : '^';
+                }
+            }
+
+            bool flag = true;
+
+            foreach (Sample sample in samples)
+            {
+                if (!sample.Found){
+                    flag = false;
+                }
+            }
+
+            EndOfGame = flag;
+
+            return exactMatch;
+        } // EvaluateGuess
+
+        // Dynamically finds closest fingerprints
+        int findClosestFingerprint(int row, int col)
+        {
+            int position = 0;
+
+            int minimum = Math.Abs(fingerprints[0, 0] * fingerprints[0, 1] - row * col);
+
+            for (int i = 0; i < numOfFingerprints; i++)
+            {
+                if (!foundFingerprints[i])
+                {
+                    if ((int)Math.Abs(fingerprints[i, 0] * fingerprints[i, 1] - row * col) < minimum)
+                    {
+                        position = i;
+                        minimum = (int)Math.Abs(fingerprints[i, 0] * fingerprints[i, 1] - row * col);
+                    }
+
+                }
+            }
+
+            return position;
+        }
+    }
 }
->>>>>>> c5bf1e2 (init branch)
