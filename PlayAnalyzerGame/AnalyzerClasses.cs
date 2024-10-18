@@ -512,7 +512,7 @@ namespace PlayAnalyzerGame
         bool[] foundFingerprints;
         
 
-        public PrintAnalyzer(int rows, int columns, int sampleNum) : base(rows, columns, sampleNum)
+        PrintAnalyzer(int rows, int columns, int sampleNum) : base(rows, columns, sampleNum)
         {
             numOfFingerprints = rand.Next(0, columns * rows);
 
