@@ -98,6 +98,12 @@ namespace PlayAnalyzerGame
          * Author:  Jered Stevens
          ***************************************************/
 
+        //////////////////////////////////////////////////////////////////////////////////////////////
+        // 
+        // Hard Coded Values into analyzers so that it compiles
+        //
+        //////////////////////////////////////////////////////////////////////////////////////////////
+       
         private void NewGameSubmitButton_Click(object sender, EventArgs e)
         {
 
@@ -106,15 +112,15 @@ namespace PlayAnalyzerGame
             // Get input from radio buttons for switch
             if (HairRadio.Checked)
             {
-                analyzer = new HairAnalyzer();
+                analyzer = new HairAnalyzer(10,10,2);
             }
             else if (PrintRadio.Checked)
             {
-                analyzer = new PrintAnalyzer();
+                analyzer = new PrintAnalyzer(10,10,2);
             }
             else
             {
-                analyzer = new DNAAnalyzer();
+                analyzer = new DNAAnalyzer(10,10,2);
                 
             }
 
