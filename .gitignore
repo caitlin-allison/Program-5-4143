@@ -1,2 +1,6 @@
 # Ignore folder vs for commits
 .vs/
+
+# Removes bin and obj folder for ease of commits
+bin/
+obj/
