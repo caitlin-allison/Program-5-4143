@@ -24,6 +24,7 @@ namespace PlayAnalyzerGame
         private bool isGameOver;
         private Analyzer analyzer;
         private int samplesFound;
+        private int analyzerType;
 
         public int GuessCounter
         {
@@ -80,7 +81,7 @@ namespace PlayAnalyzerGame
         public AnalyzerGameForm()
         {
             analyzer = null;
-            analyzerType = "";
+            analyzerType = -1;
 
             InitializeComponent();
             ResetGame();
