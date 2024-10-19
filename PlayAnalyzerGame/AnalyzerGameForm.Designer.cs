@@ -32,178 +32,104 @@ namespace PlayAnalyzerGame
         /// </summary>
         private void InitializeComponent()
         {
-            HairRadio = new RadioButton();
-            NewGameGroupBox = new GroupBox();
-            GameModeImage = new PictureBox();
-            NewGameSubmitButton = new Button();
-            NewGameInstructionLabel = new Label();
-            PrintRadio = new RadioButton();
-            DNARadio = new RadioButton();
             SubmitGuessButton = new Button();
-            ColumnInputTextBox = new TextBox();
+            ColInputTextBox = new TextBox();
             RowInputTextBox = new TextBox();
-            ColumnInputLabel = new Label();
+            ColInputLabel = new Label();
             RowInputLabel = new Label();
-            backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             GuessCounterLabel = new Label();
             RemainingGuessesLabel = new Label();
             QuitButton = new Button();
             GuessCounterDisplayLabel = new Label();
             RemainingGuessesDisplayLabel = new Label();
             GuessEntryGroupBox = new GroupBox();
+            PlayAgainButton = new Button();
             GridDisplayBox = new RichTextBox();
-            Sample1AnswerLabel = new Label();
-            Sample2AnswerLabel = new Label();
-            InfoLabel = new Label();
             SamplesFoundLabel = new Label();
             SamplesFoundDisplayLabel = new Label();
-            NewGameGroupBox.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)GameModeImage).BeginInit();
+            ResultsBox = new GroupBox();
+            label2 = new Label();
+            groupBox1 = new GroupBox();
             GuessEntryGroupBox.SuspendLayout();
+            ResultsBox.SuspendLayout();
+            groupBox1.SuspendLayout();
             SuspendLayout();
-            // 
-            // HairRadio
-            // 
-            HairRadio.AutoSize = true;
-            HairRadio.Checked = true;
-            HairRadio.Location = new Point(21, 52);
-            HairRadio.Name = "HairRadio";
-            HairRadio.Size = new Size(89, 19);
-            HairRadio.TabIndex = 0;
-            HairRadio.TabStop = true;
-            HairRadio.Text = "Hair Sample";
-            HairRadio.UseVisualStyleBackColor = true;
-            // 
-            // NewGameGroupBox
-            // 
-            NewGameGroupBox.Controls.Add(GameModeImage);
-            NewGameGroupBox.Controls.Add(NewGameSubmitButton);
-            NewGameGroupBox.Controls.Add(NewGameInstructionLabel);
-            NewGameGroupBox.Controls.Add(PrintRadio);
-            NewGameGroupBox.Controls.Add(HairRadio);
-            NewGameGroupBox.Controls.Add(DNARadio);
-            NewGameGroupBox.Location = new Point(27, 12);
-            NewGameGroupBox.Name = "NewGameGroupBox";
-            NewGameGroupBox.Size = new Size(275, 189);
-            NewGameGroupBox.TabIndex = 1;
-            NewGameGroupBox.TabStop = false;
-            NewGameGroupBox.Text = "New Game Setup";
-            // 
-            // GameModeImage
-            // 
-            GameModeImage.Location = new Point(179, 46);
-            GameModeImage.MaximumSize = new Size(75, 75);
-            GameModeImage.MinimumSize = new Size(75, 75);
-            GameModeImage.Name = "GameModeImage";
-            GameModeImage.Size = new Size(75, 75);
-            GameModeImage.TabIndex = 5;
-            GameModeImage.TabStop = false;
-            // 
-            // NewGameSubmitButton
-            // 
-            NewGameSubmitButton.Location = new Point(93, 160);
-            NewGameSubmitButton.Name = "NewGameSubmitButton";
-            NewGameSubmitButton.Size = new Size(75, 23);
-            NewGameSubmitButton.TabIndex = 4;
-            NewGameSubmitButton.Text = "Submit";
-            NewGameSubmitButton.UseVisualStyleBackColor = true;
-            NewGameSubmitButton.Click += NewGameSubmitButton_Click;
-            // 
-            // NewGameInstructionLabel
-            // 
-            NewGameInstructionLabel.AutoSize = true;
-            NewGameInstructionLabel.Location = new Point(6, 19);
-            NewGameInstructionLabel.MaximumSize = new Size(200, 0);
-            NewGameInstructionLabel.Name = "NewGameInstructionLabel";
-            NewGameInstructionLabel.Size = new Size(192, 15);
-            NewGameInstructionLabel.TabIndex = 3;
-            NewGameInstructionLabel.Text = "Choose type of evidence to collect.";
-            // 
-            // PrintRadio
-            // 
-            PrintRadio.AutoSize = true;
-            PrintRadio.Location = new Point(21, 77);
-            PrintRadio.Name = "PrintRadio";
-            PrintRadio.Size = new Size(92, 19);
-            PrintRadio.TabIndex = 1;
-            PrintRadio.Text = "Print Sample";
-            PrintRadio.UseVisualStyleBackColor = true;
-            // 
-            // DNARadio
-            // 
-            DNARadio.AutoSize = true;
-            DNARadio.Location = new Point(21, 102);
-            DNARadio.Name = "DNARadio";
-            DNARadio.Size = new Size(121, 19);
-            DNARadio.TabIndex = 2;
-            DNARadio.Text = "DNA - Hard Mode";
-            DNARadio.UseVisualStyleBackColor = true;
             // 
             // SubmitGuessButton
             // 
-            SubmitGuessButton.Location = new Point(23, 146);
+            SubmitGuessButton.Location = new Point(8, 204);
+            SubmitGuessButton.Margin = new Padding(4);
             SubmitGuessButton.Name = "SubmitGuessButton";
-            SubmitGuessButton.Size = new Size(75, 23);
+            SubmitGuessButton.Size = new Size(118, 32);
             SubmitGuessButton.TabIndex = 8;
             SubmitGuessButton.Text = "Submit";
             SubmitGuessButton.UseVisualStyleBackColor = true;
             SubmitGuessButton.Click += SubmitGuessButton_Click;
             // 
-            // ColumnInputTextBox
+            // ColInputTextBox
             // 
-            ColumnInputTextBox.Location = new Point(23, 110);
-            ColumnInputTextBox.Name = "ColumnInputTextBox";
-            ColumnInputTextBox.Size = new Size(100, 23);
-            ColumnInputTextBox.TabIndex = 7;
+            ColInputTextBox.Location = new Point(36, 154);
+            ColInputTextBox.Margin = new Padding(4);
+            ColInputTextBox.Name = "ColInputTextBox";
+            ColInputTextBox.Size = new Size(188, 26);
+            ColInputTextBox.TabIndex = 7;
             // 
             // RowInputTextBox
             // 
-            RowInputTextBox.Location = new Point(23, 59);
+            RowInputTextBox.Location = new Point(36, 82);
+            RowInputTextBox.Margin = new Padding(4);
             RowInputTextBox.Name = "RowInputTextBox";
-            RowInputTextBox.Size = new Size(100, 23);
+            RowInputTextBox.Size = new Size(188, 26);
             RowInputTextBox.TabIndex = 4;
             // 
-            // ColumnInputLabel
+            // ColInputLabel
             // 
-            ColumnInputLabel.AutoSize = true;
-            ColumnInputLabel.Location = new Point(23, 89);
-            ColumnInputLabel.Name = "ColumnInputLabel";
-            ColumnInputLabel.Size = new Size(114, 15);
-            ColumnInputLabel.TabIndex = 6;
-            ColumnInputLabel.Text = "Enter Column Guess";
+            ColInputLabel.AutoSize = true;
+            ColInputLabel.Location = new Point(36, 124);
+            ColInputLabel.Margin = new Padding(4, 0, 4, 0);
+            ColInputLabel.Name = "ColInputLabel";
+            ColInputLabel.Size = new Size(188, 18);
+            ColInputLabel.TabIndex = 6;
+            ColInputLabel.Text = "Enter Column Guess";
             // 
             // RowInputLabel
             // 
             RowInputLabel.AutoSize = true;
-            RowInputLabel.Location = new Point(23, 40);
+            RowInputLabel.Location = new Point(36, 56);
+            RowInputLabel.Margin = new Padding(4, 0, 4, 0);
             RowInputLabel.Name = "RowInputLabel";
-            RowInputLabel.Size = new Size(94, 15);
+            RowInputLabel.Size = new Size(158, 18);
             RowInputLabel.TabIndex = 4;
             RowInputLabel.Text = "Enter Row Guess";
             // 
             // GuessCounterLabel
             // 
             GuessCounterLabel.AutoSize = true;
-            GuessCounterLabel.Location = new Point(71, 233);
+            GuessCounterLabel.Font = new System.Drawing.Font("Lucida Sans Typewriter", 8F);
+            GuessCounterLabel.Location = new Point(8, 35);
+            GuessCounterLabel.Margin = new Padding(4, 0, 4, 0);
             GuessCounterLabel.Name = "GuessCounterLabel";
-            GuessCounterLabel.Size = new Size(52, 15);
+            GuessCounterLabel.Size = new Size(88, 18);
             GuessCounterLabel.TabIndex = 2;
             GuessCounterLabel.Text = "Guesses:";
             // 
             // RemainingGuessesLabel
             // 
             RemainingGuessesLabel.AutoSize = true;
-            RemainingGuessesLabel.Location = new Point(12, 256);
+            RemainingGuessesLabel.Font = new System.Drawing.Font("Lucida Sans Typewriter", 8F);
+            RemainingGuessesLabel.Location = new Point(8, 67);
+            RemainingGuessesLabel.Margin = new Padding(4, 0, 4, 0);
             RemainingGuessesLabel.Name = "RemainingGuessesLabel";
-            RemainingGuessesLabel.Size = new Size(112, 15);
+            RemainingGuessesLabel.Size = new Size(98, 36);
             RemainingGuessesLabel.TabIndex = 3;
-            RemainingGuessesLabel.Text = "Remaining Guesses:";
+            RemainingGuessesLabel.Text = "Remaining\r\nGuesses:";
             // 
             // QuitButton
             // 
-            QuitButton.Location = new Point(48, 407);
+            QuitButton.Location = new Point(163, 204);
+            QuitButton.Margin = new Padding(4);
             QuitButton.Name = "QuitButton";
-            QuitButton.Size = new Size(75, 23);
+            QuitButton.Size = new Size(118, 32);
             QuitButton.TabIndex = 9;
             QuitButton.Text = "Give Up";
             QuitButton.UseVisualStyleBackColor = true;
@@ -212,140 +138,162 @@ namespace PlayAnalyzerGame
             // GuessCounterDisplayLabel
             // 
             GuessCounterDisplayLabel.AutoSize = true;
-            GuessCounterDisplayLabel.Location = new Point(131, 233);
+            GuessCounterDisplayLabel.Font = new System.Drawing.Font("Lucida Sans Typewriter", 8F);
+            GuessCounterDisplayLabel.Location = new Point(133, 35);
+            GuessCounterDisplayLabel.Margin = new Padding(4, 0, 4, 0);
             GuessCounterDisplayLabel.Name = "GuessCounterDisplayLabel";
-            GuessCounterDisplayLabel.Size = new Size(0, 15);
+            GuessCounterDisplayLabel.Size = new Size(0, 18);
             GuessCounterDisplayLabel.TabIndex = 10;
             // 
             // RemainingGuessesDisplayLabel
             // 
             RemainingGuessesDisplayLabel.AutoSize = true;
-            RemainingGuessesDisplayLabel.Location = new Point(130, 256);
+            RemainingGuessesDisplayLabel.Font = new System.Drawing.Font("Lucida Sans Typewriter", 8F);
+            RemainingGuessesDisplayLabel.Location = new Point(133, 82);
+            RemainingGuessesDisplayLabel.Margin = new Padding(4, 0, 4, 0);
             RemainingGuessesDisplayLabel.Name = "RemainingGuessesDisplayLabel";
-            RemainingGuessesDisplayLabel.Size = new Size(0, 15);
+            RemainingGuessesDisplayLabel.Size = new Size(0, 18);
             RemainingGuessesDisplayLabel.TabIndex = 11;
             // 
             // GuessEntryGroupBox
             // 
+            GuessEntryGroupBox.Controls.Add(PlayAgainButton);
             GuessEntryGroupBox.Controls.Add(RowInputLabel);
             GuessEntryGroupBox.Controls.Add(SubmitGuessButton);
-            GuessEntryGroupBox.Controls.Add(ColumnInputLabel);
+            GuessEntryGroupBox.Controls.Add(ColInputLabel);
             GuessEntryGroupBox.Controls.Add(RowInputTextBox);
-            GuessEntryGroupBox.Controls.Add(ColumnInputTextBox);
-            GuessEntryGroupBox.Location = new Point(27, 31);
+            GuessEntryGroupBox.Controls.Add(ColInputTextBox);
+            GuessEntryGroupBox.Controls.Add(QuitButton);
+            GuessEntryGroupBox.Font = new System.Drawing.Font("Lucida Sans Typewriter", 8F);
+            GuessEntryGroupBox.Location = new Point(13, 206);
+            GuessEntryGroupBox.Margin = new Padding(4);
             GuessEntryGroupBox.Name = "GuessEntryGroupBox";
-            GuessEntryGroupBox.Size = new Size(200, 186);
+            GuessEntryGroupBox.Padding = new Padding(4);
+            GuessEntryGroupBox.Size = new Size(315, 260);
             GuessEntryGroupBox.TabIndex = 12;
             GuessEntryGroupBox.TabStop = false;
             GuessEntryGroupBox.Text = "Enter Guesses Here";
             // 
+            // PlayAgainButton
+            // 
+            PlayAgainButton.Location = new Point(8, 204);
+            PlayAgainButton.Margin = new Padding(4);
+            PlayAgainButton.Name = "PlayAgainButton";
+            PlayAgainButton.Size = new Size(118, 32);
+            PlayAgainButton.TabIndex = 10;
+            PlayAgainButton.Text = "Play Again";
+            PlayAgainButton.UseVisualStyleBackColor = true;
+            PlayAgainButton.Visible = false;
+            PlayAgainButton.Click += PlayAgainButton_Click;
+            // 
             // GridDisplayBox
             // 
-            GridDisplayBox.Font = new System.Drawing.Font("Lucida Console", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            GridDisplayBox.Location = new Point(351, 170);
+            GridDisplayBox.Font = new System.Drawing.Font("Lucida Sans Typewriter", 8F);
+            GridDisplayBox.Location = new Point(359, 22);
+            GridDisplayBox.Margin = new Padding(4);
             GridDisplayBox.Name = "GridDisplayBox";
-            GridDisplayBox.Size = new Size(256, 247);
+            GridDisplayBox.Size = new Size(416, 389);
             GridDisplayBox.TabIndex = 13;
             GridDisplayBox.Text = "";
-            // 
-            // Sample1AnswerLabel
-            // 
-            Sample1AnswerLabel.AutoSize = true;
-            Sample1AnswerLabel.Location = new Point(351, 22);
-            Sample1AnswerLabel.Name = "Sample1AnswerLabel";
-            Sample1AnswerLabel.Size = new Size(38, 15);
-            Sample1AnswerLabel.TabIndex = 14;
-            Sample1AnswerLabel.Text = "label1";
-            // 
-            // Sample2AnswerLabel
-            // 
-            Sample2AnswerLabel.AutoSize = true;
-            Sample2AnswerLabel.Location = new Point(351, 48);
-            Sample2AnswerLabel.Name = "Sample2AnswerLabel";
-            Sample2AnswerLabel.Size = new Size(38, 15);
-            Sample2AnswerLabel.TabIndex = 15;
-            Sample2AnswerLabel.Text = "label1";
-            // 
-            // InfoLabel
-            // 
-            InfoLabel.AutoSize = true;
-            InfoLabel.Location = new Point(12, 303);
-            InfoLabel.Name = "InfoLabel";
-            InfoLabel.Size = new Size(0, 15);
-            InfoLabel.TabIndex = 16;
             // 
             // SamplesFoundLabel
             // 
             SamplesFoundLabel.AutoSize = true;
-            SamplesFoundLabel.Location = new Point(34, 280);
+            SamplesFoundLabel.Font = new System.Drawing.Font("Lucida Sans Typewriter", 8F);
+            SamplesFoundLabel.Location = new Point(8, 117);
+            SamplesFoundLabel.Margin = new Padding(4, 0, 4, 0);
             SamplesFoundLabel.Name = "SamplesFoundLabel";
-            SamplesFoundLabel.Size = new Size(91, 15);
+            SamplesFoundLabel.Size = new Size(78, 36);
             SamplesFoundLabel.TabIndex = 17;
-            SamplesFoundLabel.Text = "Samples Found:";
+            SamplesFoundLabel.Text = "Samples\r\nFound:";
             // 
             // SamplesFoundDisplayLabel
             // 
             SamplesFoundDisplayLabel.AutoSize = true;
-            SamplesFoundDisplayLabel.Location = new Point(128, 282);
+            SamplesFoundDisplayLabel.Font = new System.Drawing.Font("Lucida Sans Typewriter", 8F);
+            SamplesFoundDisplayLabel.Location = new Point(116, 132);
+            SamplesFoundDisplayLabel.Margin = new Padding(4, 0, 4, 0);
             SamplesFoundDisplayLabel.Name = "SamplesFoundDisplayLabel";
-            SamplesFoundDisplayLabel.Size = new Size(0, 15);
+            SamplesFoundDisplayLabel.Size = new Size(0, 18);
             SamplesFoundDisplayLabel.TabIndex = 18;
+            // 
+            // ResultsBox
+            // 
+            ResultsBox.Controls.Add(GuessCounterLabel);
+            ResultsBox.Controls.Add(SamplesFoundDisplayLabel);
+            ResultsBox.Controls.Add(RemainingGuessesLabel);
+            ResultsBox.Controls.Add(SamplesFoundLabel);
+            ResultsBox.Controls.Add(GuessCounterDisplayLabel);
+            ResultsBox.Controls.Add(RemainingGuessesDisplayLabel);
+            ResultsBox.Font = new System.Drawing.Font("Lucida Sans Typewriter", 8F);
+            ResultsBox.Location = new Point(782, 22);
+            ResultsBox.Name = "ResultsBox";
+            ResultsBox.Size = new Size(279, 389);
+            ResultsBox.TabIndex = 19;
+            ResultsBox.TabStop = false;
+            ResultsBox.Text = "Results";
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Font = new System.Drawing.Font("Lucida Sans Typewriter", 8F);
+            label2.Location = new Point(6, 34);
+            label2.Name = "label2";
+            label2.Size = new Size(288, 126);
+            label2.TabIndex = 21;
+            label2.Text = "Input a X and Y value below \r\nand hit submit. Only \r\nnonnegative integers are\r\nallowed and MUST be within\r\nthe grid size!!\r\nToo hard? That's what the \r\ngive up button is for :P";
+            // 
+            // groupBox1
+            // 
+            groupBox1.Controls.Add(label2);
+            groupBox1.Font = new System.Drawing.Font("Lucida Sans Typewriter", 10F, FontStyle.Underline, GraphicsUnit.Point, 0);
+            groupBox1.Location = new Point(13, 12);
+            groupBox1.Name = "groupBox1";
+            groupBox1.Size = new Size(315, 187);
+            groupBox1.TabIndex = 22;
+            groupBox1.TabStop = false;
+            groupBox1.Text = "Directions";
             // 
             // AnalyzerGameForm
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(11F, 21F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(684, 461);
-            Controls.Add(SamplesFoundDisplayLabel);
-            Controls.Add(SamplesFoundLabel);
-            Controls.Add(NewGameGroupBox);
-            Controls.Add(InfoLabel);
-            Controls.Add(Sample2AnswerLabel);
-            Controls.Add(Sample1AnswerLabel);
+            ClientSize = new Size(1083, 479);
+            Controls.Add(groupBox1);
+            Controls.Add(ResultsBox);
             Controls.Add(GridDisplayBox);
             Controls.Add(GuessEntryGroupBox);
-            Controls.Add(RemainingGuessesDisplayLabel);
-            Controls.Add(GuessCounterDisplayLabel);
-            Controls.Add(QuitButton);
-            Controls.Add(RemainingGuessesLabel);
-            Controls.Add(GuessCounterLabel);
+            Font = new System.Drawing.Font("Lucida Sans Typewriter", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            Margin = new Padding(4);
             Name = "AnalyzerGameForm";
-            Text = "ScanAlyzer";
-            NewGameGroupBox.ResumeLayout(false);
-            NewGameGroupBox.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)GameModeImage).EndInit();
+            Text = "Analyzer Game";
             GuessEntryGroupBox.ResumeLayout(false);
             GuessEntryGroupBox.PerformLayout();
+            ResultsBox.ResumeLayout(false);
+            ResultsBox.PerformLayout();
+            groupBox1.ResumeLayout(false);
+            groupBox1.PerformLayout();
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
-
-        private RadioButton HairRadio;
-        private GroupBox NewGameGroupBox;
-        private RadioButton DNARadio;
-        private RadioButton PrintRadio;
-        private System.ComponentModel.BackgroundWorker backgroundWorker1;
-        private Label NewGameInstructionLabel;
-        private Button NewGameSubmitButton;
-        private PictureBox GameModeImage;
         private Label RowInputLabel;
         private Label GuessCounterLabel;
         private Label RemainingGuessesLabel;
         private Button SubmitGuessButton;
-        private TextBox ColumnInputTextBox;
+        private TextBox ColInputTextBox;
         private TextBox RowInputTextBox;
-        private Label ColumnInputLabel;
+        private Label ColInputLabel;
         private Button QuitButton;
         private Label GuessCounterDisplayLabel;
         private Label RemainingGuessesDisplayLabel;
         private GroupBox GuessEntryGroupBox;
         private RichTextBox GridDisplayBox;
-        private Label Sample1AnswerLabel;
-        private Label Sample2AnswerLabel;
-        private Label InfoLabel;
         private Label SamplesFoundLabel;
         private Label SamplesFoundDisplayLabel;
+        private GroupBox ResultsBox;
+        private Label label2;
+        private GroupBox groupBox1;
+        private Button PlayAgainButton;
     }
 }

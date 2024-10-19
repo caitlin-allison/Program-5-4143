@@ -8,7 +8,7 @@
 *  class library file to be used as a .dll
 *  once completed.
 *************************************************/
-
+// Known issue random does not change on end
 
 using System;
 using System.Collections.Generic;
@@ -156,9 +156,6 @@ namespace PlayAnalyzerGame
             get => sampleNum;
             set => sampleNum = value;
         }
-        
-        
-
         public Analyzer(int rows, int columns, int numSamples)
         {
             Rows = rows;
@@ -213,14 +210,14 @@ namespace PlayAnalyzerGame
         } //generateSamples(int)
 
 
-
+        public abstract string DisplayResults();
 
         // Can be overriden should the child class
         // need to display things differently
         public override string ToString()
         {
             // initialize a string to put grid in
-            string StringGrid = string.Empty;
+            string StringGrid = "";
 
             // Blank space for alignment with columns
             StringGrid += "  ";
@@ -277,7 +274,12 @@ namespace PlayAnalyzerGame
         // All the derived classes must implement this and handle it
         // in their specific ways
         public abstract bool EvaluateGuess(int col, int row);
-    
+
+
+        public virtual string Type()
+        {
+            return "Analyzer";
+        }
     } // Analyzer
 
 
@@ -286,15 +288,6 @@ namespace PlayAnalyzerGame
     {
         public HairAnalyzer(int rows, int columns, int sampleNum) : base(rows, columns, sampleNum)
         {
-            // New random number generator
-            rand = new Random();
-
-            // Set grid dimensions to 10x10
-            this.Rows = 10;
-            this.Columns = 10;
-
-            grid = new char[Rows, Columns];
-
             // populate grid with ~
             for (int i = 0; i < Rows; i++)
             {
@@ -390,6 +383,45 @@ namespace PlayAnalyzerGame
             return foundMatch;
         }
 
+        public override string Type()
+        {
+            return "Hair Analyzer";
+        }
+        public override string DisplayResults()
+        {
+            // initialize a string to put grid in
+            string StringGrid = "";
+
+            // Blank space for alignment with columns
+            StringGrid += "  ";
+
+            for(int i = 0; i < SampleNum; i++)
+            {
+                grid[samples[i].Y, samples[i].X] = 'H';
+            }
+
+            // Print numbers along top of grid
+            for (int i = 0; i < Columns; i++)
+            {
+                StringGrid += i;
+            }
+            StringGrid += "\n";
+
+            // Print row numbers, followed by contents
+            //  of the grid
+            for (int i = 0; i < Rows; i++)
+            {
+                StringGrid += i + " ";
+                for (int j = 0; j < Columns; j++)
+                {
+                    char val = grid[i, j];
+                    StringGrid += val == '~' || val == 'H'? val : '~';
+                }
+                StringGrid += "\n";
+            }
+
+            return StringGrid;
+        }
 
 
     } // HairAnalyzer
@@ -401,8 +433,7 @@ namespace PlayAnalyzerGame
    * Class:           DNAAnalyzer
    * 
    * Description: Last game mode analyzer. To be played as 'Hard Mode'
-   *                   Inherits from the Analyzer class. Has a default
-   *                   constructor that sets rows and columns to 10.
+   *                   Inherits from the Analyzer class.
    *                   
    *              Fills grid with '.' and marks correct answers with X.
    *                       
@@ -414,7 +445,7 @@ namespace PlayAnalyzerGame
     {
         int remainingGuesses;
 
-        int RemainingGuesses
+        public int RemainingGuesses
         {
             get => remainingGuesses;
             set => remainingGuesses = value;
@@ -500,61 +531,54 @@ namespace PlayAnalyzerGame
             return foundMatch;
         }
 
+        public override string Type()
+        {
+            return "DNA Analyzer";
+        }
 
+        public override string DisplayResults()
+        {
+            // initialize a string to put grid in
+            string StringGrid = "";
+
+            // Blank space for alignment with columns
+            StringGrid += "  ";
+
+            for (int i = 0; i < SampleNum; i++)
+            {
+                grid[samples[i].Y, samples[i].X] = 'X';
+            }
+
+            // Print numbers along top of grid
+            for (int i = 0; i < Columns; i++)
+            {
+                StringGrid += i;
+            }
+            StringGrid += "\n";
+
+            // Print row numbers, followed by contents
+            //  of the grid
+            for (int i = 0; i < Rows; i++)
+            {
+                StringGrid += i + " ";
+                for (int j = 0; j < Columns; j++)
+                {
+                    char val = grid[i, j];
+                    StringGrid += val == '.' || val == 'X' ? val : '.';
+                }
+                StringGrid += "\n";
+            }
+
+            return StringGrid;
+        }
     } // DNAAnalyzer
 
 
 
     public class PrintAnalyzer : Analyzer
     {
-        int numOfFingerprints;
-        int[,] fingerprints;
-        bool[] foundFingerprints;
-        
-
-        PrintAnalyzer(int rows, int columns, int sampleNum) : base(rows, columns, sampleNum)
+        public PrintAnalyzer(int rows, int columns, int sampleNum) : base(rows, columns, sampleNum)
         {
-            numOfFingerprints = rand.Next(0, columns * rows);
-
-            fingerprints = new int[numOfFingerprints, 2];
-
-            int pos = 0;
-
-            // Continues to create an unique x && y pair
-            // for fingerprints until the array is filled.
-            do
-            {
-                int x = new Random().Next(0, rows);
-                int y = new Random().Next(0, columns);
-
-                if (pos == 0)
-                {
-                    fingerprints[0, 0] = x;
-                    fingerprints[0, 1] = y;
-                }
-                else
-                {
-                    bool match = false;
-
-                    // Loops through existing fingerprints
-                    // to verify x && y is not already within
-                    // the array
-                    for (int j = 0; j < pos; j++)
-                    {
-                        if (x == fingerprints[j, 0] && y == fingerprints[j, 1])
-                            match = true;
-                    }
-                    if (!match)
-                    {
-                        fingerprints[pos, 0] = x;
-                        fingerprints[pos, 1] = y;
-
-                        pos++;
-                    }
-                }
-
-            } while (pos < numOfFingerprints);
-
             // populate grid with ~
             for (int r = 0; r < rows; r++)
             {
@@ -564,7 +588,6 @@ namespace PlayAnalyzerGame
                 }
             }
 
-            foundFingerprints = new bool[numOfFingerprints];
 
             EndOfGame = false;
             GuessCounter = 0;
@@ -582,32 +605,31 @@ namespace PlayAnalyzerGame
 
             int i = 0;
 
-            int numFoundFingerprints = 0;
             // Loops through fingerprints and finds if there is an exact
             // match. Ignores previously found fingerprints
             do
             {
-                if (foundFingerprints[i] == false)
+                if (samples[i].Found == false)
                 {
-                    if (fingerprints[i, 0] == row && fingerprints[i, 1] == col)
+                    if (samples[i].X == row && samples[i].Y == col)
                     {
                         exactMatch = true;
                         matchPos = i;
-                        foundFingerprints[i] = true;
+                        samples[i].Found = true;
                         grid[row, col] = '@';
-                        if (numFoundFingerprints == numOfFingerprints)
+                        if (SampleNum == NumOfSamplesFound)
                         {
                             EndOfGame = true;
                         }
+                    NumOfSamplesFound++;
                     }
                 }
                 else
                 {
-                    numFoundFingerprints++;
                 }
                 i++;
             }
-            while (i < numOfFingerprints && !exactMatch);
+            while (i < SampleNum && !exactMatch);
 
 
             // If first sample isnt found yet
@@ -615,8 +637,8 @@ namespace PlayAnalyzerGame
             {
                 // Grabs the i index of the closest index
                 int closetFingerprintPs = findClosestFingerprint(row, col);
-                int closestX = fingerprints[closetFingerprintPs, 0];
-                int closestY = fingerprints[closetFingerprintPs, 1];
+                int closestX = samples[closetFingerprintPs].X;
+                int closestY = samples[closetFingerprintPs].Y;
 
                 // If sample is directly above or below guess
                 if (isHorizontalHint)
@@ -650,22 +672,64 @@ namespace PlayAnalyzerGame
         {
             int position = 0;
 
-            int minimum = Math.Abs(fingerprints[0, 0] * fingerprints[0, 1] - row * col);
+            // Makes it bigger than the grid so there will always be a minimum
+            int minimum = this.Rows * this.Columns + 1;
 
-            for (int i = 0; i < numOfFingerprints; i++)
+            for (int i = 0; i < SampleNum; i++)
             {
-                if (!foundFingerprints[i])
+                if (!samples[i].Found)
                 {
-                    if ((int)Math.Abs(fingerprints[i, 0] * fingerprints[i, 1] - row * col) < minimum)
+                    if ((int)Math.Abs(samples[i].X * samples[i].Y - row * col) < minimum)
                     {
                         position = i;
-                        minimum = (int)Math.Abs(fingerprints[i, 0] * fingerprints[i, 1] - row * col);
+                        minimum = (int)Math.Abs(samples[i].X * samples[i].Y - row * col);
                     }
 
                 }
             }
 
             return position;
+        }
+
+        public override string Type()
+        {
+            return "Print Analyzer";
+        }
+
+        public override string DisplayResults()
+        {
+            // initialize a string to put grid in
+            string StringGrid = "";
+
+            // Blank space for alignment with columns
+            StringGrid += "  ";
+
+            for (int i = 0; i < SampleNum; i++)
+            {
+                grid[samples[i].Y, samples[i].X] = '@';
+            }
+
+            // Print numbers along top of grid
+            for (int i = 0; i < Columns; i++)
+            {
+                StringGrid += i;
+            }
+            StringGrid += "\n";
+
+            // Print row numbers, followed by contents
+            //  of the grid
+            for (int i = 0; i < Rows; i++)
+            {
+                StringGrid += i + " ";
+                for (int j = 0; j < Columns; j++)
+                {
+                    char val = grid[i, j];
+                    StringGrid += val == '~' || val == '@' ? val : '~';
+                }
+                StringGrid += "\n";
+            }
+
+            return StringGrid;
         }
     }
 }

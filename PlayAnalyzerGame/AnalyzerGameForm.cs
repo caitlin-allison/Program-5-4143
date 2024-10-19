@@ -8,7 +8,7 @@
 
 // Still Needs: printAnalyzer Functionality at line 108
 //              .dll file
-//              File input
+//              ApplicationException
 //              Display case#/file name
 //              Display success message
 
@@ -23,7 +23,6 @@ namespace PlayAnalyzerGame
         private bool isFirstFound;
         private bool isGameOver;
         private Analyzer analyzer;
-        private int samplesFound;
         private int analyzerType;
 
         public int GuessCounter
@@ -43,7 +42,7 @@ namespace PlayAnalyzerGame
                 analyzerType = value;
             }
         }
-        
+
 
         public bool IsFirstFound
         {
@@ -69,22 +68,43 @@ namespace PlayAnalyzerGame
             }
         } // IsGameOver
 
-        public int SamplesFound
+        public AnalyzerGameForm(Analyzer analyzer)
         {
-            get => samplesFound;
-            set
+            if (analyzer is DNAAnalyzer dnaAnalyzer)
             {
-                samplesFound = value;
+                this.analyzer = dnaAnalyzer;
             }
-        } // SamplesFound
-
-        public AnalyzerGameForm()
-        {
-            analyzer = null;
-            analyzerType = -1;
-
+            else if (analyzer is HairAnalyzer hairAnalyzer)
+            {
+                this.analyzer = hairAnalyzer;
+            }
+            else if (analyzer is PrintAnalyzer printAnalyzer)
+            {
+                this.analyzer = printAnalyzer;
+            }
+            else
+            {
+                throw new ArgumentException();
+            }
+            if (analyzer is null)
+            {
+                GuessCounterLabel.Text = "Analyzer is null";
+            }
             InitializeComponent();
-            ResetGame();
+
+            this.Text = analyzer.Type() + " Game";
+            GridDisplayBox.Text = analyzer.ToString();
+
+            if (analyzer is DNAAnalyzer analyzerDNA)
+            {
+                RemainingGuessesLabel.Text = analyzerDNA.RemainingGuesses + "";
+            }
+            else
+            {
+                RemainingGuessesLabel.Visible = false;
+                RemainingGuessesDisplayLabel.Visible = false;
+            }
+
         } // AnalyzerGameForm
 
 
@@ -100,60 +120,9 @@ namespace PlayAnalyzerGame
 
         private void NewGameSubmitButton_Click(object sender, EventArgs e)
         {
-
-            int switchVal;
-
-            // Get input from radio buttons for switch
-            if (HairRadio.Checked)
-            {
-                analyzer = new HairAnalyzer();
-            }
-            else if (PrintRadio.Checked)
-            {
-                analyzer = new PrintAnalyzer();
-            }
-            else
-            {
-                analyzer = new DNAAnalyzer();
-                
-            }
-
-            
-
-            // Hide new game controls
-            IsGameOver = false;
-            NewGameGroupBox.Visible = false;
-            NewGameInstructionLabel.Visible = false;
-            HairRadio.Visible = false;
-            PrintRadio.Visible = false;
-            DNARadio.Visible = false;
-            GameModeImage.Visible = false;
-            NewGameSubmitButton.Visible = false;
-
-            // Resize Window
-            Size = new Size(700, 500);
-
-            // Show controls of the main game
-            GridDisplayBox.Visible = true; 
-            GuessEntryGroupBox.Visible = true;
-            RowInputLabel.Visible = true;
-            RowInputTextBox.Visible = true;
-            ColumnInputLabel.Visible = true;
-            ColumnInputTextBox.Visible = true;
-            SubmitGuessButton.Visible = true;
-            GuessCounterLabel.Visible = true;
-            GuessCounterDisplayLabel.Visible = true;
-            RemainingGuessesDisplayLabel.Visible = true;
-            RemainingGuessesLabel.Visible = true;
-            SamplesFoundLabel.Visible = true;
-            SamplesFoundDisplayLabel.Visible = true;
-            SamplesFoundDisplayLabel.Text = SamplesFound.ToString();
-            QuitButton.Visible = true;
-            InfoLabel.Visible = true;
-
-            GridDisplayBox.Text = analyzer.ToString();
-            GuessCounterDisplayLabel.Text = GuessCounter.ToString();
-            RemainingGuessesDisplayLabel.Text = string.Empty;
+            PickGameForm pickGame = new PickGameForm(analyzer.Rows, analyzer.Columns, analyzer.SampleNum);
+            pickGame.Show();
+            this.Hide();
         } // NewGameSubmitButton_Click
 
         private void getRowColSize()
@@ -181,15 +150,15 @@ namespace PlayAnalyzerGame
             {
                 // Vars for guess data
                 rowUserInput = int.Parse(RowInputTextBox.Text);  // coud throw a FormatException
-                colUserInput = int.Parse(ColumnInputTextBox.Text);  // could also throw a FormatException
+                colUserInput = int.Parse(ColInputTextBox.Text);  // could also throw a FormatException
 
                 // Clear input boxes
                 RowInputTextBox.Text = string.Empty;
-                ColumnInputTextBox.Text = string.Empty;
+                ColInputTextBox.Text = string.Empty;
 
                 // Validate input to make sure it's within bounds
-                if (rowUserInput < 0 || rowUserInput > 9 ||
-                    colUserInput < 0 || colUserInput > 9)
+                if (rowUserInput < 0 || rowUserInput > analyzer.Rows ||
+                    colUserInput < 0 || colUserInput > analyzer.Columns)
                 {
                     // If out of bounds, show error message
                     MessageBox.Show("Your guess is out of bounds");
@@ -200,10 +169,10 @@ namespace PlayAnalyzerGame
             {
                 // Show an error message if input is not a valid integer
                 MessageBox.Show("Input must be an integer");
-                
+
                 // Clear input boxes
                 RowInputTextBox.Text = string.Empty;
-                ColumnInputTextBox.Text = string.Empty;
+                ColInputTextBox.Text = string.Empty;
                 return;
             }
             catch (Exception ex)
@@ -213,35 +182,36 @@ namespace PlayAnalyzerGame
 
                 // Clear input boxes
                 RowInputTextBox.Text = string.Empty;
-                ColumnInputTextBox.Text = string.Empty;
+                ColInputTextBox.Text = string.Empty;
                 return;
             }
 
-            // Update guess label
-            GuessCounterDisplayLabel.Text = analyzer.GuessCounter.ToString();
-            RemainingGuessesDisplayLabel.Text = string.Empty;
+
+            if (analyzer is DNAAnalyzer dnaAnalyzer)
+            {
+                RemainingGuessesLabel.Text = dnaAnalyzer.RemainingGuesses + "";
+            }
 
             // Test if guess is correct or not. Tell user the results
-            bool isCorrect = analyzer.EvaluateGuess(rowUserInput, colUserInput);
+            bool isCorrect = analyzer.EvaluateGuess(yInput, xInput);
+
+            // Update guess label
+            GuessCounterDisplayLabel.Text = analyzer.GuessCounter.ToString();
 
             // Show results
             GridDisplayBox.Text = analyzer.ToString();
 
             if (isCorrect && !IsFirstFound)
             {
-                InfoLabel.Text = "Your guess was correct! One more to go!";
                 IsFirstFound = true;
-                SamplesFound++;
-                SamplesFoundDisplayLabel.Text = SamplesFound.ToString();
+                SamplesFoundDisplayLabel.Text = analyzer.NumOfSamplesFound.ToString();
             }
             else if (isCorrect && IsFirstFound)
             {
-                InfoLabel.Text = "Congragulations! You Win!";
                 IsGameOver = true;
-                SamplesFound++;
-                SamplesFoundDisplayLabel.Text = SamplesFound.ToString();
+                SamplesFoundDisplayLabel.Text = analyzer.NumOfSamplesFound.ToString();
                 YouLose();
-                
+
             }
             //else if(analyzer.RemainingGuesses == 0)
             //{
@@ -249,11 +219,6 @@ namespace PlayAnalyzerGame
             //    YouLose();
 
             //}
-            else
-            {
-                InfoLabel.Text = "Sorry, incorrect guess.";
-            }
-
             //if (analyzer.RemainingGuesses == 1)
             //{
             //    InfoLabel.Text += "\nCareful...last guess...";
@@ -278,7 +243,7 @@ namespace PlayAnalyzerGame
             }
             else
             {
-                ResetGame();
+                Application.Exit();
             }
         } // QuitButton_Click
 
@@ -295,6 +260,10 @@ namespace PlayAnalyzerGame
 
         private void YouLose()
         {
+            SubmitGuessButton.Enabled = false;
+            RowInputTextBox.Enabled = false;
+            ColInputTextBox.Enabled = false;
+
             string answers = string.Empty;
             int i = 0;
             foreach (Sample s in analyzer.samples)
@@ -302,12 +271,20 @@ namespace PlayAnalyzerGame
                 answers += "Sample " + i + " Coordinates: " + s.ToString() + "\n";
                 i++;
             }
-            Sample1AnswerLabel.Text = answers;
-            GuessEntryGroupBox.Visible = false;
-            Sample1AnswerLabel.Visible = true;
-            Sample2AnswerLabel.Visible = true;
-            QuitButton.Text = "Play Again";
+
+            SamplesFoundLabel.Text = answers;
+            SamplesFoundDisplayLabel.Text = "Answers:";
+            GridDisplayBox.Text = analyzer.DisplayResults();
+            GuessCounterLabel.Text = analyzer.GuessCounter + "";
+
+            if (analyzer is DNAAnalyzer dnaAnalyzer)
+            {
+                RemainingGuessesLabel.Text = dnaAnalyzer.RemainingGuesses + "";
+            }
+
             IsGameOver = true;
+            PlayAgainButton.Visible = true;
+            SubmitGuessButton.Visible = false;
         } // YouLose
 
 
@@ -319,41 +296,12 @@ namespace PlayAnalyzerGame
          *  
          *  Author: Jered Stevens
          ***************************************************/
-
-        private void ResetGame()
+        private void PlayAgainButton_Click(object sender, EventArgs e)
         {
-            GuessCounter = 0;
-            Size = new Size(350, 250);
-            NewGameGroupBox.Visible = true;
-            NewGameInstructionLabel.Visible = true;
-            HairRadio.Visible = true;
-            PrintRadio.Visible = true;
-            DNARadio.Visible = true;
-            GameModeImage.Visible = true;
-            NewGameSubmitButton.Visible = true;
-
-            InfoLabel.Visible = false;
-            InfoLabel.Text = string.Empty;
-            GridDisplayBox.Visible = false;
-            GuessEntryGroupBox.Visible = false;
-            RowInputLabel.Visible = false;
-            RowInputTextBox.Visible = false;
-            ColumnInputLabel.Visible = false;
-            ColumnInputTextBox.Visible = false;
-            SubmitGuessButton.Visible = false;
-            GuessCounterLabel.Visible = false;
-            GuessCounterDisplayLabel.Visible = false;
-            RemainingGuessesDisplayLabel.Visible = false;
-            RemainingGuessesLabel.Visible = false;
-            SamplesFoundLabel.Visible = false;
-            SamplesFoundDisplayLabel.Visible = false;
-            QuitButton.Visible = false;
-            QuitButton.Text = "Give Up";
-            Sample1AnswerLabel.Visible = false;
-            Sample2AnswerLabel.Visible = false;
-            SamplesFound = 0;
-        } // ResetGame
-
-
+            PickGameForm pickGame = new PickGameForm(analyzer.Rows, analyzer.Columns, analyzer.SampleNum);
+            pickGame.Show();
+            this.Hide();
+            analyzer = null;
+        }
     } // AnalyzerGameForm
 } // PlayAnalyzerGame
