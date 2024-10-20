@@ -86,18 +86,35 @@ namespace PlayAnalyzerGame
     /*******************************************************************
     * Class:           Analyzer
     * 
-    * Description: Base class for other child analyzer classes. Holds
+    * Description: 
+    *               Base class for other child analyzer classes. Holds
     *                  vars for the number of rows and columns available,
     *                  contains a 2D array of chars for the grid, the 
     *                  Random var, 2 Samples, and a 2 bools to indicate 
     *                  if either sample has been found yet.
     * 
-    * Public Data Members:
-    *              int Rows
-    *              int Columns
-    *              int RemainingGuesses
     * 
-    * Functions:   EvaluateGuess
+    * Data Members:
+    *              int rows
+    *              int columns
+    *              char [,] grid
+    *              Random rand
+    *              List<Sample> samples
+    *              int guessCounter
+    *              int numOfSamplesFound
+    *              int sampleNum
+    *              bool endOfGame
+    * 
+    * Functions:   
+    *              GenerateSamples
+    *                   Accepts 1 integer
+    *                   returns a generated samples
+    * 
+    *              DisplayResults
+    *                   Return string version of grid with
+    *                   the samples revealed.
+    * 
+    *              EvaluateGuess
     *                  Accepts 3 ints: row, column, guessCounter.
     *                  Returns bool.
     *                  Evaluates if the users guess is correct and 
@@ -106,13 +123,14 @@ namespace PlayAnalyzerGame
     *              ToString
     *                  Returns string
     *                  Provides the game grid
+    *              Type
+    *                   Returns the type of class-- for display purpose
+    *                   
+    *               FindNearestUnfoundSample
     *                  
     *                  
-    * Author:      Jered Stevens
+    * Author:      Jered Stevens & Caitlin
     *********************************************************************/
-
-
-
     public abstract class Analyzer
     {
         private int rows;
@@ -170,8 +188,6 @@ namespace PlayAnalyzerGame
 
             GenerateSamples(SampleNum);
         } // Analyzer
-
-
 
         // Method to generate two samples with random coordinates
         public void GenerateSamples(int numSamples)
@@ -282,8 +298,17 @@ namespace PlayAnalyzerGame
         }
     } // Analyzer
 
-
-
+    /*******************************************************************
+* Class:           HairAnalyzer
+* 
+* Description: 
+* 
+* Data Members:
+* 
+* Functions:
+*                  
+* Author:      Jered Stevens
+*********************************************************************/
     public class HairAnalyzer : Analyzer
     {
         public HairAnalyzer(int rows, int columns, int sampleNum) : base(rows, columns, sampleNum)
@@ -574,7 +599,17 @@ namespace PlayAnalyzerGame
     } // DNAAnalyzer
 
 
-
+    /*******************************************************************
+* Class:           PrintAnalyzer
+* 
+* Description: 
+* 
+* Data Members:
+* 
+* Functions:
+*                  
+* Author:      Caitlin
+*********************************************************************/
     public class PrintAnalyzer : Analyzer
     {
         public PrintAnalyzer(int rows, int columns, int sampleNum) : base(rows, columns, sampleNum)

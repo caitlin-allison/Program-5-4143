@@ -16,14 +16,26 @@ namespace PlayAnalyzerGame
         int row;
         int column;
         int numSamples;
+
         public InputFileForm()
         {
             row = column = numSamples = 0;
             InitializeComponent();
         }
+
+        /*************************************************************
+         *      button1_Click
+         *      Opens user directory to read in file
+         *      If the user selected a file, creates a read stream to
+         *      grab the data. Create and show Pick Game form, while
+         *      hiding this.
+         * 
+         * **********************************************************/
         private void button1_Click(object sender, EventArgs e)
         {
             DialogResult res = openFileDialog1.ShowDialog(this);
+
+            // User has selected a file
             if (res == DialogResult.OK)
             {
                 StreamReader file_stream = new StreamReader(openFileDialog1.OpenFile());
@@ -31,6 +43,8 @@ namespace PlayAnalyzerGame
                 List<int> userInput = new List<int>();
                 try
                 {
+                    // Reads in file and stores the value within their
+                    // respective variables.
                     do
                     {
                         string line = file_stream.ReadLine();
@@ -61,4 +75,5 @@ namespace PlayAnalyzerGame
             }
         }
     }
+
 }

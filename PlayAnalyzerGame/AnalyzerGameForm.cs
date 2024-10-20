@@ -8,7 +8,6 @@
 
 // Still Needs: printAnalyzer Functionality at line 108
 //              .dll file
-//              ApplicationException
 //              Display case#/file name
 //              Display success message
 
@@ -17,11 +16,11 @@ using System.Diagnostics.Eventing.Reader;
 
 namespace PlayAnalyzerGame
 {
+
     public partial class AnalyzerGameForm : Form
     {
         private int guessCounter;
         private bool isFirstFound;
-        private bool isGameOver;
         private Analyzer analyzer;
         private int analyzerType;
 
@@ -32,7 +31,7 @@ namespace PlayAnalyzerGame
             {
                 guessCounter = value;
             }
-        } // GuessCounter
+        }   // GuessCounter
 
         public int AnalyzerType
         {
@@ -41,7 +40,7 @@ namespace PlayAnalyzerGame
             {
                 analyzerType = value;
             }
-        }
+        }   // AnalyzerType
 
 
         public bool IsFirstFound
@@ -54,20 +53,15 @@ namespace PlayAnalyzerGame
             {
                 isFirstFound = value;
             }
-        } // IsFirstFound
+        }   // IsFirstFound
 
-        public bool IsGameOver
-        {
-            get
-            {
-                return isGameOver;
-            }
-            set
-            {
-                isGameOver = value;
-            }
-        } // IsGameOver
 
+        /*******************************************************
+         *      AnalyzerGameForm
+         *  Constructor that takes in an analyzer and dynmaically
+         *  handles it creation. Loads grid,
+         * 
+         ******************************************************/
         public AnalyzerGameForm(Analyzer analyzer)
         {
             if (analyzer is DNAAnalyzer dnaAnalyzer)
@@ -86,10 +80,6 @@ namespace PlayAnalyzerGame
             {
                 throw new ArgumentException();
             }
-            if (analyzer is null)
-            {
-                GuessCounterLabel.Text = "Analyzer is null";
-            }
             InitializeComponent();
 
             this.Text = analyzer.Type() + " Game";
@@ -105,17 +95,18 @@ namespace PlayAnalyzerGame
                 RemainingGuessesDisplayLabel.Visible = false;
             }
 
+            GuessCounterDisplayLabel.Text = analyzer.GuessCounter.ToString();
+
+
         } // AnalyzerGameForm
 
 
         /**************************************************
          * NewGameSubmitButton_Click
          * 
-         * Updates the form to show the main game.
-         * Resizes the form, hides components that are no
-         * longer needed.
+         * Creates Pick Game Form, and shows it. Hides this form
          * 
-         * Author:  Jered Stevens
+         * Author:  Jered Stevens 
          ***************************************************/
 
         private void NewGameSubmitButton_Click(object sender, EventArgs e)
@@ -125,22 +116,18 @@ namespace PlayAnalyzerGame
             this.Hide();
         } // NewGameSubmitButton_Click
 
-        private void getRowColSize()
-        {
-
-        }
-
         /**************************************************
          * SubmitGuessButton_Click
          * 
          *  Takes user input from guess text boxes and 
-         *      makes sure they are valid, then sends the 
-         *      guess values to the analyzer. Shows results
-         *      of the users guess.
+         *  makes sure they are valid, then sends the 
+         *  guess values to the analyzer. Then shows
+         *  the results of the guess
+         *  If not valid throws an InputGuessException
+         *  error.
          *  
-         *  Author: Jered Stevens
+         *  Author: Jered Stevens & Caitlin Allison
          ***************************************************/
-
         private void SubmitGuessButton_Click(object sender, EventArgs e)
         {
 
@@ -149,87 +136,58 @@ namespace PlayAnalyzerGame
             try
             {
                 // Vars for guess data
-                rowUserInput = int.Parse(RowInputTextBox.Text);  // coud throw a FormatException
-                colUserInput = int.Parse(ColInputTextBox.Text);  // could also throw a FormatException
-
-                // Clear input boxes
-                RowInputTextBox.Text = string.Empty;
-                ColInputTextBox.Text = string.Empty;
-
-                // Validate input to make sure it's within bounds
-                if (rowUserInput < 0 || rowUserInput > analyzer.Rows ||
-                    colUserInput < 0 || colUserInput > analyzer.Columns)
+                if (int.TryParse(RowInputTextBox.Text, out rowUserInput) && rowUserInput > -1 & rowUserInput < analyzer.Rows)
                 {
-                    // If out of bounds, show error message
-                    MessageBox.Show("Your guess is out of bounds");
-                    return;
+                    if (int.TryParse(ColInputTextBox.Text, out colUserInput) && colUserInput > -1 && colUserInput < analyzer.Columns)
+                    {
+                        // Clear input boxes
+                        RowInputTextBox.Text = string.Empty;
+                        ColInputTextBox.Text = string.Empty;
+
+                        if (analyzer is DNAAnalyzer dnaAnalyzer)
+                        {
+                            RemainingGuessesLabel.Text = dnaAnalyzer.RemainingGuesses + "";
+                        }
+
+                        // Test if guess is correct or not. Tell user the results
+                        bool isCorrect = analyzer.EvaluateGuess(colUserInput, rowUserInput);
+
+                        // Update guess label
+                        GuessCounterDisplayLabel.Text = analyzer.GuessCounter.ToString();
+
+                        // Show results
+                        GridDisplayBox.Text = analyzer.ToString();
+
+                        SamplesFoundDisplayLabel.Text = analyzer.NumOfSamplesFound.ToString();
+
+                        if(analyzer.EndOfGame)
+                        {
+                            YouLose();
+                        }
+                    }
+                    else
+                    {
+                        throw new InputGuessException("Column must be between 0 and " + (analyzer.Columns - 1));
+                    }
+                }
+                else
+                {
+                    throw new InputGuessException("Row must be between 0 and " + (analyzer.Rows - 1));
                 }
             }
-            catch (FormatException)
+            catch (InputGuessException error)
             {
                 // Show an error message if input is not a valid integer
-                MessageBox.Show("Input must be an integer");
-
-                // Clear input boxes
-                RowInputTextBox.Text = string.Empty;
-                ColInputTextBox.Text = string.Empty;
+                MessageBox.Show(error.Message);
                 return;
             }
-            catch (Exception ex)
-            {
-                // Catch any other unexpected errors
-                MessageBox.Show($"An unexpected error occurred: {ex.Message}");
-
-                // Clear input boxes
-                RowInputTextBox.Text = string.Empty;
-                ColInputTextBox.Text = string.Empty;
-                return;
-            }
-
-
-            if (analyzer is DNAAnalyzer dnaAnalyzer)
-            {
-                RemainingGuessesLabel.Text = dnaAnalyzer.RemainingGuesses + "";
-            }
-
-            // Test if guess is correct or not. Tell user the results
-            bool isCorrect = analyzer.EvaluateGuess(yInput, xInput);
-
-            // Update guess label
-            GuessCounterDisplayLabel.Text = analyzer.GuessCounter.ToString();
-
-            // Show results
-            GridDisplayBox.Text = analyzer.ToString();
-
-            if (isCorrect && !IsFirstFound)
-            {
-                IsFirstFound = true;
-                SamplesFoundDisplayLabel.Text = analyzer.NumOfSamplesFound.ToString();
-            }
-            else if (isCorrect && IsFirstFound)
-            {
-                IsGameOver = true;
-                SamplesFoundDisplayLabel.Text = analyzer.NumOfSamplesFound.ToString();
-                YouLose();
-
-            }
-            //else if(analyzer.RemainingGuesses == 0)
-            //{
-            //    InfoLabel.Text = "Out of guesses! GAME OVER!";
-            //    YouLose();
-
-            //}
-            //if (analyzer.RemainingGuesses == 1)
-            //{
-            //    InfoLabel.Text += "\nCareful...last guess...";
-            //}
         } // SubmitGuessButton_Click
 
 
         /**************************************************
          * QuitButton_Click
          * 
-         *  If game is already over, resets the game.
+         *  If game is already over, it ends the application.
          *      If game isnt over, shows the answers.
          *  
          *  Author: Jered Stevens
@@ -237,7 +195,7 @@ namespace PlayAnalyzerGame
 
         private void QuitButton_Click(object sender, EventArgs e)
         {
-            if (!IsGameOver)
+            if (!analyzer.EndOfGame)
             {
                 YouLose();
             }
@@ -252,10 +210,10 @@ namespace PlayAnalyzerGame
          * YouLose
          * 
          * Hides the guess entry section of the game and 
-         *  shows the coordinates of the samples. Changes
-         *  submit button to "play again"
+         *  shows the coordinates of the samples. Shows the
+         *  play again button.
          *  
-         *  Author: Jered Stevens
+         *  Author: Jered Stevens & Caitlin Allison
          ***************************************************/
 
         private void YouLose()
@@ -282,19 +240,18 @@ namespace PlayAnalyzerGame
                 RemainingGuessesLabel.Text = dnaAnalyzer.RemainingGuesses + "";
             }
 
-            IsGameOver = true;
             PlayAgainButton.Visible = true;
             SubmitGuessButton.Visible = false;
         } // YouLose
 
 
         /**************************************************
-         * ResetGame
+         * PlayAgainButton_Click
          * 
          * Marks most of the game components invisible and 
          *  makes the game setup controls visible again.
          *  
-         *  Author: Jered Stevens
+         *  Author: Jered Stevens & Caitlin Allison
          ***************************************************/
         private void PlayAgainButton_Click(object sender, EventArgs e)
         {
@@ -304,4 +261,26 @@ namespace PlayAnalyzerGame
             analyzer = null;
         }
     } // AnalyzerGameForm
+
+
+    /**************************************************
+     * InputGuessException Class
+     * 
+     * Programmer defined Application Exception
+     *  -Used to identify user input error for 
+     * SubmitGuessButton_Click where it excepts
+     * a nonnegative integer that is less than the
+     * row/column size of the grid.
+     * 
+     * Author:  Caitlin Allison
+     ***************************************************/
+    public class InputGuessException : ApplicationException
+    {
+        public InputGuessException() : base("Invalid input for guess")
+        {
+
+        }
+        public InputGuessException(string message) : base(message)
+        { }
+    }
 } // PlayAnalyzerGame
