@@ -150,7 +150,7 @@ namespace PlayAnalyzerGame
                         }
 
                         // Test if guess is correct or not. Tell user the results
-                        bool isCorrect = analyzer.EvaluateGuess(colUserInput, rowUserInput);
+                        bool isCorrect = analyzer.EvaluateGuess(rowUserInput, colUserInput);
 
                         // Update guess label
                         GuessCounterDisplayLabel.Text = analyzer.GuessCounter.ToString();
