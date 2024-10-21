@@ -74,7 +74,7 @@ namespace PlayAnalyzerGame
                 }
                 catch (Exception)
                 {
-                    MessageBox.Show("Invalid game type choice.", "Error",, MessageBoxIcon.Error);
+                    MessageBox.Show("Invalid game type choice.", "Error",MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }

@@ -258,7 +258,6 @@ namespace PlayAnalyzerGame
             PickGameForm pickGame = new PickGameForm(analyzer.Rows, analyzer.Columns, analyzer.SampleNum);
             pickGame.Show();
             this.Hide();
-            analyzer = null;
         }
     } // AnalyzerGameForm
 

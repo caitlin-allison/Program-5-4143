@@ -139,9 +139,9 @@ namespace PlayAnalyzerGame
         public Random rand;
 
         public List<Sample> samples;
-        private int guessCounter; 
+        private int guessCounter;
         private int numOfSamplesFound;
-        private int sampleNum; 
+        private int sampleNum;
         bool endOfGame;
 
         public int Rows
@@ -398,7 +398,8 @@ namespace PlayAnalyzerGame
 
             foreach (Sample sample in samples)
             {
-                if (!sample.Found){
+                if (!sample.Found)
+                {
                     flag = false;
                 }
             }
@@ -420,7 +421,7 @@ namespace PlayAnalyzerGame
             // Blank space for alignment with columns
             StringGrid += "  ";
 
-            for(int i = 0; i < SampleNum; i++)
+            for (int i = 0; i < SampleNum; i++)
             {
                 grid[samples[i].Y, samples[i].X] = 'H';
             }
@@ -440,7 +441,7 @@ namespace PlayAnalyzerGame
                 for (int j = 0; j < Columns; j++)
                 {
                     char val = grid[i, j];
-                    StringGrid += val == '~' || val == 'H'? val : '~';
+                    StringGrid += val == '~' || val == 'H' ? val : '~';
                 }
                 StringGrid += "\n";
             }
@@ -546,7 +547,8 @@ namespace PlayAnalyzerGame
 
             foreach (Sample sample in samples)
             {
-                if (!sample.Found){
+                if (!sample.Found)
+                {
                     flag = false;
                 }
             }
@@ -656,7 +658,7 @@ namespace PlayAnalyzerGame
                         {
                             EndOfGame = true;
                         }
-                    NumOfSamplesFound++;
+                        NumOfSamplesFound++;
                     }
                 }
                 else
@@ -692,7 +694,8 @@ namespace PlayAnalyzerGame
 
             foreach (Sample sample in samples)
             {
-                if (!sample.Found){
+                if (!sample.Found)
+                {
                     flag = false;
                 }
             }
