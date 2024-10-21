@@ -1,4 +1,14 @@
-﻿using System;
+﻿/**********************************************************
+ * Caitlin Allison & Jered Stevens
+ * 4143 - Stringfellow
+ * 
+ * PickGameForm.cs
+ * Allows the user to select which analyzer will be used
+ *  during the game.
+ **********************************************************/
+
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;

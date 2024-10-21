@@ -3,7 +3,7 @@
  * 4143 - Stringfellow
  * 
  * ScanalyzerGameForm.cs
- * Controls the UI and flow of the Scanalyzer Game
+ *  Controls the UI and flow of the Scanalyzer Game
  **********************************************************/
 
 
@@ -208,6 +208,7 @@ namespace PlayAnalyzerGame
         {
             if (!analyzer.EndOfGame)
             {
+                analyzer.EndOfGame = true;
                 YouLose();
             }
             else

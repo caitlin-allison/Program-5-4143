@@ -1,4 +1,14 @@
-﻿using System;
+﻿/**********************************************************
+ * Caitlin Allison & Jered Stevens
+ * 4143 - Stringfellow
+ * 
+ * InputFileForm.cs
+ * Allows User to select an input file to be used 
+ *  with the analyzer game.
+ **********************************************************/
+
+
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
