@@ -139,7 +139,7 @@ namespace PlayAnalyzerGame
             // 
             GuessCounterDisplayLabel.AutoSize = true;
             GuessCounterDisplayLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
-            GuessCounterDisplayLabel.Location = new Point(133, 35);
+            GuessCounterDisplayLabel.Location = new Point(83, 35);
             GuessCounterDisplayLabel.Margin = new Padding(4, 0, 4, 0);
             GuessCounterDisplayLabel.Name = "GuessCounterDisplayLabel";
             GuessCounterDisplayLabel.Size = new Size(0, 13);
@@ -149,7 +149,7 @@ namespace PlayAnalyzerGame
             // 
             RemainingGuessesDisplayLabel.AutoSize = true;
             RemainingGuessesDisplayLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
-            RemainingGuessesDisplayLabel.Location = new Point(133, 82);
+            RemainingGuessesDisplayLabel.Location = new Point(83, 82);
             RemainingGuessesDisplayLabel.Margin = new Padding(4, 0, 4, 0);
             RemainingGuessesDisplayLabel.Name = "RemainingGuessesDisplayLabel";
             RemainingGuessesDisplayLabel.Size = new Size(0, 13);
@@ -211,7 +211,7 @@ namespace PlayAnalyzerGame
             // 
             SamplesFoundDisplayLabel.AutoSize = true;
             SamplesFoundDisplayLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
-            SamplesFoundDisplayLabel.Location = new Point(116, 132);
+            SamplesFoundDisplayLabel.Location = new Point(66, 132);
             SamplesFoundDisplayLabel.Margin = new Padding(4, 0, 4, 0);
             SamplesFoundDisplayLabel.Name = "SamplesFoundDisplayLabel";
             SamplesFoundDisplayLabel.Size = new Size(0, 13);

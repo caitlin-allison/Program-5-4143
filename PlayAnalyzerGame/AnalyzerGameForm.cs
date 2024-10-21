@@ -6,8 +6,7 @@
  * Controls the UI and flow of the Scanalyzer Game
  **********************************************************/
 
-// Still Needs: printAnalyzer Functionality at line 108
-//              .dll file
+// Still Needs: 
 //              Display case#/file name
 //              Display success message
 
@@ -61,6 +60,7 @@ namespace PlayAnalyzerGame
          *  Constructor that takes in an analyzer and dynmaically
          *  handles it creation. Loads grid,
          * 
+         * Author: Caitlin Allison and Jered Stevens
          ******************************************************/
         public AnalyzerGameForm(Analyzer analyzer)
         {
@@ -87,7 +87,7 @@ namespace PlayAnalyzerGame
 
             if (analyzer is DNAAnalyzer analyzerDNA)
             {
-                RemainingGuessesLabel.Text = analyzerDNA.RemainingGuesses + "";
+                RemainingGuessesDisplayLabel.Text = analyzerDNA.RemainingGuesses + "";
             }
             else
             {
@@ -106,7 +106,7 @@ namespace PlayAnalyzerGame
          * 
          * Creates Pick Game Form, and shows it. Hides this form
          * 
-         * Author:  Jered Stevens 
+         * Author:  Caitlin Allison
          ***************************************************/
 
         private void NewGameSubmitButton_Click(object sender, EventArgs e)
@@ -246,13 +246,13 @@ namespace PlayAnalyzerGame
             }
 
             SamplesFoundLabel.Text = answers;
-            //SamplesFoundDisplayLabel.Text = "Answers:";
+            SamplesFoundDisplayLabel.Text = string.Empty;
             GridDisplayBox.Text = analyzer.DisplayResults();
-            GuessCounterLabel.Text = analyzer.GuessCounter + "";
+            GuessCounterDisplayLabel.Text = analyzer.GuessCounter + "";
 
             if (analyzer is DNAAnalyzer dnaAnalyzer)
             {
-                RemainingGuessesLabel.Text = dnaAnalyzer.RemainingGuesses + "";
+                RemainingGuessesDisplayLabel.Text = dnaAnalyzer.RemainingGuesses + "";
             }
 
             PlayAgainButton.Visible = true;
@@ -266,7 +266,7 @@ namespace PlayAnalyzerGame
          * Marks most of the game components invisible and 
          *  makes the game setup controls visible again.
          *  
-         *  Author: Jered Stevens & Caitlin Allison
+         *  Author: Caitlin Allison
          ***************************************************/
         private void PlayAgainButton_Click(object sender, EventArgs e)
         {
