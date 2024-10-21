@@ -71,7 +71,7 @@ namespace PlayAnalyzerGame
             ColInputTextBox.Location = new Point(36, 154);
             ColInputTextBox.Margin = new Padding(4);
             ColInputTextBox.Name = "ColInputTextBox";
-            ColInputTextBox.Size = new Size(188, 26);
+            ColInputTextBox.Size = new Size(188, 20);
             ColInputTextBox.TabIndex = 7;
             // 
             // RowInputTextBox
@@ -79,7 +79,7 @@ namespace PlayAnalyzerGame
             RowInputTextBox.Location = new Point(36, 82);
             RowInputTextBox.Margin = new Padding(4);
             RowInputTextBox.Name = "RowInputTextBox";
-            RowInputTextBox.Size = new Size(188, 26);
+            RowInputTextBox.Size = new Size(188, 20);
             RowInputTextBox.TabIndex = 4;
             // 
             // ColInputLabel
@@ -88,7 +88,7 @@ namespace PlayAnalyzerGame
             ColInputLabel.Location = new Point(36, 124);
             ColInputLabel.Margin = new Padding(4, 0, 4, 0);
             ColInputLabel.Name = "ColInputLabel";
-            ColInputLabel.Size = new Size(188, 18);
+            ColInputLabel.Size = new Size(103, 13);
             ColInputLabel.TabIndex = 6;
             ColInputLabel.Text = "Enter Column Guess";
             // 
@@ -98,29 +98,29 @@ namespace PlayAnalyzerGame
             RowInputLabel.Location = new Point(36, 56);
             RowInputLabel.Margin = new Padding(4, 0, 4, 0);
             RowInputLabel.Name = "RowInputLabel";
-            RowInputLabel.Size = new Size(158, 18);
+            RowInputLabel.Size = new Size(90, 13);
             RowInputLabel.TabIndex = 4;
             RowInputLabel.Text = "Enter Row Guess";
             // 
             // GuessCounterLabel
             // 
             GuessCounterLabel.AutoSize = true;
-            GuessCounterLabel.Font = new System.Drawing.Font("Lucida Sans Typewriter", 8F);
+            GuessCounterLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
             GuessCounterLabel.Location = new Point(8, 35);
             GuessCounterLabel.Margin = new Padding(4, 0, 4, 0);
             GuessCounterLabel.Name = "GuessCounterLabel";
-            GuessCounterLabel.Size = new Size(88, 18);
+            GuessCounterLabel.Size = new Size(51, 13);
             GuessCounterLabel.TabIndex = 2;
             GuessCounterLabel.Text = "Guesses:";
             // 
             // RemainingGuessesLabel
             // 
             RemainingGuessesLabel.AutoSize = true;
-            RemainingGuessesLabel.Font = new System.Drawing.Font("Lucida Sans Typewriter", 8F);
+            RemainingGuessesLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
             RemainingGuessesLabel.Location = new Point(8, 67);
             RemainingGuessesLabel.Margin = new Padding(4, 0, 4, 0);
             RemainingGuessesLabel.Name = "RemainingGuessesLabel";
-            RemainingGuessesLabel.Size = new Size(98, 36);
+            RemainingGuessesLabel.Size = new Size(57, 26);
             RemainingGuessesLabel.TabIndex = 3;
             RemainingGuessesLabel.Text = "Remaining\r\nGuesses:";
             // 
@@ -138,21 +138,21 @@ namespace PlayAnalyzerGame
             // GuessCounterDisplayLabel
             // 
             GuessCounterDisplayLabel.AutoSize = true;
-            GuessCounterDisplayLabel.Font = new System.Drawing.Font("Lucida Sans Typewriter", 8F);
+            GuessCounterDisplayLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
             GuessCounterDisplayLabel.Location = new Point(133, 35);
             GuessCounterDisplayLabel.Margin = new Padding(4, 0, 4, 0);
             GuessCounterDisplayLabel.Name = "GuessCounterDisplayLabel";
-            GuessCounterDisplayLabel.Size = new Size(0, 18);
+            GuessCounterDisplayLabel.Size = new Size(0, 13);
             GuessCounterDisplayLabel.TabIndex = 10;
             // 
             // RemainingGuessesDisplayLabel
             // 
             RemainingGuessesDisplayLabel.AutoSize = true;
-            RemainingGuessesDisplayLabel.Font = new System.Drawing.Font("Lucida Sans Typewriter", 8F);
+            RemainingGuessesDisplayLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
             RemainingGuessesDisplayLabel.Location = new Point(133, 82);
             RemainingGuessesDisplayLabel.Margin = new Padding(4, 0, 4, 0);
             RemainingGuessesDisplayLabel.Name = "RemainingGuessesDisplayLabel";
-            RemainingGuessesDisplayLabel.Size = new Size(0, 18);
+            RemainingGuessesDisplayLabel.Size = new Size(0, 13);
             RemainingGuessesDisplayLabel.TabIndex = 11;
             // 
             // GuessEntryGroupBox
@@ -164,7 +164,7 @@ namespace PlayAnalyzerGame
             GuessEntryGroupBox.Controls.Add(RowInputTextBox);
             GuessEntryGroupBox.Controls.Add(ColInputTextBox);
             GuessEntryGroupBox.Controls.Add(QuitButton);
-            GuessEntryGroupBox.Font = new System.Drawing.Font("Lucida Sans Typewriter", 8F);
+            GuessEntryGroupBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
             GuessEntryGroupBox.Location = new Point(13, 206);
             GuessEntryGroupBox.Margin = new Padding(4);
             GuessEntryGroupBox.Name = "GuessEntryGroupBox";
@@ -188,7 +188,7 @@ namespace PlayAnalyzerGame
             // 
             // GridDisplayBox
             // 
-            GridDisplayBox.Font = new System.Drawing.Font("Lucida Sans Typewriter", 8F);
+            GridDisplayBox.Font = new System.Drawing.Font("Lucida Console", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
             GridDisplayBox.Location = new Point(359, 22);
             GridDisplayBox.Margin = new Padding(4);
             GridDisplayBox.Name = "GridDisplayBox";
@@ -199,22 +199,22 @@ namespace PlayAnalyzerGame
             // SamplesFoundLabel
             // 
             SamplesFoundLabel.AutoSize = true;
-            SamplesFoundLabel.Font = new System.Drawing.Font("Lucida Sans Typewriter", 8F);
+            SamplesFoundLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
             SamplesFoundLabel.Location = new Point(8, 117);
             SamplesFoundLabel.Margin = new Padding(4, 0, 4, 0);
             SamplesFoundLabel.Name = "SamplesFoundLabel";
-            SamplesFoundLabel.Size = new Size(78, 36);
+            SamplesFoundLabel.Size = new Size(47, 26);
             SamplesFoundLabel.TabIndex = 17;
             SamplesFoundLabel.Text = "Samples\r\nFound:";
             // 
             // SamplesFoundDisplayLabel
             // 
             SamplesFoundDisplayLabel.AutoSize = true;
-            SamplesFoundDisplayLabel.Font = new System.Drawing.Font("Lucida Sans Typewriter", 8F);
+            SamplesFoundDisplayLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
             SamplesFoundDisplayLabel.Location = new Point(116, 132);
             SamplesFoundDisplayLabel.Margin = new Padding(4, 0, 4, 0);
             SamplesFoundDisplayLabel.Name = "SamplesFoundDisplayLabel";
-            SamplesFoundDisplayLabel.Size = new Size(0, 18);
+            SamplesFoundDisplayLabel.Size = new Size(0, 13);
             SamplesFoundDisplayLabel.TabIndex = 18;
             // 
             // ResultsBox
@@ -225,7 +225,7 @@ namespace PlayAnalyzerGame
             ResultsBox.Controls.Add(SamplesFoundLabel);
             ResultsBox.Controls.Add(GuessCounterDisplayLabel);
             ResultsBox.Controls.Add(RemainingGuessesDisplayLabel);
-            ResultsBox.Font = new System.Drawing.Font("Lucida Sans Typewriter", 8F);
+            ResultsBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
             ResultsBox.Location = new Point(782, 22);
             ResultsBox.Name = "ResultsBox";
             ResultsBox.Size = new Size(279, 389);
@@ -236,17 +236,17 @@ namespace PlayAnalyzerGame
             // label2
             // 
             label2.AutoSize = true;
-            label2.Font = new System.Drawing.Font("Lucida Sans Typewriter", 8F);
+            label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
             label2.Location = new Point(6, 34);
             label2.Name = "label2";
-            label2.Size = new Size(288, 126);
+            label2.Size = new Size(144, 91);
             label2.TabIndex = 21;
             label2.Text = "Input a X and Y value below \r\nand hit submit. Only \r\nnonnegative integers are\r\nallowed and MUST be within\r\nthe grid size!!\r\nToo hard? That's what the \r\ngive up button is for :P";
             // 
             // groupBox1
             // 
             groupBox1.Controls.Add(label2);
-            groupBox1.Font = new System.Drawing.Font("Lucida Sans Typewriter", 10F, FontStyle.Underline, GraphicsUnit.Point, 0);
+            groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, FontStyle.Underline, GraphicsUnit.Point, 0);
             groupBox1.Location = new Point(13, 12);
             groupBox1.Name = "groupBox1";
             groupBox1.Size = new Size(315, 187);
@@ -256,14 +256,14 @@ namespace PlayAnalyzerGame
             // 
             // AnalyzerGameForm
             // 
-            AutoScaleDimensions = new SizeF(11F, 21F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1083, 479);
             Controls.Add(groupBox1);
             Controls.Add(ResultsBox);
             Controls.Add(GridDisplayBox);
             Controls.Add(GuessEntryGroupBox);
-            Font = new System.Drawing.Font("Lucida Sans Typewriter", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             Margin = new Padding(4);
             Name = "AnalyzerGameForm";
             Text = "Analyzer Game";
