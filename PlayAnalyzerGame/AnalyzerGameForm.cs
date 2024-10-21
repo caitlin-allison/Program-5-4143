@@ -87,7 +87,7 @@ namespace PlayAnalyzerGame
 
             if (analyzer is DNAAnalyzer analyzerDNA)
             {
-                RemainingGuessesLabel.Text = analyzerDNA.RemainingGuesses + "";
+                RemainingGuessesDisplayLabel.Text = analyzerDNA.RemainingGuesses + "";
             }
             else
             {
@@ -231,13 +231,13 @@ namespace PlayAnalyzerGame
             }
 
             SamplesFoundLabel.Text = answers;
-            //SamplesFoundDisplayLabel.Text = "Answers:";
+            SamplesFoundDisplayLabel.Text = string.Empty;
             GridDisplayBox.Text = analyzer.DisplayResults();
             GuessCounterDisplayLabel.Text = analyzer.GuessCounter + "";
 
             if (analyzer is DNAAnalyzer dnaAnalyzer)
             {
-                RemainingGuessesLabel.Text = dnaAnalyzer.RemainingGuesses + "";
+                RemainingGuessesDisplayLabel.Text = dnaAnalyzer.RemainingGuesses + "";
             }
 
             PlayAgainButton.Visible = true;
