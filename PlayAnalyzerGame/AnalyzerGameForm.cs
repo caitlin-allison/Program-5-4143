@@ -231,7 +231,7 @@ namespace PlayAnalyzerGame
             }
 
             SamplesFoundLabel.Text = answers;
-            SamplesFoundDisplayLabel.Text = "Answers:";
+            //SamplesFoundDisplayLabel.Text = "Answers:";
             GridDisplayBox.Text = analyzer.DisplayResults();
             GuessCounterLabel.Text = analyzer.GuessCounter + "";
 
