@@ -16,10 +16,13 @@ namespace PlayAnalyzerGame
         int row;
         int column;
         int numSamples;
+        string file_name;
 
         public InputFileForm()
         {
             row = column = numSamples = 0;
+            file_name = "";
+
             InitializeComponent();
         }
 
@@ -42,7 +45,7 @@ namespace PlayAnalyzerGame
             {
                 StreamReader file_stream = new StreamReader
                                 (openFileDialog1.OpenFile());
-                
+
                 List<int> userInput = new List<int>();
                 try
                 {
@@ -50,7 +53,7 @@ namespace PlayAnalyzerGame
                     // respective variables.
                     do
                     {
-                            string line = file_stream.ReadLine();
+                        string line = file_stream.ReadLine();
                         if (line != null)
                         {
                             string[] words = line.Split(' ');
@@ -58,7 +61,7 @@ namespace PlayAnalyzerGame
                             if (words.Length == 2)
                                 userInput.Add(Convert.ToInt32(words[1]));
                         }
-                    } while (file_stream.Peek() != -1) ;
+                    } while (file_stream.Peek() != -1);
 
                     if (userInput.Count < 3 || userInput.Count > 3)
                     {
@@ -69,19 +72,27 @@ namespace PlayAnalyzerGame
                     column = userInput[1];
                     numSamples = userInput[2];
 
-                    // Open form for Pick Game
-                    PickGameForm pickGameForm = new PickGameForm
-                                        (row, column, numSamples);
-                    pickGameForm.Show();
+                    NextForm.Enabled = true;
+                    fileName.Text = openFileDialog1.FileName;
 
-                    // Hides this form
-                    this.Hide();
                 }
                 catch (FormatException ex)
                 {
                     MessageBox.Show(ex.Message);
+                    NextForm.Enabled = false;
                 }
             }
+        }
+
+        private void NextForm_Click(object sender, EventArgs e)
+        {
+            // Open form for Pick Game
+            PickGameForm pickGameForm = new PickGameForm
+                                (row, column, numSamples);
+            pickGameForm.Show();
+
+            // Hides this form
+            this.Hide();
         }
     }
 

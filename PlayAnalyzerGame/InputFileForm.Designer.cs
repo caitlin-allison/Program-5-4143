@@ -34,6 +34,8 @@
             DirectionsText = new Label();
             ExampleBox = new GroupBox();
             ExampleTextBox = new RichTextBox();
+            fileName = new Label();
+            NextForm = new Button();
             ExampleBox.SuspendLayout();
             SuspendLayout();
             // 
@@ -75,6 +77,7 @@
             // ExampleBox
             // 
             ExampleBox.Controls.Add(ExampleTextBox);
+            ExampleBox.Font = new Font("Lucida Sans Typewriter", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             ExampleBox.Location = new Point(123, 157);
             ExampleBox.Name = "ExampleBox";
             ExampleBox.Size = new Size(172, 130);
@@ -91,11 +94,34 @@
             ExampleTextBox.TabIndex = 0;
             ExampleTextBox.Text = "4 3\n2";
             // 
+            // fileName
+            // 
+            fileName.AutoSize = true;
+            fileName.Font = new Font("Lucida Sans Typewriter", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            fileName.Location = new Point(47, 290);
+            fileName.Name = "fileName";
+            fileName.Size = new Size(0, 21);
+            fileName.TabIndex = 4;
+            // 
+            // NextForm
+            // 
+            NextForm.Enabled = false;
+            NextForm.Font = new Font("Lucida Sans Typewriter", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            NextForm.Location = new Point(363, 314);
+            NextForm.Name = "NextForm";
+            NextForm.Size = new Size(47, 45);
+            NextForm.TabIndex = 5;
+            NextForm.Text = ">";
+            NextForm.UseVisualStyleBackColor = true;
+            NextForm.Click += NextForm_Click;
+            // 
             // InputFileForm
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(443, 371);
+            Controls.Add(NextForm);
+            Controls.Add(fileName);
             Controls.Add(ExampleBox);
             Controls.Add(DirectionsText);
             Controls.Add(DirectionsTitle);
@@ -114,5 +140,7 @@
         private Label DirectionsText;
         private GroupBox ExampleBox;
         private RichTextBox ExampleTextBox;
+        private Label fileName;
+        private Button NextForm;
     }
 }
