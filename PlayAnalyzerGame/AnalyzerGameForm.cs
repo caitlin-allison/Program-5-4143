@@ -233,7 +233,7 @@ namespace PlayAnalyzerGame
             SamplesFoundLabel.Text = answers;
             //SamplesFoundDisplayLabel.Text = "Answers:";
             GridDisplayBox.Text = analyzer.DisplayResults();
-            GuessCounterLabel.Text = analyzer.GuessCounter + "";
+            GuessCounterDisplayLabel.Text = analyzer.GuessCounter + "";
 
             if (analyzer is DNAAnalyzer dnaAnalyzer)
             {
