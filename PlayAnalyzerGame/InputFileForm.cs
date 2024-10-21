@@ -40,7 +40,8 @@ namespace PlayAnalyzerGame
             // User has selected a file
             if (res == DialogResult.OK)
             {
-                StreamReader file_stream = new StreamReader(openFileDialog1.OpenFile());
+                StreamReader file_stream = new StreamReader
+                                (openFileDialog1.OpenFile());
                 
                 List<int> userInput = new List<int>();
                 try
@@ -69,7 +70,8 @@ namespace PlayAnalyzerGame
                     numSamples = userInput[2];
 
                     // Open form for Pick Game
-                    PickGameForm pickGameForm = new PickGameForm(row, column, numSamples);
+                    PickGameForm pickGameForm = new PickGameForm
+                                        (row, column, numSamples);
                     pickGameForm.Show();
 
                     // Hides this form

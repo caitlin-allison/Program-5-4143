@@ -162,6 +162,21 @@ namespace PlayAnalyzerGame
 
                         if(analyzer.EndOfGame)
                         {
+                            if (analyzer is DNAAnalyzer)
+                            {
+                                if (analyzer.NumOfSamplesFound == analyzer.SampleNum)
+                                {
+                                    MessageBox.Show("You Win! You found all the samples!");
+                                }
+                                else
+                                {
+                                    MessageBox.Show("You Lose! You did not find all the samples.");
+                                }
+                            }
+                            else
+                            {
+                                    MessageBox.Show("You Win! You found all the samples!");
+                            }
                             YouLose();
                         }
                     }

@@ -10,7 +10,7 @@
 
   <ItemGroup>
     <Reference Include="AnalyzerLibrary">
-      <HintPath>..\AnalyzerLibrary\bin\Debug\AnalyzerLibrary.dll</HintPath>
+      <HintPath>..\..\..\Program-5-4143\AnalyzerLibrary\bin\Debug\AnalyzerLibrary.dll</HintPath>
     </Reference>
   </ItemGroup>
 

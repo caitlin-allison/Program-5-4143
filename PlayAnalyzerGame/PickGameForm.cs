@@ -55,26 +55,32 @@ namespace PlayAnalyzerGame
                     switch (type)
                     {
                         case "HairAnalyzer":
-                            this.game = new HairAnalyzer(this.row, this.column, this.numSamples);
+                            this.game = new HairAnalyzer
+                                (this.row, this.column, this.numSamples);
                             break;
                         case "PrintAnalyzer":
-                            this.game = new PrintAnalyzer(this.row, this.column, this.numSamples);
+                            this.game = new PrintAnalyzer
+                                (this.row, this.column, this.numSamples);
                             break;
                         case "DNAAnalyzer":
-                            this.game = new DNAAnalyzer(this.row, this.column, this.numSamples);
+                            this.game = new DNAAnalyzer
+                                (this.row, this.column, this.numSamples);
                             break;
                         default:
                             throw new Exception();
                     }
 
                     // Close this form and open Analyzer Game Form
-                    AnalyzerGameForm analyzerGameForm = new AnalyzerGameForm(game);
+                    AnalyzerGameForm analyzerGameForm = new AnalyzerGameForm
+                                                                      (game);
                     analyzerGameForm.Show();
                     this.Hide();
                 }
+                // Illegal game type
                 catch (Exception)
                 {
-                    MessageBox.Show("Invalid game type choice.", "Error",MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Invalid game type choice.", "Error",
+                             MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
