@@ -33,6 +33,8 @@ namespace PlayAnalyzerGame
          * **********************************************************/
         private void button1_Click(object sender, EventArgs e)
         {
+            // Only allows .txt file for input
+            openFileDialog1.Filter = "Text Files|*.txt";
             DialogResult res = openFileDialog1.ShowDialog(this);
 
             // User has selected a file
@@ -47,15 +49,20 @@ namespace PlayAnalyzerGame
                     // respective variables.
                     do
                     {
-                        string line = file_stream.ReadLine();
-                        string[] words = line.Split(' ');
-                        
+                            string line = file_stream.ReadLine();
+                        if (line != null)
+                        {
+                            string[] words = line.Split(' ');
                             userInput.Add(Convert.ToInt32(words[0]));
                             if (words.Length == 2)
                                 userInput.Add(Convert.ToInt32(words[1]));
-
+                        }
                     } while (file_stream.Peek() != -1) ;
 
+                    if (userInput.Count < 3 || userInput.Count > 3)
+                    {
+                        throw new FormatException("Not a valid format");
+                    }
                     // Save row, column, and numSamples in variables
                     row = userInput[0];
                     column = userInput[1];
