@@ -6,10 +6,6 @@
  * Controls the UI and flow of the Scanalyzer Game
  **********************************************************/
 
-// Still Needs: 
-//              Display case#/file name
-//              Display success message
-
 
 using System.Diagnostics.Eventing.Reader;
 
