@@ -360,6 +360,7 @@ namespace PlayAnalyzerGame
                     // Mark the sample as found
                     samples[i].Found = true;
                     foundMatch = true;
+                    NumOfSamplesFound++;
                     break;  // No need to continue checking if a match is found
                 }
             }
@@ -509,6 +510,7 @@ namespace PlayAnalyzerGame
                     // Mark the sample as found
                     samples[i].Found = true;
                     foundMatch = true;
+                    NumOfSamplesFound++;
                     break;  // No need to continue checking if a match is found
                 }
             }
