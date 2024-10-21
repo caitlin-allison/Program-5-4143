@@ -68,7 +68,7 @@ namespace PlayAnalyzerGame
         }
         public override string ToString()
         {
-            string val = "(" + x.ToString() + ", " + y.ToString() + ") - ";
+            string val = "(" + y.ToString() + ", " + x.ToString() + ") - ";
             if (Found)
             {
                 val += "Found";
@@ -211,15 +211,16 @@ namespace PlayAnalyzerGame
 
                     isDuplicate = false;
 
-                    // Compare all previous samples
-                    for (int j = 0; j < i; j++)
-                    {
-                        if (samples[i].X == samples[j].X && samples[i].Y == samples[j].Y)
+
+                        // Compare all previous samples
+                        for (int j = 0; j < i; j++)
                         {
-                            isDuplicate = true;  // A duplicate was found
-                            break;  // Exit the inner loop and get new coordinates
+                            if (samples[i].X == samples[j].X && samples[i].Y == samples[j].Y)
+                            {
+                                isDuplicate = true;  // A duplicate was found
+                                break;  // Exit the inner loop and get new coordinates
+                            }
                         }
-                    }
 
                 } while (isDuplicate);  // Repeat until unique coordinates are found
             }
@@ -424,7 +425,7 @@ namespace PlayAnalyzerGame
 
             for (int i = 0; i < SampleNum; i++)
             {
-                grid[samples[i].Y, samples[i].X] = 'H';
+                grid[samples[i].X, samples[i].Y] = 'H';
             }
 
             // Print numbers along top of grid
@@ -575,7 +576,7 @@ namespace PlayAnalyzerGame
 
             for (int i = 0; i < SampleNum; i++)
             {
-                grid[samples[i].Y, samples[i].X] = 'X';
+                grid[samples[i].X, samples[i].Y] = 'X';
             }
 
             // Print numbers along top of grid
@@ -746,7 +747,7 @@ namespace PlayAnalyzerGame
 
             for (int i = 0; i < SampleNum; i++)
             {
-                grid[samples[i].Y, samples[i].X] = '@';
+                grid[samples[i].X, samples[i].Y] = '@';
             }
 
             // Print numbers along top of grid
