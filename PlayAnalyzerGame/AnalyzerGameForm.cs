@@ -6,8 +6,7 @@
  * Controls the UI and flow of the Scanalyzer Game
  **********************************************************/
 
-// Still Needs: printAnalyzer Functionality at line 108
-//              .dll file
+// Still Needs: 
 //              Display case#/file name
 //              Display success message
 
